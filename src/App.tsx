@@ -18,7 +18,7 @@ function App() {
         </div>
 
         <div className='side-list'>
-
+          <MainList/>
         </div>
       </div>
     </div>
