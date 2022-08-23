@@ -7,11 +7,11 @@ import addCircle from "./../images/add-circle.png"
 export default function SoccerField() {
     return (
         <div
-            className="flex flex-col w-1/2 relative max-w-3xl"
+            className="flex flex-col w-full relative max-w-3xl z-50"
         >
             <img
                 src={SoccerFieldImg}
-                alt="Soccer field image"
+                alt="Soccer field"
                 className="absolute w-full h-full -z-50"
             />
             <div

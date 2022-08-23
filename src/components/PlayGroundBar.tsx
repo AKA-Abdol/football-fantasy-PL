@@ -23,7 +23,7 @@ export default function PlayGroundBar(){
         selTab: 1
     });
     return (
-        <div className="flex flex-row w-full h-[122px] bg-white justify-around -mb-3 -z-index-[100]">
+        <div className="px-[2.5px] flex flex-row w-full bg-white justify-around -mb-4 -z-index-[100]">
             <PlayGroundBarSideTab
                 leftText={Eng2Fa(`${MAX_PLAYER}/${PGState.playerCount}`)}
                 rightLogo={PlayerLogo}
@@ -31,7 +31,7 @@ export default function PlayGroundBar(){
             />
             <div className='between-logo flex flex-col w-1/3 items-center'>
                 <div className='bg-white sw-1/4 h-1/2 rounded-lg box-shadow-sm -z-index-[100]'>
-                    <img className='-mt-2' src={RahnemaEngLogo} alt='Rahnema Logo'/>
+                    <img className='mb-5 -mt-1' src={RahnemaEngLogo} alt='Rahnema Logo'/>
                 </div>
                 <PToggleTab
                     currentTab={PGState.selTab}
