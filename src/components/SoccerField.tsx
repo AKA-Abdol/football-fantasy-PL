@@ -15,7 +15,7 @@ export default function SoccerField() {
                 className="absolute w-full h-full -z-50"
             />
             <div
-                className="flex flex-row justify-around mx-8"
+                className="flex flex-row justify-around space-x-16 mx-28"
             >
 
 
@@ -23,7 +23,7 @@ export default function SoccerField() {
                 <SelectedPlayer />
             </div>
             <div
-                className="flex flex-row justify-around mx-6"
+                className="flex flex-row justify-around space-x-16 mx-24"
             >
                 <SelectedPlayer />
                 <SelectedPlayer />
@@ -33,7 +33,7 @@ export default function SoccerField() {
 
             </div>
             <div
-                className="flex flex-row justify-around mx-6"
+                className="flex flex-row justify-around space-x-16 mx-24"
             >
                 <SelectedPlayer />
                 <SelectedPlayer />
@@ -43,7 +43,7 @@ export default function SoccerField() {
 
             </div>
             <div
-                className="flex flex-row justify-around mx-6"
+                className="flex flex-row justify-around space-x-16 mx-24"
             >
                 <SelectedPlayer />
                 <SelectedPlayer />
