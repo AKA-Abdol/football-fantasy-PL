@@ -1,8 +1,8 @@
 import React from "react";
-import SoccerFieldImg from "./../images/SoccerField.png"
-import defaultShirt from "./../images/default_shirt.png"
+import defaultShirt from '../images/default_shirt.png'
+import SoccerFieldImg from "../images/SoccerField.png"
 
-export default function SoccerField(){
+function SoccerField(){
     return(
         <div
         className="flex flex-col py-10 px-32 w-3/5 min-w-fit bg-cover bg-center bg-no-repeat"
@@ -43,3 +43,5 @@ export default function SoccerField(){
         </div>
     )
 }
+
+export default SoccerField;
