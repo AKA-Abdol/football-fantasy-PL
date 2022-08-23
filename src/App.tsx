@@ -2,6 +2,7 @@ import React from 'react';
 import SoccerField from "./components/SoccerField"
 import PageHeader from './components/PageHeader';
 import PlayGroundBar from './components/PlayGroundBar';
+import DateBar from './components/DateBar';
 import './App.css';
 import MainList from './components/mainListComponents/MainPlayerList';
 
@@ -13,14 +14,12 @@ function App() {
       </div>
 
       <div className='Body flex flex-row mt-16 space-x-6'>
-        <div className='soccer-field-all flex flex-col'>
+        <div className='flex flex-col items-center'>
+          <DateBar/>
           <PlayGroundBar/>
           <SoccerField/>
         </div>
-
-        <div className='side-list'>
-          <MainList/>
-        </div>
+        <MainList/>
       </div>
     </div>
   );

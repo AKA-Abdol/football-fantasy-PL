@@ -108,7 +108,7 @@ const MainList = () => {
         name:["All", "GK", "DEF", "MID", "ATT"]
     }
     return (
-        <div className="list max-w-max flex-row  ml-auto rounded-2xl shadow-md pb-1">
+        <div className="list max-w-max flex-row  ml-auto rounded-2xl shadow-md pb-1 mt-20">
             <ListHeader />
             <SearchBox />
             <div className="button-group flex justify-center mx-4 flex-row-reverse">

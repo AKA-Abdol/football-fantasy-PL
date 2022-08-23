@@ -3,6 +3,7 @@ import '../index.css';
 import  PlayGroundBarSideTab from './PlayGroundBarSideTab';
 import { Eng2Fa } from '../UsefullFunctions';
 import PToggleTab from './PageToggleTab';
+import DateBar from './DateBar';
 import PlayerLogo from '../images/user-octagon.svg';
 import WalletLogo from '../images/empty-wallet.svg';
 import RahnemaEngLogo from '../images/rahnema-college-logo-eng.svg'
@@ -23,7 +24,7 @@ export default function PlayGroundBar(){
         selTab: 1
     });
     return (
-        <div className="px-[2.5px] flex flex-row w-full bg-white justify-around -mb-4 -z-index-[100]">
+        <div className="flex flex-row w-full bg-white justify-around -mb-4 -z-index-[100]">
             <PlayGroundBarSideTab
                 leftText={Eng2Fa(`${MAX_PLAYER}/${PGState.playerCount}`)}
                 rightLogo={PlayerLogo}
