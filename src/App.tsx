@@ -1,6 +1,6 @@
 import React from 'react';
 import SoccerField from "./components/SoccerField"
-import PlayGroundBar from './components/PlayGroundBar';
+import PageHeader from './components/PageHeader';
 import './App.css';
 import MainList from './components/mainListComponents/MainPlayerList';
 
