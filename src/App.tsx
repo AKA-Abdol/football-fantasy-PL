@@ -9,13 +9,12 @@ import MainList from './components/mainListComponents/MainPlayerList';
 function App() {
   return (
     <div className="flex flex-col h-screen w-full theme-font items-center">
-      <div className='Header'>
+      <div className='Header w-full'>
         <PageHeader/>
       </div>
 
-      <div className='Body flex flex-row mt-16 space-x-6'>
-        <div className='flex flex-col items-center'>
-          <DateBar/>
+      <div className='Body w-full flex flex-col items-center justify-center lg:flex-row mt-16 lg:space-x-6'>
+        <div className='soccer-field-all w-full px-4 sm:max-w-fit flex flex-col'>
           <PlayGroundBar/>
           <SoccerField/>
         </div>
