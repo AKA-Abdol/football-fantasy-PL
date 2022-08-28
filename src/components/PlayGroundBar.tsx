@@ -24,7 +24,7 @@ export default function PlayGroundBar(){
         selTab: 1
     });
     return (
-        <div className="flex flex-row w-full bg-white justify-around -mb-4 -z-index-[100]">
+        <div className="px-[4px] flex flex-row w-full bg-white justify-around -mb-4 -z-index-[100]">
             <PlayGroundBarSideTab
                 leftText={Eng2Fa(`${MAX_PLAYER}/${PGState.playerCount}`)}
                 rightLogo={PlayerLogo}

@@ -3,11 +3,12 @@ import SoccerFieldImg from "./../images/SoccerField.png"
 import defaultShirt from "./../images/default_shirt.png"
 import selectedShirt from "./../images/selected_shirt.png"
 import addCircle from "./../images/add-circle.png"
+import onselectShirt from "./../images/onselect_shirt.png"
 
 export default function SoccerField() {
     return (
         <div
-            className="flex flex-col w-full relative max-w-3xl z-50"
+            className="flex flex-col w-full relative z-50"
         >
             <img
                 src={SoccerFieldImg}
@@ -15,12 +16,12 @@ export default function SoccerField() {
                 className="absolute w-full h-full -z-50"
             />
             <div
-                className="flex flex-row justify-around space-x-16 mx-28"
+                className="flex flex-row justify-around space-x-16 mx-48"
             >
 
 
                 <DefaultPlayer />
-                <SelectedPlayer />
+                <DefaultPlayer />
             </div>
             <div
                 className="flex flex-row justify-around space-x-16 mx-24"
@@ -41,13 +42,15 @@ export default function SoccerField() {
                 <SelectedPlayer />
                 <SelectedPlayer />
 
+
             </div>
             <div
-                className="flex flex-row justify-around space-x-16 mx-24"
+                className="flex flex-row justify-around space-x-16 mx-36"
             >
                 <SelectedPlayer />
                 <SelectedPlayer />
                 <SelectedPlayer />
+
 
             </div>
         </div>
@@ -56,16 +59,16 @@ export default function SoccerField() {
     function DefaultPlayer() {
         return (
             <div
-                className="flex mb-2 items-center justify-center w-1/6 mt-6 relative"
+                className="flex mb-2 items-center justify-center w-1/6 my-10 relative"
             >
                 <img className="w-full" src={defaultShirt} alt="default T-shirt" />
-                <img className="h-1/6 z-50 absolute" src={addCircle} alt="add circle icon" />
+                <img className="h-1/4 z-50 absolute" src={addCircle} alt="add circle icon" />
             </div>);
     }
     function SelectedPlayer() {
         return (
             <div
-                className="flex flex-col items-center justify-center w-1/6 mt-2 relative"
+                className="flex flex-col items-center justify-center w-1/6 my-3 relative"
             >
                 <img className="w-full" src={selectedShirt} alt="default T-shirt" />
                 <div className="flex flex-col w-full">
