@@ -5,6 +5,7 @@ import PlayGroundBar from './components/PlayGroundBar';
 import DateBar from './components/DateBar';
 import './App.css';
 import MainList from './components/mainListComponents/MainPlayerList';
+import SignUp from './pages/SignUp';
 
 function App() {
   return (
