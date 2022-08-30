@@ -27,10 +27,22 @@ const playerList : MainListProps[] = [
         cost: 24
     },
     {
+        name: "abbas",
+        team: "khar",
+        power: 40,
+        cost: 24
+    },
+    {
         name: "asghar",
         team: "gav",
         power: 45,
         cost: 37
+    },
+    {
+        name: "abbas",
+        team: "khar",
+        power: 40,
+        cost: 24
     },
     {
         name: "abbas",
@@ -51,12 +63,6 @@ const playerList : MainListProps[] = [
         cost: 24
     },
     {
-        name: "asghar",
-        team: "gav",
-        power: 45,
-        cost: 37
-    },
-    {
         name: "abbas",
         team: "khar",
         power: 40,
@@ -75,23 +81,13 @@ const playerList : MainListProps[] = [
         cost: 24
     },
     {
-        name: "asghar",
-        team: "gav",
-        power: 45,
-        cost: 37
-    },
-    {
         name: "abbas",
         team: "khar",
         power: 40,
         cost: 24
     },
-    {
-        name: "asghar",
-        team: "gav",
-        power: 45,
-        cost: 37
-    }
+
+
 
 ];
 
@@ -108,7 +104,7 @@ const MainList = () => {
         name:["All", "GK", "DEF", "MID", "ATT"]
     }
     return (
-        <div className="list max-w-max flex-row  ml-auto rounded-2xl shadow-md pb-1 mt-20">
+        <div className="list max-w-max flex flex-col  ml-auto rounded-2xl shadow-md pb-1 mt-20 h-full">
             <ListHeader />
             <SearchBox />
             <div className="button-group flex justify-center mx-4 flex-row-reverse">
