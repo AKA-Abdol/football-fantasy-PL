@@ -7,7 +7,8 @@ import DateBar from './components/DateBar';
 import './App.css';
 import MainList from './components/mainListComponents/MainPlayerList';
 import SignUp from './pages/SignUp';
-import Home from './pages/Home';
+import SignIn from './pages/SignIn';
+import Authentication from './pages/Authentication';
 
 function App() {
   return (

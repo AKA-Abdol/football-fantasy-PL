@@ -42,6 +42,16 @@ code {
   background: linear-gradient(90deg, #CF31B9 0%, #9B3AF9 73.44%);
 }
 
+.border-sign {
+  background: linear-gradient(#3D185B, #3D185B) padding-box,
+              linear-gradient(90deg, #CF31B9 0%, #9B3AF9 73.44%) border-box;
+  border: 0.1rem solid transparent;
+}
+
+.border-sign:hover {
+  border-color: #A057DB;
+}
+
 .arrow-left {
   appearance: none;
   -moz-appearance: none;
