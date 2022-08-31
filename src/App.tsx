@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
 import SoccerField from "./components/SoccerField"
 import PageHeader from './components/PageHeader';
 import PlayGroundBar from './components/PlayGroundBar';
@@ -17,7 +18,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="signup" element={<SignUp />} />
-          <Route path="signin" element={<SignUp />} />
+          <Route path="signin" element={<SignIn />} />
+          <Route path="authentication" element={<Authentication/>} />
           <Route path="prices" element={<Home />} />
           <Route path="events" element={<Home />} />
           <Route path="profile" element={<Home />} />
