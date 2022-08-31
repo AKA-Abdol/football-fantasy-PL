@@ -4,7 +4,9 @@ import InputField from "../components/SignComponents/InputField";
 import SelectField from "../components/SignComponents/SelectField";
 import LeftLine from "../images/Line1.png"
 import RightLine from "../images/Line2.png"
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { postLoginData } from '../services/SignServices';
+import { useNavigate } from "react-router-dom";
 
 interface RowFieldText{
     first: string,
@@ -32,6 +34,14 @@ const fields: Array<RowFieldText> = [
 ]
 
 export default function SignIn(){
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if(localStorage.getItem('token'))
+            navigate('/');
+    }, [])
+
     const [signinData, setSigninData] = useState({
         username: '',
         password: ''
@@ -42,6 +52,14 @@ export default function SignIn(){
         setSigninData((oldState) => ({...oldState,
             [event.target.name]: event.target.value
         }))
+    }
+
+    const signin = async () => {
+        await postLoginData(signinData);
+        if(localStorage.getItem('token'))
+            navigate('/');
+        else
+            navigate('/signup');
     }
 
     return (
@@ -82,10 +100,10 @@ export default function SignIn(){
                     })
                 }
                 <div className="flex flex-row w-full px-3 pt-2">
-                    <button className="btn bg-transparent border-sign border-2 w-[48%] mr-auto text-xl font-normal">
+                    <button onClick={() => navigate('/signup')} className="btn bg-transparent border-sign border-2 w-[48%] mr-auto text-xl font-normal">
                         ثبت نام
                     </button>
-                    <button className="btn bg-sign w-[48%] ml-auto text-xl font-semibold">
+                    <button onClick={signin} className="btn bg-sign w-[48%] ml-auto text-xl font-semibold">
                         ورود
                     </button>
                 </div>

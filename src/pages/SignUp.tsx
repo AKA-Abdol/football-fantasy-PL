@@ -1,11 +1,13 @@
 import "../index.css"
-import React from 'react'
+import React, { useEffect } from 'react'
 import SUPLayers from "../images/SU-players.png"
 import InputField from "../components/SignComponents/InputField";
 import SelectField from "../components/SignComponents/SelectField";
 import LeftLine from "../images/Line1.png"
 import RightLine from "../images/Line2.png"
-import { ChangeEvent, ChangeEventHandler, useState } from "react";
+import { useState } from "react";
+import { postSignupData } from '../services/SignServices'
+import { useNavigate } from "react-router-dom";
 
 interface RowFieldText{
     first: string,
@@ -60,6 +62,14 @@ const fields: Array<RowFieldText> = [
 ]
 
 export default function SignUp(){
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if(localStorage.getItem('token'))
+            navigate('/');
+    }, [])
+
     const [signupData, setSignupData] = useState({
         firstname: '',
         lastname: '',
@@ -73,6 +83,12 @@ export default function SignUp(){
         setSignupData((oldState) => ({...oldState,
             [event.target.name]: event.target.value
         }))
+    }
+
+    const signup = async () => {
+        await postSignupData(signupData);
+        if(localStorage.getItem('token'))
+            navigate('/');
     }
 
     return (
@@ -128,7 +144,7 @@ export default function SignUp(){
                     })
                 }
                 <div className="w-full px-3 pt-2">
-                    <button className="btn bg-sign w-full text-xl font-normal">
+                    <button onClick={signup} className="btn bg-sign w-full text-xl font-normal">
                         ثبت نام
                     </button>
                 </div>
