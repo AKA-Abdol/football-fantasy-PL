@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import vector from "../../assets/Vector.svg"
 import vectorGrey from "../../assets/Vector-low-opacity.svg"
+import axios from "axios";
 
 
 const MainListPagination = () => {
@@ -9,6 +10,7 @@ const MainListPagination = () => {
     // get num of pages
     // get players from backend
     // send number of page to back
+
     return (
         <div className="pagination flex flex-row-reverse justify-around p-3 mb-7 mt-auto">
             <div className="double-vector flex justify-between rotate-180 cursor-pointer" onClick={() => setCurrentPage(1)}>

@@ -8,19 +8,20 @@ import './App.css';
 import MainList from './components/mainListComponents/MainPlayerList';
 import SignUp from './pages/SignUp';
 import Home from './pages/Home';
+import List from './components/teamList/List'
 
 function App() {
   return (
     <div className="app">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<List />} />
           <Route path="signup" element={<SignUp />} />
           <Route path="signin" element={<SignUp />} />
           <Route path="prices" element={<Home />} />
           <Route path="events" element={<Home />} />
           <Route path="profile" element={<Home />} />
-          <Route path="sth" element={<Home />} />
+          <Route path="transfer" element={<Home />} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -1,108 +1,63 @@
-import React from "react";
-import MainListItem from "./MainListItem";
+import React, { useEffect, useState } from "react";
+import MainListItem from "./ListItem";
 import SearchBox from "./SearchBox";
 import DetailBox from './DetailBox'
 import ListHeader from "../ListHeader";
-import MainListButton from "./MainListButton";
-import MainListPagination from "./MainListPagination";
+import MainListButton from "./Button";
+import MainListPagination from "./Pagination";
 import polygon from "../../assets/Polygon 4.svg"
-
-const playerList : MainListProps[] = [
-    {
-        name: "abbas",
-        team: "khar",
-        power: 40,
-        cost: 24
-    },
-    {
-        name: "asghar",
-        team: "gav",
-        power: 45,
-        cost: 37
-    },
-    {
-        name: "abbas",
-        team: "khar",
-        power: 40,
-        cost: 24
-    },
-    {
-        name: "abbas",
-        team: "khar",
-        power: 40,
-        cost: 24
-    },
-    {
-        name: "asghar",
-        team: "gav",
-        power: 45,
-        cost: 37
-    },
-    {
-        name: "abbas",
-        team: "khar",
-        power: 40,
-        cost: 24
-    },
-    {
-        name: "abbas",
-        team: "khar",
-        power: 40,
-        cost: 24
-    },
-    {
-        name: "asghar",
-        team: "gav",
-        power: 45,
-        cost: 37
-    },
-    {
-        name: "abbas",
-        team: "khar",
-        power: 40,
-        cost: 24
-    },
-    {
-        name: "abbas",
-        team: "khar",
-        power: 40,
-        cost: 24
-    },
-    {
-        name: "asghar",
-        team: "gav",
-        power: 45,
-        cost: 37
-    },
-    {
-        name: "abbas",
-        team: "khar",
-        power: 40,
-        cost: 24
-    },
-    {
-        name: "abbas",
-        team: "khar",
-        power: 40,
-        cost: 24
-    },
+import axios from "axios";
 
 
-
-];
+enum Role {
+    Defenders,
+    Midfielders,
+    Goalkeepers,
+    Forwards
+}
 
 interface MainListProps{
     name: string,
-    team: string,
-    power: number,
-    cost: number 
+    club: string,
+    role: string,
+    point: number,
+    price: number 
 }
 
 
 const MainList = () => {
+    const [playerList, setPlayerList] = useState<Array<MainListProps>>([])
+
+    //the api that get all players...
+
+useEffect(() => {
+    axios.get(`http://localhost:5000/api/player/all/`)
+    .then(res => {
+        const allPlayers = res.data.players;
+        const list:MainListProps[] = []
+        for (let i = 0; i < 14; i = i + 1) {
+            let playerObj : MainListProps = {
+                name : allPlayers[i].firstName,
+                club : allPlayers[i].club,
+                role : allPlayers[i].role,
+                point : allPlayers[i].point,
+                price : allPlayers[i].price
+            }
+
+            list.push(playerObj)
+        }
+        setPlayerList( () => {
+            return list
+        })
+    })
+
+},[])
+
     const myProps: {name:string[]} = {
         name:["All", "GK", "DEF", "MID", "ATT"]
     }
+
+
     return (
         <div className="list max-w-max flex flex-col  ml-auto rounded-2xl shadow-md pb-1 mt-20 h-full">
             <ListHeader />
@@ -123,8 +78,6 @@ const MainList = () => {
                 <MainListButton 
                 name={myProps.name[4]} />
 
-
-
             </div>
             <DetailBox />
             <div className="flex flex-row-reverse justify-between mx-5 
@@ -141,14 +94,15 @@ const MainList = () => {
             </div>
             <div className="bg-white-100 text-right">
                 {playerList.map( player => {
+                    console.log(playerList)
                     return(
                             <MainListItem
                                 name = {player.name}
-                                team = {player.team}
-                                power = {player.power}
-                                cost = {player.cost}
+                                club = {player.club}
+                                point = {player.point}
+                                price = {player.price}
+                                role = {player.role}
                             />
-
                     )
                 })}
             </div>

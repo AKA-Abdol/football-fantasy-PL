@@ -1,5 +1,6 @@
 import React from "react";
 import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
+import {Link} from 'react-router-dom'
 
 const Navbar = () => {
 
@@ -7,7 +8,6 @@ const Navbar = () => {
 
 
     const handleMenu = () => {
-        console.log("alo")
         setShowMenu(prevState => !prevState)
     }
 
@@ -16,26 +16,26 @@ const Navbar = () => {
         <div className="navbar w-full sm:max-w-[60%] bg-base-100 shadow-xl rounded-lg lg:-mt-6 z-50 font-semibold">
                 <div className="hidden text-xs w-full lg:flex lg:text-xl">
                     <ul className="menu menu-horizontal w-full flex flex-row justify-around">
-                        <li className="px-4"><a href="/prices">جوایز</a></li>
-                        <li className="px-4"><a href="/profile">پروفایل</a></li>
-                        <li className="px-4"><a href="/events">آخرین رویدادها</a></li>
-                        <li className="px-4"><a href="/sth">نقل و انتقالات</a></li>
+                        <li className="px-4"><Link to={"/prices"}>جوایز</Link></li>
+                        <li className="px-4"><Link to={"/profile"}>پروفایل</Link></li>
+                        <li className="px-4"><Link to={"/events"}>آخرین رویدادها</Link></li>
+                        <li className="px-4"><Link to={"/transfer"}>نقل و انتقالات</Link></li>
                         <li
                             className="rounded-lg  bg-gradient-to-l from-detailListBoxColor1 to-detailListBoxColor2"
 
-                        ><a href="/">تیم من</a></li>
+                        ><Link to={"/"}>تیم من</Link></li>
                     </ul>
                 </div>
                 <div className={showMenu ? "relative flex w-full lg:hidden" : "hidden"}>
-                    <ul className="menu menu-horizontal w-full flex flex-col text-xl justify-around items-center">
-                        <li className="px-14"><a>جوایز</a></li>
-                        <li className="px-14"><a>پروفایل</a></li>
-                        <li className="px-14"><a>آخرین رویدادها</a></li>
-                        <li className="px-14"><a>نقل و انتقالات</a></li>
+                    <ul className="menu menu-horizontal w-full flex flex-col-reverse text-xl justify-around items-center">
+                        <li className="px-14"><Link to={"/prices"}>جوایز</Link></li>
+                        <li className="px-14"><Link to={"/profile"}>پروفایل</Link></li>
+                        <li className="px-14"><Link to={"/events"}>آخرین رویدادها</Link></li>
+                        <li className="px-14"><Link to={"/transfer"}>نقل و انتقالات</Link></li>
                         <li
                             className="rounded-lg px-20 bg-gradient-to-l from-detailListBoxColor1 to-detailListBoxColor2"
 
-                        ><a>تیم من</a></li>
+                        ><Link to={"/"}>تیم من</Link></li>
                     </ul>
                 </div>
                 <div
