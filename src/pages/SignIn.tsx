@@ -5,8 +5,9 @@ import SelectField from "../components/SignComponents/SelectField";
 import LeftLine from "../images/Line1.png"
 import RightLine from "../images/Line2.png"
 import { useEffect, useState } from "react";
-import { postLoginData } from '../services/SignServices';
+import { postLoginData, TOKEN_SESSION_NAME } from '../services/SignServices';
 import { useNavigate } from "react-router-dom";
+
 
 interface RowFieldText{
     first: string,
@@ -38,7 +39,7 @@ export default function SignIn(){
     const navigate = useNavigate();
 
     useEffect(() => {
-        if(localStorage.getItem('token'))
+        if(TOKEN_SESSION_NAME in sessionStorage && sessionStorage.getItem(TOKEN_SESSION_NAME) !== '')
             navigate('/');
     }, [])
 
@@ -56,7 +57,7 @@ export default function SignIn(){
 
     const signin = async () => {
         await postLoginData(signinData);
-        if(localStorage.getItem('token'))
+        if(sessionStorage.getItem(TOKEN_SESSION_NAME))
             navigate('/');
         else
             navigate('/signup');
