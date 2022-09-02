@@ -9,13 +9,15 @@ import MainList from './components/mainListComponents/MainPlayerList';
 import SignUp from './pages/SignUp';
 import Home from './pages/Home';
 import List from './components/teamList/List'
+import Cover from './components/teamList/Cover';
 
 function App() {
   return (
     <div className="app">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<List />} />
+          <Route path='/test' element={<List />} />
+          <Route path="/" element={<Home />} />
           <Route path="signup" element={<SignUp />} />
           <Route path="signin" element={<SignUp />} />
           <Route path="prices" element={<Home />} />

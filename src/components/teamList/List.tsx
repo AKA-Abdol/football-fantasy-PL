@@ -1,4 +1,5 @@
 import React from "react";
+import Cover from "./Cover";
 import ListItem from "./ListItem";
 
 enum Role {
@@ -46,20 +47,31 @@ const List = () => {
 
     
     return (
-        <div className="list h-full" dir="rtl">
-            <div className="flex flex-row justify-between mx-7 
-            text-right text-fontGrey text-xs mb-2
-            border-b-2 p-2">
-                <p></p>
-                <div className="flex items-center">
-                    <p>عملکرد</p>
-                </div>
-                <div className="flex items-center">
-                    <p>قیمت</p>
-                </div>
+        <div className="flex h-full rounded-2xl">
+            <div className="">
+                <Cover name = "abbas" />
             </div>
-             <ListItem players = {team} title = "عباس"/>
-             <ListItem players={team} title = "اصغر" />
+            <div className="list content-center w-full" dir="rtl">
+                <div className="flex flex-row justify-between mx-10 
+                text-right text-fontGrey text-xs mb-2
+                border-b-2 p-2">
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                    <div className="flex items-center mr-14">
+                        <p>عملکرد</p>
+                    </div>
+                    <div className="flex items-center">
+                        <p>قیمت</p>
+                    </div>
+                </div>
+                <ListItem players = {team} title = "دروازه بانان"/>
+                <ListItem players={team} title = "مدافعان" />
+                <ListItem players={team} title = "هافبک ها" />
+                <ListItem players={team} title = "مهاجمین" />
+
+            </div>
         </div>
     );
 }
