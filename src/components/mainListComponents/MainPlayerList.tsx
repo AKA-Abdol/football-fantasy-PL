@@ -99,7 +99,7 @@ interface MainListProps{
 }
 
 
-const MainList = () => {
+const MainPlayerList = () => {
     const myProps: {name:string[]} = {
         name:["All", "GK", "DEF", "MID", "ATT"]
     }
@@ -159,4 +159,4 @@ const MainList = () => {
 
 }
 
-export default MainList;
+export default MainPlayerList;
