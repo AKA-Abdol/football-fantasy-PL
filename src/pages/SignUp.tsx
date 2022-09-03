@@ -66,8 +66,8 @@ export default function SignUp(){
     const navigate = useNavigate();
 
     useEffect(() => {
-        if(TOKEN_SESSION_NAME in sessionStorage && sessionStorage.getItem(TOKEN_SESSION_NAME) !== ''){
-            console.log('this is token: ', sessionStorage.getItem(TOKEN_SESSION_NAME));
+        if(TOKEN_SESSION_NAME in localStorage && localStorage.getItem(TOKEN_SESSION_NAME) !== ''){
+            console.log('this is token: ', localStorage.getItem(TOKEN_SESSION_NAME));
             navigate('/');
         }
     }, [])
@@ -89,7 +89,7 @@ export default function SignUp(){
 
     const signup = async () => {
         await postSignupData(signupData);
-        if(sessionStorage.getItem(TOKEN_SESSION_NAME))
+        if(localStorage.getItem(TOKEN_SESSION_NAME))
             navigate('/');
     }
 

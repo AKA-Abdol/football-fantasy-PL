@@ -22,14 +22,14 @@ interface LoginData{
 export const postSignupData = async (signupData: SignupData) => {
     const response = await http.post(SIGNUP_URL, signupData);
     const res_data = response.data;
-    sessionStorage.setItem(TOKEN_SESSION_NAME, res_data.token);
-    console.log(sessionStorage.getItem(TOKEN_SESSION_NAME));
+    localStorage.setItem(TOKEN_SESSION_NAME, res_data.token);
+    console.log(localStorage.getItem(TOKEN_SESSION_NAME));
 }
 
 export const postLoginData = async (loginData: LoginData) => {
     const response = await http.post(LOGIN_URL, loginData);
     const res_data = response.data;
 
-    sessionStorage.setItem(TOKEN_SESSION_NAME, res_data.token);
-    console.log(sessionStorage.getItem(TOKEN_SESSION_NAME));
+    localStorage.setItem(TOKEN_SESSION_NAME, res_data.token);
+    console.log(localStorage.getItem(TOKEN_SESSION_NAME));
 }

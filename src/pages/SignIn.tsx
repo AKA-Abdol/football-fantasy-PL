@@ -39,7 +39,7 @@ export default function SignIn(){
     const navigate = useNavigate();
 
     useEffect(() => {
-        if(TOKEN_SESSION_NAME in sessionStorage && sessionStorage.getItem(TOKEN_SESSION_NAME) !== '')
+        if(TOKEN_SESSION_NAME in localStorage && localStorage.getItem(TOKEN_SESSION_NAME) !== '')
             navigate('/');
     }, [])
 
@@ -57,7 +57,7 @@ export default function SignIn(){
 
     const signin = async () => {
         await postLoginData(signinData);
-        if(sessionStorage.getItem(TOKEN_SESSION_NAME))
+        if(localStorage.getItem(TOKEN_SESSION_NAME))
             navigate('/');
         else
             navigate('/signup');

@@ -1,5 +1,6 @@
 import { useRecoilState,atom } from "recoil"
 import selectedShirt from "./../images/selected_shirt.png"
+import '../index.css';
 
 
 interface RemoveModalProps {
@@ -23,7 +24,7 @@ export default function RemoveModal(props: RemoveModalProps) {
     return (
         <div
         onClick={cancelModal}
-        className={showModal ? "bg-black h-[1700px] bg-opacity-50 absolute z-[10000] inset-0 flex justify-center items-center" : "hidden"}>
+        className={showModal ? "theme-font bg-black h-[1700px] bg-opacity-50 absolute z-[10000] inset-0 flex justify-center items-center" : "hidden"}>
             <div
             onClick={(event) =>{
                 event.stopPropagation();
