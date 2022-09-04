@@ -29,11 +29,10 @@ const ListItem = (props : Detail) => {
                     return (
                         <div className="item flex justify-between border-b-2 mr-7">
                             <div className="player-name font-semibold text-nameFontColor text-xs px-4 pt-1 pb-2">{player.name}</div>
-                            <p></p>
-                            <p></p>
-                            <p></p>
-                            <div className="player-point font-semibold text-nameFontColor text-10 pt-1 pb-2">{player.point}</div>
-                            <div className="player-price font-semibold text-nameFontColor text-10 pt-1 pb-2 ml-7">{player.price}</div>
+                            <div className="flex justify-between w-1/4">
+                                <div className="player-point font-semibold text-nameFontColor text-10 pt-1 pb-2">{player.point}</div>
+                                <div className="player-price font-semibold text-nameFontColor text-10 pt-1 pb-2 ml-7">{player.price}</div>
+                            </div>
                         </div>
                     )
                 })}

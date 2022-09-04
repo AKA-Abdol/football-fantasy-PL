@@ -52,18 +52,16 @@ const List = () => {
                 <Cover name = "abbas" />
             </div>
             <div className="list content-center w-full" dir="rtl">
-                <div className="flex flex-row justify-between mx-10 
-                text-right text-fontGrey text-xs mb-2
-                border-b-2 p-2">
-                    <p></p>
-                    <p></p>
-                    <p></p>
-                    <p></p>
-                    <div className="flex items-center mr-14">
-                        <p>عملکرد</p>
-                    </div>
-                    <div className="flex items-center">
-                        <p>قیمت</p>
+                <div className="border-b-2 flex justify-end">
+                    <div className="flex flex-row justify-between mx-10 
+                    text-right text-fontGrey text-xs mb-2
+                    p-2 w-1/4">
+                        <div className="flex items-center">
+                            <p>عملکرد</p>
+                        </div>
+                        <div className="flex items-center">
+                            <p>قیمت</p>
+                        </div>
                     </div>
                 </div>
                 <ListItem players = {team} title = "دروازه بانان"/>

@@ -10,11 +10,11 @@ interface Name {
 const Cover = (name : Name) => {
     return (
         <div className="cover w-max h-full rounded-l-2xl bg-nameFontColor flex-col justify-center">
-            <div className="shirt  justify-center">
+            <div className="shirt flex justify-center">
                 <img src={Shirt} alt="" />
 
             </div>
-            <div className="league">
+            <div className="league flex justify-center p-4">
                 <img src={League} alt="" />
             </div>
             <div className="primary">
