@@ -1,9 +1,14 @@
 import "../index.css"
+import React, { useEffect } from 'react'
 import SUPLayers from "../images/SU-players.png"
-import InputField from "../components/SignUpComponents/InputField";
-import SelectField from "../components/SignUpComponents/SelectField";
+import InputField from "../components/SignComponents/InputField";
+import SelectField from "../components/SignComponents/SelectField";
 import LeftLine from "../images/Line1.png"
 import RightLine from "../images/Line2.png"
+import PLWhiteLogo from "../images/PLWhiteLogo.png"
+import { useState } from "react";
+import { postSignupData, TOKEN_SESSION_NAME } from '../services/SignServices'
+import { useNavigate } from "react-router-dom";
 
 interface RowFieldText{
     first: string,
@@ -13,7 +18,9 @@ interface RowFieldText{
     firstOptions: string[],
     secondOptions: string[],
     firstPHolder: string,
-    secondPHolder: string
+    secondPHolder: string,
+    firstName: string,
+    secondName: string
 };
 
 const fields: Array<RowFieldText> = [
@@ -25,7 +32,9 @@ const fields: Array<RowFieldText> = [
         firstOptions: [],
         secondOptions: [],
         firstPHolder: "علی",
-        secondPHolder: "محمودی"
+        secondPHolder: "محمودی",
+        firstName: 'firstname',
+        secondName: 'lastname'
     },
     {
         first: "ایمیل",
@@ -35,7 +44,9 @@ const fields: Array<RowFieldText> = [
         firstOptions: [],
         secondOptions: ["ایران", "افغانستان", "تاجیکستان", "ترکیه"],
         firstPHolder: "mahmoodi.ext@gmail.com",
-        secondPHolder: "ایران - قم"
+        secondPHolder: "ایران - قم",
+        firstName: 'email',
+        secondName: 'country'
     },
     {
         first: "نام کاربری",
@@ -45,14 +56,55 @@ const fields: Array<RowFieldText> = [
         firstOptions: [],
         secondOptions: [],
         firstPHolder: "Abdol Loves Mahmood",
-        secondPHolder: "Mahmood Loves Abdol too"
+        secondPHolder: "Mahmood Loves Abdol too",
+        firstName: 'username',
+        secondName: 'password'
     }
 ]
 
 export default function SignUp(){
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if(localStorage.getItem(TOKEN_SESSION_NAME)){
+            console.log('this is token: ', localStorage.getItem(TOKEN_SESSION_NAME));
+            navigate('/');
+        }
+    }, [])
+
+    const [signupData, setSignupData] = useState({
+        firstname: '',
+        lastname: '',
+        email: '',
+        country: '',
+        username: '',
+        password: ''
+    })
+    console.log(signupData);
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
+        setSignupData((oldState) => ({...oldState,
+            [event.target.name]: event.target.value
+        }))
+    }
+
+    const signup = async () => {
+        await postSignupData(signupData);
+        if(localStorage.getItem(TOKEN_SESSION_NAME))
+            navigate('/');
+    }
+
     return (
         <div className="flex flex-row h-screen">
-            <img className="h-full" src={SUPLayers} alt="players-image"/>
+            
+            <div className="sideImg w-full relative">
+                <img className="h-full w-full relative" src={SUPLayers} alt="players-image"/>
+                
+                <div className="flex justify-center">
+                    <img className="absolute bottom-10" src={PLWhiteLogo} alt="PL Logo"/>
+                </div>    
+            </div>
 
             <div className="fields flex flex-col bg-[#3D185B] h-full px-20 w-full justify-center items-center space-y-10 theme-font">
                 <div className="flex flex-row w-full items-center">
@@ -65,7 +117,7 @@ export default function SignUp(){
                 
                 </div>
                 {
-                    fields.map(({first, second, firstType, secondType, firstOptions, secondOptions, firstPHolder, secondPHolder}: RowFieldText) => {
+                    fields.map(({first, second, firstType, secondType, firstOptions, secondOptions, firstPHolder, secondPHolder, firstName, secondName}: RowFieldText) => {
                         return (
                             <div className="flex flex-row-reverse w-full justify-center">
                                 {firstType === "select" ? 
@@ -73,10 +125,14 @@ export default function SignUp(){
                                     label={first}
                                     placeholder={firstPHolder}
                                     options={firstOptions}
+                                    name={firstName}
+                                    changeHandler={handleChange}
                                 />:
                                 <InputField
                                     label={first}
                                     placeholder={firstPHolder}
+                                    name={firstName}
+                                    changeHandler={handleChange}
                                 />
                                 }
                                 {secondType === "select" ? 
@@ -84,10 +140,14 @@ export default function SignUp(){
                                     label={second}
                                     placeholder={secondPHolder}
                                     options={secondOptions}
+                                    name={secondName}
+                                    changeHandler={handleChange}
                                 />:
                                 <InputField
                                     label={second}
                                     placeholder={secondPHolder}
+                                    name={secondName}
+                                    changeHandler={handleChange}
                                 />
                                 }
                             </div>
@@ -95,7 +155,7 @@ export default function SignUp(){
                     })
                 }
                 <div className="w-full px-3 pt-2">
-                    <button className="btn bg-sign w-full text-xl font-normal">
+                    <button onClick={signup} className="btn bg-sign w-full text-xl font-normal">
                         ثبت نام
                     </button>
                 </div>

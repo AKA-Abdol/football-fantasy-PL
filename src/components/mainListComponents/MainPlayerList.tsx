@@ -113,4 +113,4 @@ useEffect(() => {
 
 }
 
-export default MainList;
+export default MainPlayerList;
