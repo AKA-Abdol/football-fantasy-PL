@@ -2,8 +2,9 @@ import "../index.css"
 import SUPLayers from "../images/SU-players.png"
 import InputField from "../components/SignComponents/InputField";
 import SelectField from "../components/SignComponents/SelectField";
-import LeftLine from "../images/Line1.png"
-import RightLine from "../images/Line2.png"
+import LeftLine from "../images/Line1.png";
+import RightLine from "../images/Line2.png";
+import PLWhiteLogo from "../images/PLWhiteLogo.png";
 import { useEffect, useState } from "react";
 import { postLoginData, TOKEN_SESSION_NAME } from '../services/SignServices';
 import { useNavigate } from "react-router-dom";
@@ -39,7 +40,7 @@ export default function SignIn(){
     const navigate = useNavigate();
 
     useEffect(() => {
-        if(TOKEN_SESSION_NAME in localStorage && localStorage.getItem(TOKEN_SESSION_NAME) !== '')
+        if(localStorage.getItem(TOKEN_SESSION_NAME))
             navigate('/');
     }, [])
 
@@ -65,8 +66,13 @@ export default function SignIn(){
 
     return (
         <div className="flex flex-row h-screen">
-            <img className="h-full" src={SUPLayers} alt="players-image"/>
-
+            <div className="sideImg w-full relative">
+                <img className="h-full w-full relative" src={SUPLayers} alt="players-image"/>
+                
+                <div className="flex justify-center">
+                    <img className="absolute bottom-10" src={PLWhiteLogo} alt="PL Logo"/>
+                </div>    
+            </div>
             <div className="fields flex flex-col bg-[#3D185B] h-full px-20 w-full justify-center items-center space-y-10 theme-font">
                 <div className="flex flex-row w-full items-center">
                     

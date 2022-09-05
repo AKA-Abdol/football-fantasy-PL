@@ -1,8 +1,8 @@
 import http from "./http";
 
-const HOST_PREFIX = 'http://localhost:5000/api/users/';
-const SIGNUP_URL = HOST_PREFIX + 'signup';
-const LOGIN_URL = HOST_PREFIX + 'login';
+const USER_PREFIX = '/users/';
+const SIGNUP_URL = USER_PREFIX + 'signup';
+const LOGIN_URL = USER_PREFIX + 'login';
 export const TOKEN_SESSION_NAME = "footballFantasyToken";
 
 interface SignupData{
@@ -22,6 +22,7 @@ interface LoginData{
 export const postSignupData = async (signupData: SignupData) => {
     const response = await http.post(SIGNUP_URL, signupData);
     const res_data = response.data;
+    
     localStorage.setItem(TOKEN_SESSION_NAME, res_data.token);
     console.log(localStorage.getItem(TOKEN_SESSION_NAME));
 }
@@ -33,3 +34,7 @@ export const postLoginData = async (loginData: LoginData) => {
     localStorage.setItem(TOKEN_SESSION_NAME, res_data.token);
     console.log(localStorage.getItem(TOKEN_SESSION_NAME));
 }
+
+// export const getAllPlayers = async () => {
+//     const response = await http.get()
+// }

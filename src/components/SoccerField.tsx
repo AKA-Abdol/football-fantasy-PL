@@ -4,6 +4,7 @@ import SoccerFieldImg from "./../images/SoccerField.png";
 import DefaultPlayer from "./DefaultPlayer";
 import SelectedPlayers from "./SelectedPlayer";
 import onselectShirt from "./../images/onselect_shirt.png";
+import { useQuery } from "react-query";
 
 export const playerSelectAtom = atom({
     key: 'playerSelect',
@@ -190,7 +191,7 @@ export default function SoccerField({ props }: FieldProps) {
 
     const [playerSelect, setPlayerSelect] = useRecoilState(playerSelectAtom)
 
-
+    const { isLoading, isError, data } = useQuery('players', )
 
     return (
         <div
