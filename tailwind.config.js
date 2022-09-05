@@ -14,6 +14,7 @@ module.exports = {
         searchIconColor: "#3D195B45",
         headerBackgroundColor: "#3D195B",
         placeholderColor: "#3D195B",
+        titleListColor: "#00FF87"
       },
       fontSize: {
         11: "11px",
