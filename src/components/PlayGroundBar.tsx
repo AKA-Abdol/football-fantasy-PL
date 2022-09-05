@@ -42,7 +42,7 @@ export default function PlayGroundBar(){
             <PlayGroundBarSideTab
                 leftText={Eng2Fa(`${PGState.money}`)}
                 rightLogo={WalletLogo}
-                rightText='باقی مانده بول'
+                rightText='باقی مانده پول'
             />
         </div>
     );
