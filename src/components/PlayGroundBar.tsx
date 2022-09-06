@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import '../index.css';
 import  PlayGroundBarSideTab from './PlayGroundBarSideTab';
 import { Eng2Fa } from '../UsefullFunctions';
@@ -7,6 +7,8 @@ import DateBar from './DateBar';
 import PlayerLogo from '../images/user-octagon.svg';
 import WalletLogo from '../images/empty-wallet.svg';
 import RahnemaEngLogo from '../images/rahnema-college-logo-eng.svg'
+import { atom, useRecoilState } from 'recoil';
+import { FieldPlayersAtom } from '../pages/Home';
 
 
 const MAX_PLAYER = 15;
@@ -18,15 +20,43 @@ interface StateInterface{
 };
 
 export default function PlayGroundBar(){
+
+    const [fieldPlayers, setFieldPlayers] = useRecoilState(FieldPlayersAtom);
+
+    const numOfSelectedPlayerAtom = atom ({
+        key: 'numOfPlayer',
+        default: 0
+    })
+
+
+    
+    const [ numOfSelectesPlayer,  setNumOfSelectesPlayer ] = useRecoilState(numOfSelectedPlayerAtom);
+
+    const playerNumSetter = () => {
+        let numOfSelectedPlayer = 0;
+        for (let i = 0; i < fieldPlayers.length; i++) {
+            if (fieldPlayers[i].type === 'Field') {
+                numOfSelectedPlayer += 1;
+            }   
+        }
+         setNumOfSelectesPlayer(numOfSelectedPlayer)
+    }
+
+    useEffect(() => {
+        playerNumSetter();
+    },[fieldPlayers])
+
+
+
     const [PGState, setPGState] = useState<StateInterface>({
-        playerCount: 12,
+        playerCount: numOfSelectesPlayer,
         money: 68.3,
         selTab: 1
     });
     return (
         <div className="px-[4px] flex flex-row w-full bg-white justify-around -mb-4 -z-index-[100]">
             <PlayGroundBarSideTab
-                leftText={Eng2Fa(`${MAX_PLAYER}/${PGState.playerCount}`)}
+                leftText={Eng2Fa(`${MAX_PLAYER}/${MAX_PLAYER - numOfSelectesPlayer}`)}
                 rightLogo={PlayerLogo}
                 rightText='بازیکن باقی مانده'
             />

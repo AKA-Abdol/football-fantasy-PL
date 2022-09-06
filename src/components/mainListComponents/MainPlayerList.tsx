@@ -122,8 +122,8 @@ const MainList = () => {
             </div >
             <DetailBox />
             <div className="flex flex-row-reverse justify-between mx-5 
-text-right text-fontGrey text-xs mb-2">
-                <p>نام بازیکن</p>
+                text-right text-fontGrey text-xs mb-2">
+                <p className="w-16">نام بازیکن</p>
                 <div className="flex items-center">
                     <img src={polygon} alt="vec" className="mr-1px" />
                     <p>عملکرد</p>
