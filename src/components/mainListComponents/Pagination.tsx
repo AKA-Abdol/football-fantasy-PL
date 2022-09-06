@@ -12,6 +12,7 @@ export const currentPageAtom = atom({
 const MainListPagination = () => {
     const [currentPage, setCurrentPage] = useRecoilState(currentPageAtom);
     const allPage = useRecoilValue(maxPageAtom);
+    console.log("pagination again: ", allPage);
     // get num of pages
     // get players from backend
     // send number of page to back

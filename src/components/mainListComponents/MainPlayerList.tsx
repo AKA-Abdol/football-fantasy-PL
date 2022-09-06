@@ -85,11 +85,16 @@ const MainList = () => {
 
     const {data, isLoading, isError} = useQuery(['playersList', currentPage, searchKey, filter], async () => {
         const maxPlayer = await calcMaxPlayer(searchKey, filter);
-        setMaxPage(Math.ceil(maxPlayer / NUM_OF_PLAYERS));
-        return getPlayers(make_query());
+        const maxPage = Math.ceil(maxPlayer / NUM_OF_PLAYERS);
+        const players = await getPlayers(make_query());
+        return { maxPage, players };
     });
 
-    //console.log(data);
+    useEffect( () => {
+        setMaxPage(data?.maxPage ?? 1);
+    }, [data?.maxPage])
+
+    console.log(data);
 
     //the api that get all players...
 
@@ -136,7 +141,7 @@ text-right text-fontGrey text-xs mb-2">
             <div className="bg-white-100 text-right">
                 {isError ? (<div>Error!</div>) :
                  isLoading ? (<div>Loading!</div>) :
-                 (data.map( (player: any) => {
+                 (data?.players.map( (player: any) => {
                     return(
                             <MainListItem
                                 name = {player.secondName}
