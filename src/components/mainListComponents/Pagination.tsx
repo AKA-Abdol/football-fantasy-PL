@@ -18,7 +18,7 @@ const MainListPagination = () => {
     // send number of page to back
 
     return (
-        <div className="pagination flex flex-row-reverse justify-around p-3 mb-7 mt-auto">
+        <div className="pagination flex flex-row-reverse justify-around p-3 mt-auto">
             <div className="double-vector flex justify-between rotate-180 cursor-pointer" onClick={() => setCurrentPage(1)}>
                 <img src={vectorGrey} alt="" />
                 <img src={vectorGrey} alt="" />

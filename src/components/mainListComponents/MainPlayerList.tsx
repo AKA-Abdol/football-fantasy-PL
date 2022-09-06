@@ -72,7 +72,7 @@ export const FilterAtom = atom({
     default:"All" as Filter
 })
 
-export const NUM_OF_PLAYERS = 20;
+export const NUM_OF_PLAYERS = 16;
 
 const MainList = () => {
 
@@ -93,8 +93,6 @@ const MainList = () => {
         return players;
     });
 
-    //console.log(data);
-
     //the api that get all players...
 
     const handleFilter = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -105,7 +103,7 @@ const MainList = () => {
     }
 
     return (
-        <div className="list mx-auto max-w-max flex flex-col  ml-auto rounded-2xl shadow-md pb-1 mt-20 h-full">
+        <div className="list mx-auto max-w-max flex flex-col  ml-auto rounded-2xl shadow-md pb-1 mt-4 h-full">
             <ListHeader />
             <SearchBox />
             <div className="button-group flex justify-center mx-4 flex-row-reverse">

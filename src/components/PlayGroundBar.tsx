@@ -9,7 +9,8 @@ import WalletLogo from '../images/empty-wallet.svg';
 import RahnemaEngLogo from '../images/rahnema-college-logo-eng.svg'
 import { atom, useRecoilState } from 'recoil';
 import { FieldPlayersAtom } from '../pages/Home';
-
+import { useQuery } from 'react-query';
+import { getCredit } from '../services/CreditServices';
 
 const MAX_PLAYER = 15;
 
@@ -27,8 +28,6 @@ export default function PlayGroundBar(){
         key: 'numOfPlayer',
         default: 0
     })
-
-
     
     const [ numOfSelectesPlayer,  setNumOfSelectesPlayer ] = useRecoilState(numOfSelectedPlayerAtom);
 
@@ -42,13 +41,15 @@ export default function PlayGroundBar(){
         playerNumSetter();
     },[fieldPlayers])
 
-
-
     const [PGState, setPGState] = useState<StateInterface>({
         playerCount: numOfSelectesPlayer,
         money: 68.3,
         selTab: 1
     });
+
+    const res = useQuery("credit", getCredit)
+    console.log("result", res);
+    
     return (
         <div className="px-[4px] flex flex-row w-full bg-white justify-around -mb-4 -z-index-[100]">
             <PlayGroundBarSideTab
