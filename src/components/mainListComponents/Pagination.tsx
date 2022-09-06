@@ -1,16 +1,17 @@
 import React, {useState} from "react";
 import vector from "../../assets/Vector.svg"
 import vectorGrey from "../../assets/Vector-low-opacity.svg"
-import { atom, useRecoilState } from "recoil";
+import { atom, useRecoilState, useRecoilValue } from "recoil";
+import { maxPageAtom } from "./MainPlayerList";
 
-export const CurrentPageAtom = atom({
+export const currentPageAtom = atom({
     key: "CurrentPage",
     default: 1
 })
 
 const MainListPagination = () => {
-    const [currentPage, setCurrentPage] = useRecoilState(CurrentPageAtom);
-    const allPage = 2;
+    const [currentPage, setCurrentPage] = useRecoilState(currentPageAtom);
+    const allPage = useRecoilValue(maxPageAtom);
     // get num of pages
     // get players from backend
     // send number of page to back
