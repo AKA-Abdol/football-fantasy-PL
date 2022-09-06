@@ -1,6 +1,6 @@
 import http from "./http";
 
-const USER_PREFIX = '/users/';
+const USER_PREFIX = '/user/';
 const SIGNUP_URL = USER_PREFIX + 'signup';
 const LOGIN_URL = USER_PREFIX + 'login';
 export const TOKEN_SESSION_NAME = "footballFantasyToken";

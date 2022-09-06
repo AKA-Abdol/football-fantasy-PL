@@ -33,13 +33,9 @@ export default function PlayGroundBar(){
     const [ numOfSelectesPlayer,  setNumOfSelectesPlayer ] = useRecoilState(numOfSelectedPlayerAtom);
 
     const playerNumSetter = () => {
-        let numOfSelectedPlayer = 0;
-        for (let i = 0; i < fieldPlayers.length; i++) {
-            if (fieldPlayers[i].type === 'Field') {
-                numOfSelectedPlayer += 1;
-            }   
-        }
-         setNumOfSelectesPlayer(numOfSelectedPlayer)
+        const filter = fieldPlayers.filter(selected => selected.type === 'Field')
+        const number = filter.length;
+        setNumOfSelectesPlayer(number);
     }
 
     useEffect(() => {
