@@ -56,14 +56,42 @@ const Navbar = () => {
                 </div>
                 <div className={showMenu ? "relative flex w-full lg:hidden" : "hidden"}>
                     <ul className="menu menu-horizontal w-full flex flex-col-reverse text-xl justify-around items-center">
-                        <li className="px-14"><Link to={"/prices"}>جوایز</Link></li>
-                        <li className="px-14"><Link to={"/profile"}>پروفایل</Link></li>
-                        <li className="px-14"><Link to={"/events"}>آخرین رویدادها</Link></li>
-                        <li className="px-14"><Link to={"/transfer"}>نقل و انتقالات</Link></li>
+                        <li 
+                            onClick={() => {
+                                setNavbarState("Price")
+                            }}
+                            className = {`px-14` + 
+                            (navbarState === "Price" ? ` rounded-lg px-20 bg-gradient-to-l from-detailListBoxColor1 to-detailListBoxColor2 ` : ` bg-base-100 `)}>
+                            <Link to={"/prices"}>جوایز</Link></li>
+                        <li 
+                            onClick={() => {
+                                setNavbarState("Profile")
+                            }}
+                            className = {`px-14 hover:bg-base-100` + 
+                            (navbarState === "Profile" ? ` rounded-lg px-20 bg-gradient-to-l from-detailListBoxColor1 to-detailListBoxColor2 ` : ` bg-base-100 `)}>
+                            <Link to={"/profile"}>پروفایل</Link></li>
+                        <li 
+                            onClick={() => {
+                                setNavbarState("Event")
+                            }}
+                            className = {`px-14` + 
+                            (navbarState === "Event" ? ` rounded-lg px-20 bg-gradient-to-l from-detailListBoxColor1 to-detailListBoxColor2 ` : ` bg-base-100 `)}>
+                            <Link to={"/events"}>آخرین رویدادها</Link></li>
+                        <li 
+                            onClick={() => {
+                                setNavbarState("Transfer")
+                            }}
+                            className = {`px-14` + 
+                            (navbarState === "Transfer" ? ` rounded-lg px-20 bg-gradient-to-l from-detailListBoxColor1 to-detailListBoxColor2 ` : ` bg-base-100 `)}>
+                            <Link to={"/transfer"}>نقل و انتقالات</Link></li>
                         <li
-                            className="rounded-lg px-20 bg-gradient-to-l from-detailListBoxColor1 to-detailListBoxColor2"
-
-                        ><Link to={"/"}>تیم من</Link></li>
+                            
+                            onClick={() => {
+                                setNavbarState("MyTeam")
+                            }}
+                            className = {`px-14` + 
+                            (navbarState === "MyTeam" ? ` rounded-lg px-20 bg-gradient-to-l from-detailListBoxColor1 to-detailListBoxColor2 ` : ` bg-base-100 `)}>
+                        <Link to={"/"}>تیم من</Link></li>
                     </ul>
                 </div>
                 <div
