@@ -63,6 +63,11 @@ export const maxPageAtom = atom({
     default: DEFAULT_PAGE
 })
 
+export const PlayerListAtom = atom({
+    key: "playerList",
+    default: [] as MainListProps[]
+})
+
 export const NUM_OF_PLAYERS = 20;
 
 const MainList = () => {
@@ -136,9 +141,9 @@ text-right text-fontGrey text-xs mb-2">
                             <MainListItem
                                 name = {player.secondName}
                                 club = {player.club}
-                                point = {player.score}
-                                price = {player.price}
                                 role = {player.role}
+                                pose = {player.pose}
+                                playerStats = {player.playerStats}
                             />
                     )
                 }))}
