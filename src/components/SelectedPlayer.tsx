@@ -41,19 +41,6 @@ export default function SelectedPlayers(props: selectedPlayer) {
 
     return (
         <div
-            onClick={(event) => {
-                event.stopPropagation();
-                setPlayerSelect(() => {
-                    let newState = [];
-                    if (!playerSelect.includes(props.pose)) {
-                        newState.push(props.pose)
-                    } else {
-                        newState = []
-                    }
-                    console.log("newState", newState)
-                    return newState
-                })
-            }}
             className="flex flex-col sm:-mt-6 items-center justify-center w-[15%]"
         >
             <img src={closeIcon} alt="close icon"
@@ -65,7 +52,21 @@ export default function SelectedPlayers(props: selectedPlayer) {
 
                 }}
             />
-            <img className={playerSelect.includes(props.pose) ? "w-[90%] cursor-pointer" : "w-full cursor-pointer"} src={playerSelect.includes(props.pose) ? onSelectShirt : selectedShirt} alt="Player's T-shirt" />
+            <img
+                onClick={(event) => {
+                    event.stopPropagation();
+                    setPlayerSelect(() => {
+                        let newState = [];
+                        if (!playerSelect.includes(props.pose)) {
+                            newState.push(props.pose)
+                        } else {
+                            newState = []
+                        }
+                        console.log("newState", newState)
+                        return newState
+                    })
+                }}
+                className={playerSelect.includes(props.pose) ? "w-[90%] cursor-pointer" : "w-full cursor-pointer"} src={playerSelect.includes(props.pose) ? onSelectShirt : selectedShirt} alt="Player's T-shirt" />
             <div className="flex flex-col w-full">
 
                 <div className="bg-[#37013B] sm:py-1 px-4 text-white font-bold text-[0.5rem] sm:text-xs rounded-t-md sm:rounded-t-lg flex items-center justify-center">{props.name}</div>
