@@ -8,7 +8,7 @@ import MainListPagination from "./Pagination";
 import polygon from "../../assets/Polygon 4.svg"
 import axios from "axios";
 import { searchKeyAtom } from './SearchBox';
-import { useRecoilValue } from "recoil";
+import { atom, useRecoilState, useRecoilValue } from "recoil";
 
 const filterButtons: string[] = [
     "All", "GK", "DEF", "MID", "ATT"
@@ -17,17 +17,27 @@ const filterButtons: string[] = [
 
 type Filter = "All" | "GK" | "DEF" | "MID" | "ATT";
 
-interface MainListProps{
+
+export interface MainListProps {
     name: string,
     club: string,
     role: string,
-    point: number,
-    price: number 
+    pose: number,
+    playerStats: {
+        score: number,
+        price: number,
+        weekId: number
+    }
 }
+
+export const PlayerListAtom = atom({
+    key: "playerList",
+    default: [] as MainListProps[]
+})
+
 
 
 const MainList = () => {
-    const [playerList, setPlayerList] = useState<Array<MainListProps>>([])
 
     const searchKey = useRecoilValue(searchKeyAtom);
     const [filter, setFilter] = useState<Filter>('All');
@@ -39,52 +49,61 @@ const MainList = () => {
         setFilter(button.name as Filter);
     }
 
-useEffect(() => {
-    axios.get(`http://localhost:5000/api/player/all/`)
-    .then(res => {
-        const allPlayers = res.data.players;
-        const list:MainListProps[] = []
-        for (let i = 0; i < 17; i = i + 1) {
-            let playerObj : MainListProps = {
-                name : allPlayers[i].firstName,
-                club : allPlayers[i].club,
-                role : allPlayers[i].role,
-                point : allPlayers[i].point,
-                price : allPlayers[i].price
-            }
+    const [playerList, setPlayerList] = useRecoilState<Array<MainListProps>>(PlayerListAtom)
 
-            list.push(playerObj)
-        }
-        setPlayerList( () => {
-            return list
-        })
-    })
+    const myProps: { name: string[] } = {
+        name: ["All", "GK", "DEF", "MID", "ATT"]
 
-},[])
+    }
+
+    useEffect(() => {
+        axios.get(`http://localhost:5000/api/player/all/`)
+            .then(res => {
+                const allPlayers = res.data.players;
+                const list: MainListProps[] = []
+                for (let i = 0; i < 17; i = i + 1) {
+                    let playerObj: MainListProps = {
+                        name: allPlayers[i].firstName,
+                        club: allPlayers[i].club,
+                        role: allPlayers[i].role,
+                        pose: i,
+                        playerStats: allPlayers[i].playerStats
+                    }
+
+                    list.push(playerObj)
+                }
+                setPlayerList(() => {
+                    return list
+                })
+            })
+
+    }, [])
 
     return (
-        <div className="list max-w-max flex flex-col  ml-auto rounded-2xl shadow-md pb-1 mt-20 h-full">
+        <div className="list mx-auto max-w-max flex flex-col  ml-auto rounded-2xl shadow-md pb-1 mt-20 h-full">
             <ListHeader />
             <SearchBox />
             <div className="button-group flex justify-center mx-4 flex-row-reverse">
+
                 {
-                    filterButtons.map((name) => 
-                        (
-                            <MainListButton
-                                name={name}
-                                onclick={handleFilter}
-                                selected = {filter === name as Filter}
-                            />
-                        )
+                    filterButtons.map((name) =>
+                    (
+                        <MainListButton
+                            name={name}
+                            onclick={handleFilter}
+                            selected={filter === name as Filter}
+                        />
+                    )
                     )
                 }
-            </div>
+
+            </div >
             <DetailBox />
             <div className="flex flex-row-reverse justify-between mx-5 
-            text-right text-fontGrey text-xs mb-2">
+text-right text-fontGrey text-xs mb-2">
                 <p>نام بازیکن</p>
                 <div className="flex items-center">
-                    <img src={polygon} alt="vec" className="mr-1px"/>
+                    <img src={polygon} alt="vec" className="mr-1px" />
                     <p>عملکرد</p>
                 </div>
                 <div className="flex items-center">
@@ -93,22 +112,23 @@ useEffect(() => {
                 </div>
             </div>
             <div className="bg-white-100 text-right">
-                {playerList.map( player => {
-                    console.log(playerList)
-                    return(
-                            <MainListItem
-                                name = {player.name}
-                                club = {player.club}
-                                point = {player.point}
-                                price = {player.price}
-                                role = {player.role}
-                            />
+
+                {playerList.map(player => {
+                    return (
+                        <MainListItem
+                            name={player.name}
+                            club={player.club}
+                            role={player.role}
+                            pose={player.pose}
+                            playerStats={player.playerStats}
+                        />
                     )
-                })}
-            </div>
+                })
+                }
+            </div >
 
             <MainListPagination />
-        </div>
+        </div >
     )
 
 }

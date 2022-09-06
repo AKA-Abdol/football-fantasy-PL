@@ -201,7 +201,7 @@ export default function SoccerField({ props }: FieldProps) {
                     return newState
                 })
             }}
-            className="flex flex-col w-full relative z-50 justify-between"
+            className="flex flex-col py-2 sm:space-y-4 w-full relative z-50 justify-around"
         >
             <img
                 src={SoccerFieldImg}
@@ -209,7 +209,7 @@ export default function SoccerField({ props }: FieldProps) {
                 className="absolute w-full h-full -z-50"
             />
             <div
-                className="w-full h-1/6 px-4 pt-6 flex flex-row justify-around"
+                className="w-full h-[15%] px-4 mt-5 sm:pt-2 flex flex-row justify-around"
             >
 
                 {
@@ -232,7 +232,7 @@ export default function SoccerField({ props }: FieldProps) {
 
             </div>
             <div
-                className="w-full h-1/6 p-4 flex flex-row justify-around"
+                className="w-full h-[15%] px-4 sm:py-4 flex flex-row justify-around"
             >
                 {
                     props.slice(2, 7).map((item) => {
@@ -256,7 +256,7 @@ export default function SoccerField({ props }: FieldProps) {
 
             </div>
             <div
-                className="w-full h-1/6 p-4 flex flex-row justify-around"
+                className="w-full h-[15%] p-4 flex flex-row justify-around"
             >
                 {
                     props.slice(7, 12).map((item) => {
@@ -280,7 +280,7 @@ export default function SoccerField({ props }: FieldProps) {
 
             </div>
             <div
-                className="w-full h-1/6 py-4 px-6 flex flex-row justify-around"
+                className="w-full h-[15%] py-4 px-6 flex flex-row justify-around"
             >
                 {
                     props.slice(12, 16).map((item) => {

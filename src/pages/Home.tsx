@@ -6,13 +6,19 @@ import MainList from "../components/mainListComponents/MainPlayerList";
 import RemoveModal from './../components/RemoveModal';
 import DateBar from "../components/DateBar";
 import { dummyGenerator } from './../components/SoccerField'
-import MainPlayerList from './../components/mainListComponents/MainPlayerList';
+import { atom, useRecoilState } from "recoil";
 
+const dummyData = dummyGenerator();
+console.log(dummyData)
+
+export const FieldPlayersAtom = atom({
+  key:"FieldPlayers",
+  default:dummyData
+})
 
 const Home = () => {
 
-  const dummyData = dummyGenerator();
-  console.log(dummyData)
+const [fieldPlayers,setFieldPlayers] = useRecoilState(FieldPlayersAtom);
 
 
   return (
@@ -29,10 +35,10 @@ const Home = () => {
             <DateBar />
             <PlayGroundBar />
             <SoccerField
-              props={dummyData}
+              props={fieldPlayers}
             />
           </div>
-          <MainPlayerList />
+          <MainList />
         </div>
       </div>
     </div>
