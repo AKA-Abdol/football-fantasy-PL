@@ -67,13 +67,18 @@ export const PlayerListAtom = atom({
     default: [] as MainListProps[]
 })
 
+export const FilterAtom = atom({
+    key:"filter",
+    default:"All" as Filter
+})
+
 export const NUM_OF_PLAYERS = 20;
 
 const MainList = () => {
 
     const searchKey = useRecoilValue(searchKeyAtom);
     const [currentPage, setCurrentPage] = useRecoilState(currentPageAtom);
-    const [filter, setFilter] = useState<Filter>('All');
+    const [filter, setFilter] = useRecoilState(FilterAtom);
     const setMaxPage = useSetRecoilState(maxPageAtom);
 
     const make_query = useCallback( () => {

@@ -1,10 +1,11 @@
-import { atom, useRecoilState } from "recoil";
+import { atom, SetterOrUpdater, useRecoilState } from "recoil";
 import selectedShirt from "./../images/selected_shirt.png"
 import onSelectShirt from "./../images/onselect_shirt.png"
 import { playerSelectAtom } from "./SoccerField"
 import { modalAtom } from "./RemoveModal";
 import closeIcon from "./../images/close-circle.svg"
 import { FieldPlayersAtom } from "./../pages/Home"
+import {FilterAtom} from "./mainListComponents/MainPlayerList"
 
 
 
@@ -18,14 +19,31 @@ export const PlayerToRemoveAtom = atom({
     default: [] as number[]
 })
 
+export const filterSetter = (pose: number, filterSet: SetterOrUpdater<"All" | "Goalkeepers" | "Defenders" | "Midfielders" | "Forwards">) => {
+    console.log(pose)
+    if (1 <= pose && pose < 3) {
+        filterSet("Goalkeepers")
+    }
+    if (3 <= pose && pose < 8) {
+        filterSet("Defenders")
+    }
+    if (8 <= pose && pose < 13) {
+        filterSet("Midfielders")
+    }
+    if (13 <= pose && pose < 16) {
+        filterSet("Forwards")
+    }
+}
+
 
 
 export default function SelectedPlayers(props: selectedPlayer) {
 
+
     const [playerSelect, setPlayerSelect] = useRecoilState(playerSelectAtom)
     const [showModal, setShowModal] = useRecoilState(modalAtom)
     const [playerToRemove, setPlayerToRemove] = useRecoilState(PlayerToRemoveAtom)
-
+    const [filter, setFilter] = useRecoilState(FilterAtom);
 
     const viewModal = () => {
         setShowModal(true)
@@ -55,6 +73,7 @@ export default function SelectedPlayers(props: selectedPlayer) {
             <img
                 onClick={(event) => {
                     event.stopPropagation();
+                    filterSetter(props.pose,setFilter)
                     setPlayerSelect(() => {
                         let newState = [];
                         if (!playerSelect.includes(props.pose)) {
