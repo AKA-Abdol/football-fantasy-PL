@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
 import {Link} from 'react-router-dom'
 
-export type NavbarType = "MyTeam" | "Transfer" | "Event" | "Profile" | "Price"
+export type NavbarType = "MyTeam" | "Transfer" | "Event" | "Profile" | "Award"
 
 const Navbar = () => {
 
@@ -19,11 +19,11 @@ const Navbar = () => {
                     <ul className="menu menu-horizontal w-full flex flex-row justify-around">
                         <li
                             onClick={() => {
-                                setNavbarState("Price")
+                                setNavbarState("Award")
                             }}
                             className = {`rounded-lg hover:rounded-lg` + 
-                            (navbarState === "Price" ? ` bg-gradient-to-l from-detailListBoxColor1 to-detailListBoxColor2 border-none ` : ` bg-base-100 `)}>
-                            <Link to={"/prices"}>جوایز</Link></li>
+                            (navbarState === "Award" ? ` bg-gradient-to-l from-detailListBoxColor1 to-detailListBoxColor2 border-none ` : ` bg-base-100 `)}>
+                            <Link to={"/awards"}>جوایز</Link></li>
                         <li 
                             onClick={() => {
                                 setNavbarState("Profile")
@@ -58,11 +58,11 @@ const Navbar = () => {
                     <ul className="menu menu-horizontal w-full flex flex-col-reverse text-xl justify-around items-center">
                         <li 
                             onClick={() => {
-                                setNavbarState("Price")
+                                setNavbarState("Award")
                             }}
                             className = {`px-14` + 
-                            (navbarState === "Price" ? ` rounded-lg px-20 bg-gradient-to-l from-detailListBoxColor1 to-detailListBoxColor2 ` : ` bg-base-100 `)}>
-                            <Link to={"/prices"}>جوایز</Link></li>
+                            (navbarState === "Award" ? ` rounded-lg px-20 bg-gradient-to-l from-detailListBoxColor1 to-detailListBoxColor2 ` : ` bg-base-100 `)}>
+                            <Link to={"/awards"}>جوایز</Link></li>
                         <li 
                             onClick={() => {
                                 setNavbarState("Profile")
