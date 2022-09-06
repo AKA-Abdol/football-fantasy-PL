@@ -72,7 +72,7 @@ export const FilterAtom = atom({
     default:"All" as Filter
 })
 
-export const NUM_OF_PLAYERS = 16;
+export const NUM_OF_PLAYERS = 15;
 
 const MainList = () => {
 
@@ -103,7 +103,7 @@ const MainList = () => {
     }
 
     return (
-        <div className="list mx-auto max-w-max flex flex-col  ml-auto rounded-2xl shadow-md pb-1 mt-4 h-full">
+        <div className="list mx-auto max-w-max flex flex-col  ml-auto rounded-2xl shadow-md pb-1 mb-2 h-full">
             <ListHeader />
             <SearchBox />
             <div className="button-group flex justify-center mx-4 flex-row-reverse">
