@@ -11,7 +11,6 @@ import { currentPageAtom } from "./Pagination";
 import { atom, useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { useQuery } from "react-query";
 import { getPlayers } from "../../services/MainListServices";
-import { calcMaxPlayer } from "../../services/MainListServices";
 
 interface FilterField {
     name: string,
