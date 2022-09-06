@@ -13,19 +13,19 @@ export default function PageHeader() {
                 style={{ backgroundImage: `url(${headerBg})` }}
                 >
                 <img src={bgLayer} alt="background layer"
-                    className="w-2/3 h-[100%] absolute opacity-5 right-0"
+                    className="w-2/3 h-full absolute opacity-5 right-0"
                 />
                 <div className="flex flex-col justify-end">
                     <img src={players} alt="Football players"
-                        className="mt-auto w-full min-w-[330px] max-w-[650px]"
+                        className="mt-auto w-full min-w-[150px] max-w-[650px]"
                     />
                 </div>
 
 
-                <div className="min-w-[180px] w-full px-5 flex flex-col-reverse items-center justify-center space-y-6 md:flex-row md:justify-end md:space-x-12">
+                <div className="min-w-[120px] w-full px-5 flex flex-col-reverse items-center justify-center space-y-6 md:flex-row md:justify-end md:space-x-12">
                     <p className="font-bold text-xl sm:text-3xl lg:text-6xl  text-[#37013B]">فوتبال فانتزی</p>
                     <img src={fplLogo} alt="FPL logo"
-                        className="h-1/2"
+                        className="h-1/3"
                     />
                 </div>
 

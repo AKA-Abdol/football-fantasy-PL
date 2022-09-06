@@ -1,5 +1,9 @@
 import { useRecoilState,atom } from "recoil"
 import selectedShirt from "./../images/selected_shirt.png"
+import {PlayerToRemoveAtom} from "./SelectedPlayer"
+import { FieldPlayersAtom } from "./../pages/Home"
+
+
 
 
 interface RemoveModalProps {
@@ -15,9 +19,16 @@ export const modalAtom = atom({
 export default function RemoveModal(props: RemoveModalProps) {
 
     const [showModal,setShowModal] = useRecoilState(modalAtom)
+    const [playerToRemove, setPlayerToRemove] = useRecoilState(PlayerToRemoveAtom)
+    const [fieldPlayers, setFieldPlayers] = useRecoilState(FieldPlayersAtom);
+
+
 
     const cancelModal = () => {
         setShowModal (false)
+        setPlayerToRemove(() => {
+            return []
+        })
     }
 
     return (
@@ -41,7 +52,25 @@ export default function RemoveModal(props: RemoveModalProps) {
                         <button
                          onClick={cancelModal}
                          className="px-12 py-1 border border-[#3D195B] rounded hover:bg-red-300 hover:bg-opacity-50 hover:text-red-900">لغو</button>
-                        <button className="px-12 py-1 bg-red-800 text-gray-200 hover:bg-red-600 rounded">حذف</button>
+                        <button
+                         className="px-12 py-1 bg-red-800 text-gray-200 hover:bg-red-600 rounded"
+                         onClick={(event) => {
+                            event.stopPropagation()
+                            if (playerToRemove.length) {
+                                const playerIndex = playerToRemove[0] - 1;
+                                setFieldPlayers(prevList => {
+                                    const newList = [...prevList]
+                                    newList[playerIndex] = {
+                                        type: "Default",
+                                        pose:playerIndex + 1
+                                    }
+                                    return newList
+                                })
+                                cancelModal()
+                            }
+            
+                        }}
+                         >حذف</button>
                     </div>
                 </div>
             </div>
