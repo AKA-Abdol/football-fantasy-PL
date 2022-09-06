@@ -99,11 +99,11 @@ const Navbar = () => {
 
                 ><a className="mx-auto text-2xl sm:text-3xl">تیم من</a></div>
                 <AiOutlineMenu size={40}
-                    className={showMenu ? "hidden" : "flex lg:hidden"}
+                    className={showMenu ? "hidden" : "flex lg:hidden cursor-pointer"}
                     onClick={handleMenu}
                 />
                 <AiOutlineClose size={40}
-                    className={showMenu ? "flex mb-auto lg:hidden" : "hidden"}
+                    className={showMenu ? "flex mb-auto lg:hidden cursor-pointer" : "hidden"}
                     onClick={handleMenu}
                 />
             </div>
