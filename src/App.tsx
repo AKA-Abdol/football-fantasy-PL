@@ -20,7 +20,7 @@ function App() {
             <Route path="prices" element={<Home />} />
             <Route path="events" element={<Home />} />
             <Route path="profile" element={<Home />} />
-            <Route path="sth" element={<Home />} />
+            <Route path="transfer" element={<Home />} />
           </Routes>
         </BrowserRouter>
       </div>
