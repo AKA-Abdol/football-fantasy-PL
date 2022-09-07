@@ -18,9 +18,9 @@ const NavbarItem = (props: NavbarType, item: string) => {
             onClick={() => {
                 setNavbarState(props)
             }}
-            className = {`rounded-lg hover:rounded-lg` + 
+            className = {`rounded-lg hover:bg-teal-200 hover:bg-none` + 
             (navbarState === props ? ` bg-gradient-to-l from-detailListBoxColor1 to-detailListBoxColor2 border-none ` : ` bg-base-100 `)}>
-            <Link to={`/${endpoint}`}>{item}</Link>
+            <a><Link to={`/${endpoint}`}>{item}</Link></a>
         </li>
     )
 }
@@ -35,7 +35,8 @@ const ResponsiveNavbarItem = (props: NavbarType, item: string) => {
         }}
         className = {`px-14` + 
         (navbarState === props ? ` rounded-lg px-20 bg-gradient-to-l from-detailListBoxColor1 to-detailListBoxColor2 ` : ` bg-base-100 `)}>
-        <Link to={`/${endpoint}`}>{item}</Link></li>
+        <Link to={`/${endpoint}`}>{item}</Link>
+        </li>
     )
 }
 
@@ -50,7 +51,7 @@ const Navbar = () => {
     return (
         <div className="navbar w-full sm:max-w-[60%] bg-base-100 shadow-xl rounded-lg lg:-mt-6 z-50 font-semibold">
                 <div className="hidden text-xs w-full lg:flex lg:text-xl">
-                    <ul className="menu menu-horizontal w-full flex flex-row justify-around">
+                    <ul className="menu  w-full flex flex-row justify-around rounded-box active:bg-none">
                         {NavbarItem("Award", "جوایز")}
                         {NavbarItem("Profile", "پروفایل")}
                         {NavbarItem("Event", "آخرین رویدادها")}
@@ -59,7 +60,7 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className={showMenu ? "relative flex w-full lg:hidden" : "hidden"}>
-                    <ul className="menu menu-horizontal w-full flex flex-col-reverse text-xl justify-around items-center">
+                    <ul className="menu menu-horizontal w-full flex flex-col-reverse text-xl justify-around items-center rounded-box">
                         {ResponsiveNavbarItem("Award", "جوایز")}
                         {ResponsiveNavbarItem("Profile", "پروفایل")}
                         {ResponsiveNavbarItem("Event", "آخرین رویدادها")}
