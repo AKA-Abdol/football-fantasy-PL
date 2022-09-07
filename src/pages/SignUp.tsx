@@ -91,12 +91,13 @@ export default function SignUp(){
     }
 
     const signup = useCallback( async () => {
+        console.log(signupData)
         const isValidInputData: boolean = await postSignupData(signupData);
         if(isValidInputData){
             localStorage.setItem(EMAIL_SESSION, signupData.email);
             navigate('/authentication');
         }
-    }, [signupData.email]);
+    }, [signupData]);
 
     return (
         <div className="flex flex-row h-screen">
