@@ -48,7 +48,7 @@ const MainListItem = (props: MainListProps) => {
                 <div className="player-name font-bold text-teamFontColor text-9">{props.club}</div>
             </div>
             <div className="player-power text-nameFontColor text-10 pt-10px font-semibold flex justify-center mx-auto">{props.playerStats.score}</div>
-            <div className="player-cost text-nameFontColor text-10 pt-10px font-semibold mr-auto pl-4">{props.playerStats.price}</div>
+            <div className="player-cost text-nameFontColor text-10 pt-10px font-semibold mr-auto pl-4">{props.playerStats.price / 10}</div>
         </div>
     );
 }

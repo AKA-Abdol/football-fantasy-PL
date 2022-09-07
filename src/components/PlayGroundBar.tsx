@@ -68,7 +68,7 @@ export default function PlayGroundBar(){
                 />
             </div>
             <PlayGroundBarSideTab
-                leftText={Eng2Fa(`${data}`)}
+                leftText={Eng2Fa(`${data / 10}`)}
                 rightLogo={WalletLogo}
                 rightText='باقی مانده پول'
             />
