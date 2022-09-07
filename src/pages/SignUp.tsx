@@ -1,5 +1,5 @@
 import "../index.css"
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import SUPLayers from "../images/SU-players.png"
 import InputField from "../components/SignComponents/InputField";
 import SelectField from "../components/SignComponents/SelectField";
@@ -9,6 +9,7 @@ import PLWhiteLogo from "../images/PLWhiteLogo.png"
 import { useState } from "react";
 import { postSignupData, TOKEN_SESSION_NAME } from '../services/SignServices'
 import { useNavigate } from "react-router-dom";
+import { atom } from "recoil";
 
 interface RowFieldText{
     first: string,
@@ -62,15 +63,15 @@ const fields: Array<RowFieldText> = [
     }
 ]
 
+export const EMAIL_SESSION = 'FPLEmail';
+
 export default function SignUp(){
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        if(localStorage.getItem(TOKEN_SESSION_NAME)){
-            console.log('this is token: ', localStorage.getItem(TOKEN_SESSION_NAME));
-            navigate('/');
-        }
+        if(localStorage.getItem(TOKEN_SESSION_NAME))
+            navigate('/home');
     }, [])
 
     const [signupData, setSignupData] = useState({
@@ -89,11 +90,13 @@ export default function SignUp(){
         }))
     }
 
-    const signup = async () => {
-        await postSignupData(signupData);
-        if(localStorage.getItem(TOKEN_SESSION_NAME))
-            navigate('/');
-    }
+    const signup = useCallback( async () => {
+        const isValidInputData: boolean = await postSignupData(signupData);
+        if(isValidInputData){
+            localStorage.setItem(EMAIL_SESSION, signupData.email);
+            navigate('/authentication');
+        }
+    }, [signupData.email]);
 
     return (
         <div className="flex flex-row h-screen">
