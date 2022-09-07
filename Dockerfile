@@ -10,5 +10,6 @@ RUN npm install --silent
 RUN npm install react-scripts@3.4.1 -g --silent
 
 COPY . ./
+COPY .env.example .env
 
 CMD ["npm", "start"]
