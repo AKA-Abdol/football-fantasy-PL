@@ -1,13 +1,47 @@
 import React, { useState } from "react";
 import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
 import {Link} from 'react-router-dom'
+import { atom, useRecoilState } from "recoil";
 
-export type NavbarType = "MyTeam" | "Transfer" | "Event" | "Profile" | "Award"
+export type NavbarType = "MyTeam" | "Transfer" | "Event" | "Profile" | "Award";
+
+const navbarStateAtom = atom<NavbarType>({
+    key: "navbarState",
+    default: "MyTeam"
+})
+
+const NavbarItem = (props: NavbarType, item: string) => {
+    const [navbarState, setNavbarState] = useRecoilState<NavbarType>(navbarStateAtom);
+    const endpoint = props.toLowerCase();
+    return (
+        <li
+            onClick={() => {
+                setNavbarState(props)
+            }}
+            className = {`rounded-lg hover:rounded-lg` + 
+            (navbarState === props ? ` bg-gradient-to-l from-detailListBoxColor1 to-detailListBoxColor2 border-none ` : ` bg-base-100 `)}>
+            <Link to={`/${endpoint}`}>{item}</Link>
+        </li>
+    )
+}
+
+const ResponsiveNavbarItem = (props: NavbarType, item: string) => {
+    const [navbarState, setNavbarState] = useRecoilState<NavbarType>(navbarStateAtom);
+    const endpoint = props.toLowerCase();
+    return (
+        <li 
+        onClick={() => {
+            setNavbarState(props)
+        }}
+        className = {`px-14` + 
+        (navbarState === props ? ` rounded-lg px-20 bg-gradient-to-l from-detailListBoxColor1 to-detailListBoxColor2 ` : ` bg-base-100 `)}>
+        <Link to={`/${endpoint}`}>{item}</Link></li>
+    )
+}
 
 const Navbar = () => {
 
     const [showMenu, setShowMenu] = React.useState(false);
-    const [navbarState, setNavbarState] = useState<NavbarType>("MyTeam");
     const handleMenu = () => {
         setShowMenu(prevState => !prevState)
     }
@@ -17,81 +51,21 @@ const Navbar = () => {
         <div className="navbar w-full sm:max-w-[60%] bg-base-100 shadow-xl rounded-lg lg:-mt-6 z-50 font-semibold">
                 <div className="hidden text-xs w-full lg:flex lg:text-xl">
                     <ul className="menu menu-horizontal w-full flex flex-row justify-around">
-                        <li
-                            onClick={() => {
-                                setNavbarState("Award")
-                            }}
-                            className = {`rounded-lg hover:rounded-lg` + 
-                            (navbarState === "Award" ? ` bg-gradient-to-l from-detailListBoxColor1 to-detailListBoxColor2 border-none ` : ` bg-base-100 `)}>
-                            <Link to={"/Awards"}>جوایز</Link></li>
-                        <li 
-                            onClick={() => {
-                                setNavbarState("Profile")
-                            }}
-                            className = {`rounded-lg ` + 
-                            (navbarState === "Profile" ? ` bg-gradient-to-l from-detailListBoxColor1 to-detailListBoxColor2 border-none ` : ` bg-base-100 `)}>
-                            <Link to={"/profile"}>پروفایل</Link></li>
-                        <li 
-                            onClick={() => {
-                                setNavbarState("Event")
-                            }}
-                            className = {`rounded-lg ` + 
-                            (navbarState === "Event" ? ` bg-gradient-to-l from-detailListBoxColor1 to-detailListBoxColor2 border-none ` : ` bg-base-100 `)}>
-                            <Link to={"/events"}>آخرین رویدادها</Link></li>
-                        <li 
-                            onClick={() => {
-                                setNavbarState("Transfer")
-                            }}
-                            className = {`rounded-lg ` + 
-                            (navbarState === "Transfer" ? ` bg-gradient-to-l from-detailListBoxColor1 to-detailListBoxColor2 border-none ` : ` bg-base-100`)}>
-                            <Link to={"/transfer"}>نقل و انتقالات</Link></li>
-                        <li
-                            onClick={() => {
-                                setNavbarState("MyTeam")
-                            }}
-                            className = {`rounded-lg ` + 
-                            (navbarState === "MyTeam" ? ` bg-gradient-to-l from-detailListBoxColor1 to-detailListBoxColor2 border-none ` : ` bg-base-100`)}
-                        ><Link to={"/"}>تیم من</Link></li>
+                        {NavbarItem("Award", "جوایز")}
+                        {NavbarItem("Profile", "پروفایل")}
+                        {NavbarItem("Event", "آخرین رویدادها")}
+                        {NavbarItem("Transfer", "نقل و انتقالات")}
+                        {NavbarItem("MyTeam", "تیم من")}
                     </ul>
                 </div>
                 <div className={showMenu ? "relative flex w-full lg:hidden" : "hidden"}>
                     <ul className="menu menu-horizontal w-full flex flex-col-reverse text-xl justify-around items-center">
-                        <li 
-                            onClick={() => {
-                                setNavbarState("Award")
-                            }}
-                            className = {`px-14` + 
-                            (navbarState === "Award" ? ` rounded-lg px-20 bg-gradient-to-l from-detailListBoxColor1 to-detailListBoxColor2 ` : ` bg-base-100 `)}>
-                            <Link to={"/awards"}>جوایز</Link></li>
-                        <li 
-                            onClick={() => {
-                                setNavbarState("Profile")
-                            }}
-                            className = {`px-14 hover:bg-base-100` + 
-                            (navbarState === "Profile" ? ` rounded-lg px-20 bg-gradient-to-l from-detailListBoxColor1 to-detailListBoxColor2 ` : ` bg-base-100 `)}>
-                            <Link to={"/profile"}>پروفایل</Link></li>
-                        <li 
-                            onClick={() => {
-                                setNavbarState("Event")
-                            }}
-                            className = {`px-14` + 
-                            (navbarState === "Event" ? ` rounded-lg px-20 bg-gradient-to-l from-detailListBoxColor1 to-detailListBoxColor2 ` : ` bg-base-100 `)}>
-                            <Link to={"/events"}>آخرین رویدادها</Link></li>
-                        <li 
-                            onClick={() => {
-                                setNavbarState("Transfer")
-                            }}
-                            className = {`px-14` + 
-                            (navbarState === "Transfer" ? ` rounded-lg px-20 bg-gradient-to-l from-detailListBoxColor1 to-detailListBoxColor2 ` : ` bg-base-100 `)}>
-                            <Link to={"/transfer"}>نقل و انتقالات</Link></li>
-                        <li
-                            
-                            onClick={() => {
-                                setNavbarState("MyTeam")
-                            }}
-                            className = {`px-14` + 
-                            (navbarState === "MyTeam" ? ` rounded-lg px-20 bg-gradient-to-l from-detailListBoxColor1 to-detailListBoxColor2 ` : ` bg-base-100 `)}>
-                        <Link to={"/"}>تیم من</Link></li>
+                        {ResponsiveNavbarItem("Award", "جوایز")}
+                        {ResponsiveNavbarItem("Profile", "پروفایل")}
+                        {ResponsiveNavbarItem("Event", "آخرین رویدادها")}
+                        {ResponsiveNavbarItem("Transfer", "نقل و انتقالات")}
+                        {ResponsiveNavbarItem("MyTeam", "تیم من")}
+                        
                     </ul>
                 </div>
                 <div
