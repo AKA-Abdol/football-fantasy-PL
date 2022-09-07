@@ -28,6 +28,7 @@ interface ConfirmData{
 }
 
 export const postSignupData = async (signupData: SignupData) => {
+    console.log("in the service:", signupData);
     const response = await http.post(SIGNUP_URL, signupData);
     return response.status === OK;
 }

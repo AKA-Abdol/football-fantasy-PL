@@ -49,6 +49,7 @@ export interface MainListProps {
     club: string,
     role: string,
     pose: number,
+    id: number,
     playerStats: {
         score: number,
         price: number,
@@ -143,6 +144,7 @@ const MainList = () => {
                                 club = {player.club}
                                 role = {player.role}
                                 pose = {player.pose}
+                                id = {player.id}
                                 playerStats = {player.playerStats}
                             />
                     )
