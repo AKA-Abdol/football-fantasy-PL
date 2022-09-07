@@ -24,7 +24,7 @@ const fields: Array<RowFieldText> = [
         first: "لطفا کدی که به ایمیلتان ارسال شده را در کادر زیر وارد کنید",
         firstType: "",
         firstOptions: [],
-        firstPHolder: "Abdol Loves Mahmood and Mahmood vice verse",
+        firstPHolder: "5 digit code",
         firstPose: "mx-auto",
         name: "verificationCode"
     }
@@ -37,7 +37,7 @@ export default function Authentication(){
 
     useEffect(() => {
         if(localStorage.getItem(TOKEN_SESSION_NAME))
-            navigate('/home');
+            navigate('/myteam');
     }, [])
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
@@ -50,7 +50,7 @@ export default function Authentication(){
             email: localStorage.getItem(EMAIL_SESSION),
             code: parseInt(authCode)
         });
-        navigate('/home');
+        navigate('/myteam');
     }, [authCode]);
 
     return (

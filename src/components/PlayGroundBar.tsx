@@ -25,7 +25,7 @@ export default function PlayGroundBar(){
     const [fieldPlayers, setFieldPlayers] = useRecoilState(FieldPlayersAtom);
 
 
-    const {data, isLoading, isError } = useQuery("credit", async () => await getCredit())
+    const {data, isLoading, isError } = useQuery(["credit", fieldPlayers], async () => await getCredit())
     
 
     const numOfSelectedPlayerAtom = atom ({
@@ -68,7 +68,7 @@ export default function PlayGroundBar(){
                 />
             </div>
             <PlayGroundBarSideTab
-                leftText={Eng2Fa(`${data}`)}
+                leftText={Eng2Fa(`${data / 10}`)}
                 rightLogo={WalletLogo}
                 rightText='باقی مانده پول'
             />

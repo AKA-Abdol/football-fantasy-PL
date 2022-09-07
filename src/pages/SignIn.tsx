@@ -23,14 +23,14 @@ const fields: Array<RowFieldText> = [
         first:"نام کاربری",
         firstType: "",
         firstOptions: [],
-        firstPHolder: "Abdol Loves Mahmood",
+        firstPHolder: "Username",
         name: 'username'
     },
     {
         first: "رمز عبور",
         firstType: "",
         firstOptions: [],
-        firstPHolder: "Mahmood Loves Abdol too!",
+        firstPHolder: "password",
         name: 'password'
     }
 ]
@@ -41,7 +41,7 @@ export default function SignIn(){
 
     useEffect(() => {
         if(localStorage.getItem(TOKEN_SESSION_NAME))
-            navigate('/home');
+            navigate('/myteam');
     }, [])
 
     const [signinData, setSigninData] = useState({
@@ -59,7 +59,7 @@ export default function SignIn(){
     const signin = async () => {
         await postLoginData(signinData);
         if(localStorage.getItem(TOKEN_SESSION_NAME))
-            navigate('/home');
+            navigate('/myteam');
         else
             navigate('/signup');
     }
