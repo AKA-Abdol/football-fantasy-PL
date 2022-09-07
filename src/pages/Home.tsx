@@ -12,7 +12,11 @@ import { getTeamPlayers } from "../services/TeamPlayerServices";
 import { DefaultView } from "../components/SoccerField";
 import { FieldsPlayer } from "../components/SoccerField";
 import { makeWebName } from "../UsefullFunctions";
-import SuccessToast, { ErrorToast, WarningToast } from "../components/Toasts";
+import SuccessToast, { ErrorToast, WarningToast,successText } from "../components/Toasts";
+import {} from "./../components/Toasts"
+import { PlayerToRemoveAtom } from "./../components/SelectedPlayer"
+import { playerSelectAtom } from "./../components/SoccerField"
+
 
 export const isErrorVisibleAtom = atom({
   key: "isErrorVisible",
@@ -88,7 +92,11 @@ const Home = () => {
   const [isErrorVisible, setIsErrorVisible] = useRecoilState(isErrorVisibleAtom);
   const [isSuccessVisible, setIsSuccessVisible] = useRecoilState(isSuccessVisibleAtom);
   const [isWarningVisible, setIsWarningVisible] = useRecoilState(isWarningVisibleAtom);
-  
+  const [playerToRemove, setPlayerToRemove] = useRecoilState(PlayerToRemoveAtom)
+  const [playerSelect, setPlayerSelect] = useRecoilState(playerSelectAtom)
+
+
+
 
   const { data, isLoading, isError } = useQuery("teamPlayers", async () => {
     const players = await getTeamPlayers();
@@ -120,13 +128,14 @@ const Home = () => {
         </div>
 
 
-        
-        {isErrorVisible && <ErrorToast/>}
-        {isSuccessVisible && <SuccessToast/>}
-        {isWarningVisible && <WarningToast/>}
+
+
 
 
       </div>
+      {isErrorVisible && <ErrorToast />}
+      {isSuccessVisible && <SuccessToast message={playerToRemove.length ? "Player Successfully Removed":"Player Successfully Added"}/>}
+      {isWarningVisible && <WarningToast />}
     </div>
 
   )

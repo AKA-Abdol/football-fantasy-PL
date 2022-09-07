@@ -1,4 +1,4 @@
-import { useRecoilState, atom } from "recoil"
+import { useRecoilState, atom, SetterOrUpdater } from "recoil"
 import selectedShirt from "./../images/selected_shirt.png"
 import '../index.css';
 import { PlayerToRemoveAtom } from "./SelectedPlayer"
@@ -15,6 +15,14 @@ export const modalAtom = atom({
     key: 'showModal',
     default: false
 })
+
+export const toastShow = (setShow: SetterOrUpdater<boolean>) => {
+    setShow(true);
+
+    setTimeout(() => {
+        setShow(false);
+    }, 3000);
+}
 
 
 export default function RemoveModal(props: RemoveModalProps) {
@@ -58,11 +66,6 @@ export default function RemoveModal(props: RemoveModalProps) {
 
                                 cancelModal();
 
-                                setIsSuccessVisible(true);
-
-                                setTimeout(() => {
-                                    setIsSuccessVisible(false);
-                                }, 3000);
                             }}
                             className="px-12 py-1 border border-[#3D195B] rounded hover:bg-red-300 hover:bg-opacity-50 hover:text-red-900">لغو</button>
                         <button
@@ -80,6 +83,7 @@ export default function RemoveModal(props: RemoveModalProps) {
                                         return newList
                                     })
                                     removePlayer(playerIndex)
+                                    toastShow(setIsSuccessVisible)
                                     cancelModal()
 
                                 }

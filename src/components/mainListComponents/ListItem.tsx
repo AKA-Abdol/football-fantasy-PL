@@ -6,6 +6,8 @@ import { playerSelectAtom } from "./../SoccerField"
 import { FieldPlayersAtom } from "./../../pages/Home"
 import { addPlayer } from "../../services/MainListServices";
 import { makeWebName } from "../../UsefullFunctions";
+import { toastShow } from "../RemoveModal";
+import {isSuccessVisibleAtom} from "./../../pages/Home"
 
 
 
@@ -14,6 +16,8 @@ const MainListItem = (props: MainListProps) => {
     const [playerList, setPlayerList] = useRecoilState<Array<MainListProps>>(PlayerListAtom)
     const [playerSelect, setPlayerSelect] = useRecoilState(playerSelectAtom)
     const [fieldPlayers, setFieldPlayers] = useRecoilState(FieldPlayersAtom);
+    const [isSuccessVisible, setIsSuccessVisible] = useRecoilState(isSuccessVisibleAtom);
+
 
 
 
@@ -39,6 +43,7 @@ const MainListItem = (props: MainListProps) => {
                         return [];
                     })
                 }
+                toastShow(setIsSuccessVisible)
 
             }}
             className="main-item-list  flex 
