@@ -93,8 +93,6 @@ const MainList = () => {
         return players;
     });
 
-    //the api that get all players...
-
     const handleFilter = (event: React.MouseEvent<HTMLButtonElement>) => {
         const button: HTMLButtonElement = event.currentTarget;
         console.log("buttonName:", button.name);

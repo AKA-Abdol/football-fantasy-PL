@@ -24,6 +24,10 @@ export default function PlayGroundBar(){
 
     const [fieldPlayers, setFieldPlayers] = useRecoilState(FieldPlayersAtom);
 
+
+    const {data, isLoading, isError } = useQuery("credit", async () => await getCredit())
+    
+
     const numOfSelectedPlayerAtom = atom ({
         key: 'numOfPlayer',
         default: 0
@@ -43,13 +47,10 @@ export default function PlayGroundBar(){
 
     const [PGState, setPGState] = useState<StateInterface>({
         playerCount: numOfSelectesPlayer,
-        money: 68.3,
+        money: data,
         selTab: 1
     });
 
-    const res = useQuery("credit", getCredit)
-    console.log("result", res);
-    
     return (
         <div className="px-[4px] flex flex-row w-full bg-white justify-around -mb-4 -z-index-[100]">
             <PlayGroundBarSideTab
@@ -67,7 +68,7 @@ export default function PlayGroundBar(){
                 />
             </div>
             <PlayGroundBarSideTab
-                leftText={Eng2Fa(`${PGState.money}`)}
+                leftText={Eng2Fa(`${data}`)}
                 rightLogo={WalletLogo}
                 rightText='باقی مانده پول'
             />

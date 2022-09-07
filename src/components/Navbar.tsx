@@ -23,7 +23,7 @@ const Navbar = () => {
                             }}
                             className = {`rounded-lg hover:rounded-lg` + 
                             (navbarState === "Award" ? ` bg-gradient-to-l from-detailListBoxColor1 to-detailListBoxColor2 border-none ` : ` bg-base-100 `)}>
-                            <Link to={"/awards"}>جوایز</Link></li>
+                            <Link to={"/Awards"}>جوایز</Link></li>
                         <li 
                             onClick={() => {
                                 setNavbarState("Profile")

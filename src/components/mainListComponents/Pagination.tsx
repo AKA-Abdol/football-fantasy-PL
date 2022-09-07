@@ -13,9 +13,6 @@ const MainListPagination = () => {
     const [currentPage, setCurrentPage] = useRecoilState(currentPageAtom);
     const allPage = useRecoilValue(maxPageAtom);
     console.log("pagination again: ", allPage);
-    // get num of pages
-    // get players from backend
-    // send number of page to back
 
     return (
         <div className="pagination flex flex-row-reverse justify-around p-3 mt-auto">
