@@ -16,18 +16,18 @@ interface PlayerViewBase {
     type: string
 }
 
-interface FieldsPlayer extends PlayerViewBase {
+export interface FieldsPlayer extends PlayerViewBase {
     type: "Field",
     key: number,
     name: string,
-    score: number,
+    score: number
 }
 
-interface DefaultView extends PlayerViewBase {
+export interface DefaultView extends PlayerViewBase {
     type: "Default",
 }
 
-type PlayerView = DefaultView | FieldsPlayer
+export type PlayerView = DefaultView | FieldsPlayer
 
 export const dummyGenerator = () => {
     const basePlayersArray: Array<PlayerView> = []

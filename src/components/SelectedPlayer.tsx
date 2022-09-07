@@ -21,16 +21,16 @@ export const PlayerToRemoveAtom = atom({
 
 export const filterSetter = (pose: number, filterSet: SetterOrUpdater<"All" | "Goalkeepers" | "Defenders" | "Midfielders" | "Forwards">) => {
     console.log(pose)
-    if (1 <= pose && pose < 3) {
+    if (0 <= pose && pose < 2) {
         filterSet("Goalkeepers")
     }
-    if (3 <= pose && pose < 8) {
+    if (2 <= pose && pose < 7) {
         filterSet("Defenders")
     }
-    if (8 <= pose && pose < 13) {
+    if (7 <= pose && pose < 12) {
         filterSet("Midfielders")
     }
-    if (13 <= pose && pose < 16) {
+    if (12 <= pose && pose < 15) {
         filterSet("Forwards")
     }
 }

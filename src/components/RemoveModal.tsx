@@ -1,8 +1,10 @@
-import { useRecoilState,atom } from "recoil"
+import { useRecoilState, atom } from "recoil"
 import selectedShirt from "./../images/selected_shirt.png"
 import '../index.css';
-import {PlayerToRemoveAtom} from "./SelectedPlayer"
+import { PlayerToRemoveAtom } from "./SelectedPlayer"
 import { FieldPlayersAtom } from "./../pages/Home"
+import { removePlayer } from "./../services/MainListServices"
+import { isErrorVisibleAtom, isWarningVisibleAtom, isSuccessVisibleAtom } from "./../pages/Home"
 
 
 interface RemoveModalProps {
@@ -17,14 +19,17 @@ export const modalAtom = atom({
 
 export default function RemoveModal(props: RemoveModalProps) {
 
-    const [showModal,setShowModal] = useRecoilState(modalAtom)
+    const [showModal, setShowModal] = useRecoilState(modalAtom)
     const [playerToRemove, setPlayerToRemove] = useRecoilState(PlayerToRemoveAtom)
     const [fieldPlayers, setFieldPlayers] = useRecoilState(FieldPlayersAtom);
+    const [isErrorVisible, setIsErrorVisible] = useRecoilState(isErrorVisibleAtom);
+    const [isSuccessVisible, setIsSuccessVisible] = useRecoilState(isSuccessVisibleAtom);
+    const [isWarningVisible, setIsWarningVisible] = useRecoilState(isWarningVisibleAtom);
 
 
 
     const cancelModal = () => {
-        setShowModal (false)
+        setShowModal(false)
         setPlayerToRemove(() => {
             return []
         })
@@ -32,13 +37,13 @@ export default function RemoveModal(props: RemoveModalProps) {
 
     return (
         <div
-        onClick={cancelModal}
-        className={showModal ? "theme-font bg-black h-[1700px] bg-opacity-50 absolute z-[10000] inset-0 flex justify-center items-center" : "hidden"}>
+            onClick={cancelModal}
+            className={showModal ? "theme-font bg-black h-[1700px] bg-opacity-50 absolute z-[10000] inset-0 flex justify-center items-center" : "hidden"}>
             <div
-            onClick={(event) =>{
-                event.stopPropagation();
-            }}
-            className="bg-white w-[36rem] rounded-lg shadow-xl text-gray-800 pb-8">
+                onClick={(event) => {
+                    event.stopPropagation();
+                }}
+                className="bg-white w-[36rem] rounded-lg shadow-xl text-gray-800 pb-8">
                 <div className="bg-[#3D195B] py-2 px-3 flex justify-center items-center rounded-t-lg">
                     <h4 className="text-lg font-bold text-[#00FF87]">حذف بازیکن</h4>
                 </div>
@@ -49,27 +54,38 @@ export default function RemoveModal(props: RemoveModalProps) {
                     </div>
                     <div className="mt-3 flex justify-center space-x-4">
                         <button
-                         onClick={cancelModal}
-                         className="px-12 py-1 border border-[#3D195B] rounded hover:bg-red-300 hover:bg-opacity-50 hover:text-red-900">لغو</button>
+                            onClick={() => {
+
+                                cancelModal();
+
+                                setIsSuccessVisible(true);
+
+                                setTimeout(() => {
+                                    setIsSuccessVisible(false);
+                                }, 3000);
+                            }}
+                            className="px-12 py-1 border border-[#3D195B] rounded hover:bg-red-300 hover:bg-opacity-50 hover:text-red-900">لغو</button>
                         <button
-                         className="px-12 py-1 bg-red-800 text-gray-200 hover:bg-red-600 rounded"
-                         onClick={(event) => {
-                            event.stopPropagation()
-                            if (playerToRemove.length) {
-                                const playerIndex = playerToRemove[0] - 1;
-                                setFieldPlayers(prevList => {
-                                    const newList = [...prevList]
-                                    newList[playerIndex] = {
-                                        type: "Default",
-                                        pose:playerIndex + 1
-                                    }
-                                    return newList
-                                })
-                                cancelModal()
-                            }
-            
-                        }}
-                         >حذف</button>
+                            className="px-12 py-1 bg-red-800 text-gray-200 hover:bg-red-600 rounded"
+                            onClick={(event) => {
+                                event.stopPropagation()
+                                if (playerToRemove.length) {
+                                    const playerIndex = playerToRemove[0];
+                                    setFieldPlayers(prevList => {
+                                        const newList = [...prevList]
+                                        newList[playerIndex] = {
+                                            type: "Default",
+                                            pose: playerIndex
+                                        }
+                                        return newList
+                                    })
+                                    removePlayer(playerIndex)
+                                    cancelModal()
+
+                                }
+
+                            }}
+                        >حذف</button>
                     </div>
                 </div>
             </div>
