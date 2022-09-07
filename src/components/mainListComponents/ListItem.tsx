@@ -4,6 +4,8 @@ import { MainListProps } from "./MainPlayerList";
 import { PlayerListAtom } from "./MainPlayerList"
 import { playerSelectAtom } from "./../SoccerField"
 import { FieldPlayersAtom } from "./../../pages/Home"
+import { addPlayer } from "../../services/MainListServices";
+import { makeWebName } from "../../UsefullFunctions";
 
 
 
@@ -17,16 +19,18 @@ const MainListItem = (props: MainListProps) => {
 
     return (
         <div
-            onClick={() => {
-                if (playerSelect.length) {
-                    const playerIndex = playerSelect[0] - 1;
+            onClick={async () => {
+                const playerIndex = playerSelect[0];
+                console.log("selPlayerIndex:", playerIndex);
+                const is_added = await addPlayer(playerIndex, props.id);
+                if (playerSelect.length && is_added) {
                     setFieldPlayers(prevList => {
                         const newList = [...prevList]
                         newList[playerIndex] = {
                             type: "Field",
-                            key: props.pose -1,
-                            pose:playerIndex + 1,
-                            name: props.name,
+                            key: props.pose,
+                            pose:playerIndex,
+                            name: makeWebName(props.name),
                             score: props.playerStats.score,
                         }
                         return newList

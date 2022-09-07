@@ -10,6 +10,7 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
+// process.env.SERVER_URL
 const queryClient = new QueryClient();
 
 root.render(
