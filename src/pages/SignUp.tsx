@@ -71,7 +71,7 @@ export default function SignUp(){
 
     useEffect(() => {
         if(localStorage.getItem(TOKEN_SESSION_NAME))
-            navigate('/home');
+            navigate('/myteam');
     }, [])
 
     const [signupData, setSignupData] = useState({
