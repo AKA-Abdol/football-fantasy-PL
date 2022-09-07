@@ -41,7 +41,7 @@ export default function SignIn(){
 
     useEffect(() => {
         if(localStorage.getItem(TOKEN_SESSION_NAME))
-            navigate('/');
+            navigate('/home');
     }, [])
 
     const [signinData, setSigninData] = useState({
@@ -59,7 +59,7 @@ export default function SignIn(){
     const signin = async () => {
         await postLoginData(signinData);
         if(localStorage.getItem(TOKEN_SESSION_NAME))
-            navigate('/');
+            navigate('/home');
         else
             navigate('/signup');
     }

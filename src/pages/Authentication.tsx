@@ -5,7 +5,10 @@ import SelectField from "../components/SignComponents/SelectField";
 import LeftLine from "../images/Line1.png"
 import RightLine from "../images/Line2.png"
 import PLWhiteLogo from "../images/PLWhiteLogo.png";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { EMAIL_SESSION } from './SignUp';
+import { confirmSignup, TOKEN_SESSION_NAME } from "../services/SignServices";
+import { useNavigate } from "react-router-dom";
 
 interface RowFieldText{
     first: string,
@@ -29,12 +32,26 @@ const fields: Array<RowFieldText> = [
 
 export default function Authentication(){
 
-    const [authcode, setAuthcode] = useState<string>('');
+    const [authCode, setAuthCode] = useState<string>('');
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if(localStorage.getItem(TOKEN_SESSION_NAME))
+            navigate('/home');
+    }, [])
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
-        setAuthcode(event.target.value)
+        setAuthCode(event.target.value)
     }
-    console.log(authcode);
+    console.log(authCode);
+
+    const verifyNnavigate = useCallback( async () => {
+        await confirmSignup({
+            email: localStorage.getItem(EMAIL_SESSION),
+            code: parseInt(authCode)
+        });
+        navigate('/home');
+    }, [authCode]);
 
     return (
         <div className="flex flex-row h-screen">
@@ -82,7 +99,7 @@ export default function Authentication(){
                     })
                 }
                 <div className="flex flex-row w-full px-3 pt-16">
-                    <button className="btn bg-sign w-full text-xl font-semibold">
+                    <button onClick={verifyNnavigate} className="btn bg-sign w-full text-xl font-semibold">
                         تایید ثبت نام
                     </button>
                 </div>
