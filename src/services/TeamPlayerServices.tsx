@@ -1,7 +1,7 @@
 import http from "./http";
 import { TOKEN_SESSION_NAME } from "./SignServices";
 
-export const TEAM_PREFIX = '/team/';
+export const TEAM_PREFIX = '/team';
 
 export const getTeamPlayers = async () => {
     const response = await http.get(TEAM_PREFIX, {

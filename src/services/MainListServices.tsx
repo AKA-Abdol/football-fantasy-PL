@@ -2,8 +2,9 @@ import http from "./http";
 import { TEAM_PREFIX } from "./TeamPlayerServices";
 import { TOKEN_SESSION_NAME } from "./SignServices";
 
-const PLAYER_PREFIX = "/player/";
-const ALL_PLAYERS = PLAYER_PREFIX + "all";
+const PLAYER_PREFIX = "/player";
+const ALL_PLAYERS = PLAYER_PREFIX + "/all";
+const TEAM_PLAYER_PREFIX = TEAM_PREFIX + PLAYER_PREFIX;
 
 
 export const getPlayers = async (query: string) => {
@@ -19,7 +20,7 @@ export const addPlayer = async (pose: number, id: number) => {
         player_id: id
     }
     console.log(body);
-    const response = await http.post(TEAM_PREFIX, body, {
+    const response = await http.post(TEAM_PLAYER_PREFIX, body, {
         headers:{
             Authorization: `Abdol ${localStorage.getItem(TOKEN_SESSION_NAME)}`
         }
@@ -33,7 +34,7 @@ export const removePlayer = async (pose: number) => {
         position_num: pose,
     }
     console.log(body);
-    const response = await http.delete(`${TEAM_PREFIX}?position_num=${pose}`, {
+    const response = await http.delete(`${TEAM_PLAYER_PREFIX}?position_num=${pose}`, {
         headers:{
             Authorization: `Ali ${localStorage.getItem(TOKEN_SESSION_NAME)}`
         }
