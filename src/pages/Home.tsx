@@ -6,13 +6,15 @@ import MainList from "../components/mainListComponents/MainPlayerList";
 import RemoveModal from './../components/RemoveModal';
 import DateBar from "../components/DateBar";
 import { dummyGenerator } from './../components/SoccerField'
-import { atom, useRecoilState } from "recoil";
+import { atom, useRecoilState, useRecoilValue } from "recoil";
 import { useQuery } from "react-query";
 import { getTeamPlayers } from "../services/TeamPlayerServices";
 import { DefaultView } from "../components/SoccerField";
 import { FieldsPlayer } from "../components/SoccerField";
 import { makeWebName } from "../UsefullFunctions";
 import SuccessToast, { ErrorToast, WarningToast } from "../components/Toasts";
+import List from "../components/teamList/List";
+import { PlaygroundTabAtom } from "../components/PageToggleTab";
 
 export const isErrorVisibleAtom = atom({
   key: "isErrorVisible",
@@ -88,7 +90,7 @@ const Home = () => {
   const [isErrorVisible, setIsErrorVisible] = useRecoilState(isErrorVisibleAtom);
   const [isSuccessVisible, setIsSuccessVisible] = useRecoilState(isSuccessVisibleAtom);
   const [isWarningVisible, setIsWarningVisible] = useRecoilState(isWarningVisibleAtom);
-  
+  const selTab = useRecoilValue(PlaygroundTabAtom);
 
   const { data, isLoading, isError } = useQuery("teamPlayers", async () => {
     const players = await getTeamPlayers();
@@ -112,9 +114,12 @@ const Home = () => {
           <div className='soccer-field-all w-full px-4 sm:max-w-screen-md flex flex-col items-center'>
             <DateBar />
             <PlayGroundBar />
+            { selTab === 1 ?
             <SoccerField
               props={fieldPlayers}
-            />
+            /> :
+            <List/>
+            }
           </div>
           <MainList />
         </div>

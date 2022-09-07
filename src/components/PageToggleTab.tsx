@@ -1,31 +1,31 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
+import { atom, useRecoilState } from "recoil";
 import "../index.css";
 
-interface ToggleTabProps {
-  currentTab: number;
-  setSelTab: any;
-}
+export const PlaygroundTabAtom = atom({
+  key: 'PGTab',
+  default: 1
+});
 
-export default function PToggleTab({ currentTab, setSelTab }: ToggleTabProps) {
+export default function PToggleTab() {
+
+  const [selTab, setSelTab] = useRecoilState(PlaygroundTabAtom)
+
   return (
     <div className="tabs tabs-boxed h-1/3 w-5/6 justify-center bg-gray-100 theme-font -mt-1 -z-index-[50]">
       <a
         className={`tab px-1 w-1/2 rounded-l-lg text-[0.6rem] text-black hover:font-bold ${
-          currentTab === 0 ? "bg-white font-bold" : null
+          selTab === 0 ? "bg-white font-bold" : null
         }`}
-        onClick={() =>
-          setSelTab((pastState: any) => ({ ...pastState, selTab: 0 }))
-        }
+        onClick={() => setSelTab(0)}
       >
         مشاهده لیست
       </a>
       <a
         className={`tab px-1 w-1/2 rounded-r-lg text-[0.6rem] text-black hover:font-bold ${
-          currentTab === 1 ? "bg-white font-bold" : null
+          selTab === 1 ? "bg-white font-bold" : null
         }`}
-        onClick={() =>
-          setSelTab((pastState: any) => ({ ...pastState, selTab: 1 }))
-        }
+        onClick={() => setSelTab(1)}
       >
         شماتیک ترکیب
       </a>

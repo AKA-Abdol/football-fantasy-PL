@@ -1,4 +1,6 @@
 import React from "react";
+import { useRecoilState } from "recoil";
+import { FieldPlayersAtom } from "../../pages/Home";
 import Cover from "./Cover";
 import ListItem from "./ListItem";
 
@@ -45,6 +47,9 @@ const team: ListProps[] = [
 
 const List = () => {
 
+    const [fieldPlayers, setFieldPlayers ] = useRecoilState(FieldPlayersAtom);
+
+    console.log("team", fieldPlayers)
     
     return (
         <div className="flex h-full rounded-2xl">

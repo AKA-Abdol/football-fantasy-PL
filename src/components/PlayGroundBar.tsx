@@ -7,23 +7,22 @@ import DateBar from './DateBar';
 import PlayerLogo from '../images/user-octagon.svg';
 import WalletLogo from '../images/empty-wallet.svg';
 import RahnemaEngLogo from '../images/rahnema-college-logo-eng.svg'
-import { atom, useRecoilState } from 'recoil';
+import { atom, useRecoilState, useRecoilValue } from 'recoil';
 import { FieldPlayersAtom } from '../pages/Home';
 import { useQuery } from 'react-query';
 import { getCredit } from '../services/CreditServices';
+import { PlaygroundTabAtom } from './PageToggleTab';
 
 const MAX_PLAYER = 15;
 
 interface StateInterface{
     playerCount: number,
-    money: number,
-    selTab: number
+    money: number
 };
 
 export default function PlayGroundBar(){
 
-    const [fieldPlayers, setFieldPlayers] = useRecoilState(FieldPlayersAtom);
-
+    const fieldPlayers = useRecoilValue(FieldPlayersAtom);
 
     const {data, isLoading, isError } = useQuery(["credit", fieldPlayers], async () => await getCredit())
     
@@ -45,11 +44,6 @@ export default function PlayGroundBar(){
         playerNumSetter();
     },[fieldPlayers])
 
-    const [PGState, setPGState] = useState<StateInterface>({
-        playerCount: numOfSelectesPlayer,
-        money: data,
-        selTab: 1
-    });
 
     return (
         <div className="px-[4px] flex flex-row w-full bg-white justify-around -mb-4 -z-index-[100]">
@@ -62,10 +56,7 @@ export default function PlayGroundBar(){
                 <div className='bg-white sw-1/4 h-1/2 rounded-lg box-shadow-sm -z-index-[100]'>
                     <img className='mb-5 -mt-1' src={RahnemaEngLogo} alt='Rahnema Logo'/>
                 </div>
-                <PToggleTab
-                    currentTab={PGState.selTab}
-                    setSelTab={setPGState}
-                />
+                <PToggleTab/>
             </div>
             <PlayGroundBarSideTab
                 leftText={Eng2Fa(`${data / 10}`)}
