@@ -32,6 +32,7 @@ const MainListItem = (props: MainListProps) => {
                             pose:playerIndex,
                             name: makeWebName(props.name),
                             score: props.playerStats.score,
+                            price: props.playerStats.price
                         }
                         return newList
                     })

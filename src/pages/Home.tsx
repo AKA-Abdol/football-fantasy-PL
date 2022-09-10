@@ -69,7 +69,8 @@ const dbPlayerToFieldsPlayer = (dbPlayer: PlayerProps) => {
     pose: dbPlayer.positionNum,
     name: makeWebName(`${dbPlayer.secondName}`),
     score: dbPlayer.playerStats.score,
-    key: dbPlayer.positionNum
+    key: dbPlayer.positionNum,
+    price: dbPlayer.playerStats.price
   }
   return newFieldsPlayer;
 }
@@ -98,7 +99,6 @@ const Home = () => {
     setFieldPlayers(addPlayersToField(players));
     return players;
   });
-  const dadash = "ajab"
 
 
   return (

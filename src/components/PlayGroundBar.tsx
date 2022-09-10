@@ -25,6 +25,11 @@ export default function PlayGroundBar(){
     const fieldPlayers = useRecoilValue(FieldPlayersAtom);
 
     const {data, isLoading, isError } = useQuery(["credit", fieldPlayers], async () => await getCredit())
+
+    let credit: any;
+
+    isError ? console.log("credit data error") : 
+        (isLoading ? credit = "loading..." : credit = data);
     
 
     const numOfSelectedPlayerAtom = atom ({
@@ -59,7 +64,7 @@ export default function PlayGroundBar(){
                 <PToggleTab/>
             </div>
             <PlayGroundBarSideTab
-                leftText={Eng2Fa(`${data / 10}`)}
+                leftText={Eng2Fa(`${credit / 10}`)}
                 rightLogo={WalletLogo}
                 rightText='باقی مانده پول'
             />
