@@ -8,14 +8,6 @@ enum Role {
     Forwards
 }
 
-interface ListProps{
-    name: string,
-    club: string,
-    role: string,
-    point: number,
-    price: number 
-}
-
 interface Detail {
     players: PlayerView[],
     title: string
