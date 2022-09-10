@@ -15,11 +15,6 @@ import { PlaygroundTabAtom } from './PageToggleTab';
 
 const MAX_PLAYER = 15;
 
-interface StateInterface{
-    playerCount: number,
-    money: number
-};
-
 export default function PlayGroundBar(){
 
     const fieldPlayers = useRecoilValue(FieldPlayersAtom);
