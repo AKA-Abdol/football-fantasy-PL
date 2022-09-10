@@ -12,23 +12,23 @@ import { getTeamPlayers } from "../services/TeamPlayerServices";
 import { DefaultView } from "../components/SoccerField";
 import { FieldsPlayer } from "../components/SoccerField";
 import { makeWebName } from "../UsefullFunctions";
-import SuccessToast, { ErrorToast, WarningToast,successText } from "../components/Toasts";
-import {} from "./../components/Toasts"
+import SuccessToast, { ErrorToast, WarningToast, successText } from "../components/Toasts";
+import { } from "./../components/Toasts"
 import { PlayerToRemoveAtom } from "./../components/SelectedPlayer"
 import { playerSelectAtom } from "./../components/SoccerField"
 
 
 export const isErrorVisibleAtom = atom({
   key: "isErrorVisible",
-  default: {active:false, msg:""}
+  default: { active: false, msg: "" }
 })
 export const isSuccessVisibleAtom = atom({
   key: "isSuccessVisible",
-  default: {active:false, msg:""}
+  default: { active: false, msg: "" }
 })
 export const isWarningVisibleAtom = atom({
   key: "isWarningVisible",
-  default: {active:false, msg:""}
+  default: { active: false, msg: "" }
 })
 
 const dummyData = dummyGenerator();
@@ -111,28 +111,29 @@ const Home = () => {
     return existed_player.name ?? '';
   }
 
-   
+
   return (
     <div className="relative">
       <RemoveModal
-        playerName={playerToRemove.length ? getPlayerName(fieldPlayers[playerToRemove[0]]): ""}
+        playerName={playerToRemove.length ? getPlayerName(fieldPlayers[playerToRemove[0]]) : ""}
       />
       <div className="flex flex-col h-screen w-full theme-font items-center">
         <div className='Header w-full'>
           <PageHeader />
         </div>
-        <div className='Body w-full flex flex-col items-center justify-center lg:flex-row mt-16 lg:space-x-6'>
-          <div>
-            
+        <div className='Body w-full flex flex-col items-center justify-center mt-16 lg:space-x-6'>
+          <DateBar />
+          <div className="flex flex-col px-2 w-full lg:w-2/3 lg:flex-row">
+            <div className='soccer-field-all w-full px-4 sm:max-w-screen-md flex flex-col items-center'>
+
+              <PlayGroundBar />
+              <SoccerField
+                props={fieldPlayers}
+              />
+            </div>
+            <MainList />
           </div>
-          <div className='soccer-field-all w-full px-4 sm:max-w-screen-md flex flex-col items-center'>
-            <DateBar />
-            <PlayGroundBar />
-            <SoccerField
-              props={fieldPlayers}
-            />
-          </div>
-          <MainList />
+
         </div>
 
 
@@ -142,7 +143,7 @@ const Home = () => {
 
       </div>
       {isErrorVisible.active && <ErrorToast message={isErrorVisible.msg} />}
-      {isSuccessVisible.active && <SuccessToast message={isSuccessVisible.msg}/>}
+      {isSuccessVisible.active && <SuccessToast message={isSuccessVisible.msg} />}
       {isWarningVisible.active && <WarningToast />}
     </div>
 
