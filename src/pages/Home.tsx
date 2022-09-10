@@ -20,15 +20,15 @@ import { playerSelectAtom } from "./../components/SoccerField"
 
 export const isErrorVisibleAtom = atom({
   key: "isErrorVisible",
-  default: false
+  default: {active:false, msg:""}
 })
 export const isSuccessVisibleAtom = atom({
   key: "isSuccessVisible",
-  default: false
+  default: {active:false, msg:""}
 })
 export const isWarningVisibleAtom = atom({
   key: "isWarningVisible",
-  default: false
+  default: {active:false, msg:""}
 })
 
 const dummyData = dummyGenerator();
@@ -104,19 +104,27 @@ const Home = () => {
     setFieldPlayers(addPlayersToField(players));
     return players;
   });
-  const dadash = "ajab"
 
+  const getPlayerName = (player: PlayerView) => {
+    console.log("type:", player.type)
+    const existed_player = player as FieldsPlayer;
+    return existed_player.name ?? '';
+  }
 
+   
   return (
     <div className="relative">
       <RemoveModal
-        playerName='bagher'
+        playerName={playerToRemove.length ? getPlayerName(fieldPlayers[playerToRemove[0]]): ""}
       />
       <div className="flex flex-col h-screen w-full theme-font items-center">
         <div className='Header w-full'>
           <PageHeader />
         </div>
         <div className='Body w-full flex flex-col items-center justify-center lg:flex-row mt-16 lg:space-x-6'>
+          <div>
+            
+          </div>
           <div className='soccer-field-all w-full px-4 sm:max-w-screen-md flex flex-col items-center'>
             <DateBar />
             <PlayGroundBar />
@@ -133,9 +141,9 @@ const Home = () => {
 
 
       </div>
-      {isErrorVisible && <ErrorToast />}
-      {isSuccessVisible && <SuccessToast message={playerToRemove.length ? "Player Successfully Removed":"Player Successfully Added"}/>}
-      {isWarningVisible && <WarningToast />}
+      {isErrorVisible.active && <ErrorToast message={isErrorVisible.msg} />}
+      {isSuccessVisible.active && <SuccessToast message={isSuccessVisible.msg}/>}
+      {isWarningVisible.active && <WarningToast />}
     </div>
 
   )

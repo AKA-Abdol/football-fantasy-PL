@@ -16,11 +16,20 @@ export const modalAtom = atom({
     default: false
 })
 
-export const toastShow = (setShow: SetterOrUpdater<boolean>) => {
-    setShow(true);
+export const toastShow = (setShow: SetterOrUpdater<{
+    active: boolean;
+    msg: string;
+}>, message:string) => {
+    setShow(() => ({
+        active:true,
+        msg: message
+    }));
 
     setTimeout(() => {
-        setShow(false);
+        setShow({
+            active: false,
+            msg:""
+        });
     }, 3000);
 }
 
@@ -82,8 +91,9 @@ export default function RemoveModal(props: RemoveModalProps) {
                                         }
                                         return newList
                                     })
+                                    toastShow(setIsSuccessVisible,"Player Successfully Removed")
+                                    console.log("length", playerToRemove.length)
                                     removePlayer(playerIndex)
-                                    toastShow(setIsSuccessVisible)
                                     cancelModal()
 
                                 }
