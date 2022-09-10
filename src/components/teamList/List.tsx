@@ -17,15 +17,15 @@ const List = () => {
     
 
     return (
-        <div className="flex h-full rounded-2xl w-full z-50 bg-white relative">
-            <div className="">
+        <div className="flex h-full rounded-2xl w-full z-50relative px-1 rounded-tl-lg">
+            <div className="w-1/2">
                 <Cover name = "abbas" />
             </div>
             <div className="list content-center w-full rounded-r-2xl shadow-2xl h-full" dir="rtl">
-                <div className="border-b-2 flex justify-end ">
+                <div className="border-b-2 flex justify-end  bg-white rounded-tr-2xl">
                     <div className="flex flex-row justify-between mx-10 
                     text-right text-fontGrey text-xs mb-2
-                    p-2 w-1/4 z-[1000] relative">
+                    p-2 w-1/4 z-[1000] relative ">
                         <div className="flex items-center">
                             <p>عملکرد</p>
                         </div>
