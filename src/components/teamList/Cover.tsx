@@ -17,7 +17,7 @@ const Cover = (name : Name) => {
             <div className="league flex justify-center p-4 z-50">
                 <img src={League} alt="" />
             </div>
-            <div className="primary">
+            <div className="primary mt-auto">
                 <img src={Primary} alt="" />
             </div>
         </div>
