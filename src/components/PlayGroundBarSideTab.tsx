@@ -10,6 +10,7 @@ export default function PGBSideTab({leftText, rightLogo, rightText}: sideTabProp
     return (
         <div className='flex flex-row w-1/3 theme-color rounded-t-2xl justify-around items-center py-3'>
             <div className='player-numbers'>
+                
                 <p className='text-2xl theme-font font-bold'> {leftText} </p>
             </div>
             <div className='flex flex-col items-center'>
