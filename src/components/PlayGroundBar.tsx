@@ -50,7 +50,7 @@ export default function PlayGroundBar(){
                 />
             </div>
             <div className='flex flex-col w-[48%] lg:mr-auto lg:flex-row lg:w-full'>
-                <div className='between-logo min-w-[170px] flex flex-col items-center pl-3 lg:mx-auto -ml-[250px]'>
+                <div className='between-logo min-w-[170px] flex flex-col items-center pl-3 lg:mx-auto -ml-[190px]'>
                     <div className='bg-white flex items-center justify-center sw-1/4 h-[40%] rounded-lg box-shadow-sm -z-index-[100]'>
                         <img className='py-4 px-1 w-[90%]' src={RahnemaEngLogo} alt='Rahnema Logo' />
                     </div>
