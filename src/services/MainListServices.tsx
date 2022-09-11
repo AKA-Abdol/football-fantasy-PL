@@ -8,6 +8,10 @@ import { atom, useRecoilState } from "recoil";
 const PLAYER_PREFIX = "/player";
 const ALL_PLAYERS = PLAYER_PREFIX + "/all";
 const TEAM_PLAYER_PREFIX = TEAM_PREFIX + PLAYER_PREFIX;
+export const ErrorMessageAtom = atom({
+    key: 'ErrorMessage',
+    default: 'خطایی رخ داده است'
+})
 
 
 export const getPlayers = async (query: string) => {
@@ -15,10 +19,7 @@ export const getPlayers = async (query: string) => {
     const data = response.data.players;
     return [data.players, data.count];
 }
-export const ErrorMessageAtom = atom({
-    key: 'ErrorMessage',
-    default: 'خطایی رخ داده است'
-})
+
 
 
 export const addPlayer = async (pose: number, id: number) => {

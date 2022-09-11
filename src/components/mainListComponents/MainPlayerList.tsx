@@ -81,16 +81,17 @@ const MainList = () => {
     const [currentPage, setCurrentPage] = useRecoilState(currentPageAtom);
     const [filter, setFilter] = useRecoilState(FilterAtom);
     const setMaxPage = useSetRecoilState(maxPageAtom);
+    const [maxPlayers,setMaxPlayers] = useState(0);
 
     const make_query = useCallback( () => {
         let query = '?';
         query += `page=${currentPage}&num=${NUM_OF_PLAYERS}&search=${searchKey}&role=${filter}`;
         return query;
-    }, [currentPage, searchKey, filter]);
+    }, [currentPage, searchKey, filter])
 
     const {data, isLoading, isError} = useQuery(['playersList', currentPage, searchKey, filter], async () => {
         const [ players, maxPlayer ] = await getPlayers(make_query());
-        
+        setMaxPlayers(() => maxPlayer)
         setMaxPage(Math.ceil(maxPlayer / NUM_OF_PLAYERS));
         return players;
     });
@@ -122,7 +123,9 @@ const MainList = () => {
                 }
 
             </div >
-            <DetailBox />
+            <DetailBox
+                number={maxPlayers.toString()}
+            />
             <div className="flex flex-row-reverse justify-between mx-5 
                 text-right text-fontGrey text-xs mb-2">
                 <p className="w-16">نام بازیکن</p>
