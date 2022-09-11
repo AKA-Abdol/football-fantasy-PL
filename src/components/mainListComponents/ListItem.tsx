@@ -4,7 +4,7 @@ import { MainListProps } from "./MainPlayerList";
 import { PlayerListAtom } from "./MainPlayerList"
 import { playerSelectAtom } from "./../SoccerField"
 import { FieldPlayersAtom } from "./../../pages/Home"
-import { addPlayer } from "../../services/MainListServices";
+import { addPlayer, ErrorMessageAtom } from "../../services/MainListServices";
 import { makeWebName } from "../../UsefullFunctions";
 import { toastShow } from "../RemoveModal";
 import { isSuccessVisibleAtom,isErrorVisibleAtom } from "./../../pages/Home"
@@ -18,6 +18,8 @@ const MainListItem = (props: MainListProps) => {
     const [fieldPlayers, setFieldPlayers] = useRecoilState(FieldPlayersAtom);
     const [isSuccessVisible, setIsSuccessVisible] = useRecoilState(isSuccessVisibleAtom);
     const [isErrorVisible, setIsErrorVisible] = useRecoilState(isErrorVisibleAtom);
+    const [errorMessage, setErrorMessage] = useRecoilState(ErrorMessageAtom)
+
 
 
 
@@ -29,7 +31,7 @@ const MainListItem = (props: MainListProps) => {
                 const playerIndex = playerSelect[0];
                 console.log("selPlayerIndex:", playerIndex);
                 const is_added = await addPlayer(playerIndex, props.id);
-                if (playerSelect.length && is_added) {
+                if (playerSelect.length && is_added?.hasResolved) {
                     setFieldPlayers(prevList => {
                         const newList = [...prevList]
                         newList[playerIndex] = {
@@ -46,9 +48,9 @@ const MainListItem = (props: MainListProps) => {
                         return [];
                     })
                     toastShow(setIsSuccessVisible, "بازیکن با موفقیت اضافه شد")
-                } else if (playerSelect.length && !is_added) {
+                } else if (playerSelect.length && !is_added?.hasResolved) {
                     console.log("isAdd false shod")
-                    toastShow(setIsErrorVisible,"مشکلی رخ داد")
+                    toastShow(setIsErrorVisible,is_added?.message ?? '')
                 }
                 
 

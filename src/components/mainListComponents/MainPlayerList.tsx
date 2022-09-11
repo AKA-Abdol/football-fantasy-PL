@@ -90,6 +90,7 @@ const MainList = () => {
 
     const {data, isLoading, isError} = useQuery(['playersList', currentPage, searchKey, filter], async () => {
         const [ players, maxPlayer ] = await getPlayers(make_query());
+        
         setMaxPage(Math.ceil(maxPlayer / NUM_OF_PLAYERS));
         return players;
     });
