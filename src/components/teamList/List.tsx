@@ -17,7 +17,7 @@ const List = () => {
     
 
     return (
-        <div className="flex h-full rounded-2xl w-full z-50relative px-1 rounded-tl-lg">
+        <div className="flex h-full rounded-2xl w-full z-50 relative px-1 rounded-tl-lg">
             <div className="w-1/2">
                 <Cover name = "abbas" />
             </div>
