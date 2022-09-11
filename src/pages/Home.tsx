@@ -12,19 +12,23 @@ import { getTeamPlayers } from "../services/TeamPlayerServices";
 import { DefaultView } from "../components/SoccerField";
 import { FieldsPlayer } from "../components/SoccerField";
 import { makeWebName } from "../UsefullFunctions";
-import SuccessToast, { ErrorToast, WarningToast } from "../components/Toasts";
+import SuccessToast, { ErrorToast, WarningToast, successText } from "../components/Toasts";
+import { } from "./../components/Toasts"
+import { PlayerToRemoveAtom } from "./../components/SelectedPlayer"
+import { playerSelectAtom } from "./../components/SoccerField"
+
 
 export const isErrorVisibleAtom = atom({
   key: "isErrorVisible",
-  default: false
+  default: { active: false, msg: "" }
 })
 export const isSuccessVisibleAtom = atom({
   key: "isSuccessVisible",
-  default: false
+  default: { active: false, msg: "" }
 })
 export const isWarningVisibleAtom = atom({
   key: "isWarningVisible",
-  default: false
+  default: { active: false, msg: "" }
 })
 
 const dummyData = dummyGenerator();
@@ -88,7 +92,11 @@ const Home = () => {
   const [isErrorVisible, setIsErrorVisible] = useRecoilState(isErrorVisibleAtom);
   const [isSuccessVisible, setIsSuccessVisible] = useRecoilState(isSuccessVisibleAtom);
   const [isWarningVisible, setIsWarningVisible] = useRecoilState(isWarningVisibleAtom);
-  
+  const [playerToRemove, setPlayerToRemove] = useRecoilState(PlayerToRemoveAtom)
+  const [playerSelect, setPlayerSelect] = useRecoilState(playerSelectAtom)
+
+
+
 
   const { data, isLoading, isError } = useQuery("teamPlayers", async () => {
     const players = await getTeamPlayers();
@@ -96,37 +104,47 @@ const Home = () => {
     setFieldPlayers(addPlayersToField(players));
     return players;
   });
-  const dadash = "ajab"
+
+  const getPlayerName = (player: PlayerView) => {
+    console.log("type:", player.type)
+    const existed_player = player as FieldsPlayer;
+    return existed_player.name ?? '';
+  }
 
 
   return (
     <div className="relative">
       <RemoveModal
-        playerName='bagher'
+        playerName={playerToRemove.length ? getPlayerName(fieldPlayers[playerToRemove[0]]) : ""}
       />
       <div className="flex flex-col h-screen w-full theme-font items-center">
         <div className='Header w-full'>
           <PageHeader />
         </div>
-        <div className='Body w-full flex flex-col items-center justify-center lg:flex-row mt-16 lg:space-x-6'>
-          <div className='soccer-field-all w-full px-4 sm:max-w-screen-md flex flex-col items-center'>
-            <DateBar />
-            <PlayGroundBar />
-            <SoccerField
-              props={fieldPlayers}
-            />
+        <div className='Body w-full flex flex-col items-center justify-center mt-16 lg:space-x-6'>
+          <DateBar />
+          <div className="flex flex-col px-2 w-full lg:w-2/3 lg:flex-row">
+            <div className='soccer-field-all w-full px-4 sm:max-w-screen-md flex flex-col items-center'>
+
+              <PlayGroundBar />
+              <SoccerField
+                props={fieldPlayers}
+              />
+            </div>
+            <MainList />
           </div>
-          <MainList />
+
         </div>
 
 
-        
-        {isErrorVisible && <ErrorToast/>}
-        {isSuccessVisible && <SuccessToast/>}
-        {isWarningVisible && <WarningToast/>}
+
+
 
 
       </div>
+      {isErrorVisible.active && <ErrorToast message={isErrorVisible.msg} />}
+      {isSuccessVisible.active && <SuccessToast message={isSuccessVisible.msg} />}
+      {isWarningVisible.active && <WarningToast />}
     </div>
 
   )

@@ -6,6 +6,8 @@ import { playerSelectAtom } from "./../SoccerField"
 import { FieldPlayersAtom } from "./../../pages/Home"
 import { addPlayer } from "../../services/MainListServices";
 import { makeWebName } from "../../UsefullFunctions";
+import { toastShow } from "../RemoveModal";
+import { isSuccessVisibleAtom,isErrorVisibleAtom } from "./../../pages/Home"
 
 
 
@@ -14,6 +16,10 @@ const MainListItem = (props: MainListProps) => {
     const [playerList, setPlayerList] = useRecoilState<Array<MainListProps>>(PlayerListAtom)
     const [playerSelect, setPlayerSelect] = useRecoilState(playerSelectAtom)
     const [fieldPlayers, setFieldPlayers] = useRecoilState(FieldPlayersAtom);
+    const [isSuccessVisible, setIsSuccessVisible] = useRecoilState(isSuccessVisibleAtom);
+    const [isErrorVisible, setIsErrorVisible] = useRecoilState(isErrorVisibleAtom);
+
+
 
 
 
@@ -29,7 +35,7 @@ const MainListItem = (props: MainListProps) => {
                         newList[playerIndex] = {
                             type: "Field",
                             key: props.pose,
-                            pose:playerIndex,
+                            pose: playerIndex,
                             name: makeWebName(props.name),
                             score: props.playerStats.score,
                         }
@@ -38,7 +44,12 @@ const MainListItem = (props: MainListProps) => {
                     setPlayerSelect(() => {
                         return [];
                     })
+                    toastShow(setIsSuccessVisible, "بازیکن با موفقیت اضافه شد")
+                } else if (playerSelect.length && !is_added) {
+                    console.log("isAdd false shod")
+                    toastShow(setIsErrorVisible,"مشکلی رخ داد")
                 }
+                
 
             }}
             className="main-item-list  flex 

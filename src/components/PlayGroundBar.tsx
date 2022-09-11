@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import '../index.css';
-import  PlayGroundBarSideTab from './PlayGroundBarSideTab';
+import PlayGroundBarSideTab from './PlayGroundBarSideTab';
 import { Eng2Fa } from '../UsefullFunctions';
 import PToggleTab from './PageToggleTab';
 import DateBar from './DateBar';
@@ -14,26 +14,26 @@ import { getCredit } from '../services/CreditServices';
 
 const MAX_PLAYER = 15;
 
-interface StateInterface{
+interface StateInterface {
     playerCount: number,
     money: number,
     selTab: number
 };
 
-export default function PlayGroundBar(){
+export default function PlayGroundBar() {
 
     const [fieldPlayers, setFieldPlayers] = useRecoilState(FieldPlayersAtom);
 
 
-    const {data, isLoading, isError } = useQuery(["credit", fieldPlayers], async () => await getCredit())
-    
+    const { data, isLoading, isError } = useQuery(["credit", fieldPlayers], async () => await getCredit())
 
-    const numOfSelectedPlayerAtom = atom ({
+
+    const numOfSelectedPlayerAtom = atom({
         key: 'numOfPlayer',
         default: 0
     })
-    
-    const [ numOfSelectesPlayer,  setNumOfSelectesPlayer ] = useRecoilState(numOfSelectedPlayerAtom);
+
+    const [numOfSelectesPlayer, setNumOfSelectesPlayer] = useRecoilState(numOfSelectedPlayerAtom);
 
     const playerNumSetter = () => {
         const filter = fieldPlayers.filter(selected => selected.type === 'Field')
@@ -43,7 +43,7 @@ export default function PlayGroundBar(){
 
     useEffect(() => {
         playerNumSetter();
-    },[fieldPlayers])
+    }, [fieldPlayers])
 
     const [PGState, setPGState] = useState<StateInterface>({
         playerCount: numOfSelectesPlayer,
@@ -52,26 +52,36 @@ export default function PlayGroundBar(){
     });
 
     return (
-        <div className="px-[4px] flex flex-row w-full bg-white justify-around -mb-4 -z-index-[100]">
-            <PlayGroundBarSideTab
-                leftText={Eng2Fa(`${MAX_PLAYER}/${MAX_PLAYER - numOfSelectesPlayer}`)}
-                rightLogo={PlayerLogo}
-                rightText='بازیکن باقی مانده'
-            />
-            <div className='between-logo flex flex-col w-1/3 items-center'>
-                <div className='bg-white sw-1/4 h-1/2 rounded-lg box-shadow-sm -z-index-[100]'>
-                    <img className='mb-5 -mt-1' src={RahnemaEngLogo} alt='Rahnema Logo'/>
-                </div>
-                <PToggleTab
-                    currentTab={PGState.selTab}
-                    setSelTab={setPGState}
+        <div className="px-[4px] flex flex-row w-full bg-white -mb-5 lg:-mb-9 -z-index-[100]">
+            <div className='w-[48%] lg:w-[45%] mt-auto lg:mt-0 mr-auto'>
+                <PlayGroundBarSideTab
+                    leftText={Eng2Fa(`${MAX_PLAYER}/${MAX_PLAYER - numOfSelectesPlayer}`)}
+                    rightLogo={PlayerLogo}
+                    rightText='بازیکن باقی مانده'
                 />
             </div>
-            <PlayGroundBarSideTab
-                leftText={Eng2Fa(`${data / 10}`)}
-                rightLogo={WalletLogo}
-                rightText='باقی مانده پول'
-            />
+            <div className='flex flex-col w-[48%] lg:mr-auto lg:flex-row lg:w-full'>
+                <div className='between-logo min-w-[170px] flex flex-col items-center pl-3 lg:mx-auto -ml-[250px]'>
+                    <div className='bg-white flex items-center justify-center sw-1/4 h-[40%] rounded-lg box-shadow-sm -z-index-[100]'>
+                        <img className='py-4 px-1 w-[90%]' src={RahnemaEngLogo} alt='Rahnema Logo' />
+                    </div>
+                    <div className='mx-auto w-full'>
+                        <PToggleTab
+                            currentTab={PGState.selTab}
+                            setSelTab={setPGState}
+                        />
+                    </div>
+
+                </div>
+                <div className='w-full lg:w-[45%] ml-auto'>
+                    <PlayGroundBarSideTab
+                        leftText={Eng2Fa(`${data / 10}`)}
+                        rightLogo={WalletLogo}
+                        rightText='باقی مانده پول'
+                    />
+                </div>
+            </div>
+
         </div>
     );
 }
