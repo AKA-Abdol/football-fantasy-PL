@@ -18,7 +18,7 @@ const List = () => {
 
     return (
         <div className="flex h-full rounded-2xl w-full z-50relative px-1 rounded-tl-lg">
-            <div className="w-1/2">
+            <div className="w-[45%]">
                 <Cover name = "abbas" />
             </div>
             <div className="list content-center w-full rounded-r-2xl shadow-2xl h-full" dir="rtl">
