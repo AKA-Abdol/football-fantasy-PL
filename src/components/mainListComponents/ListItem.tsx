@@ -44,10 +44,10 @@ const MainListItem = (props: MainListProps) => {
                     setPlayerSelect(() => {
                         return [];
                     })
-                    toastShow(setIsSuccessVisible, "Player Successfully Added")
+                    toastShow(setIsSuccessVisible, "بازیکن با موفقیت اضافه شد")
                 } else if (playerSelect.length && !is_added) {
                     console.log("isAdd false shod")
-                    toastShow(setIsErrorVisible,"There was a problem")
+                    toastShow(setIsErrorVisible,"مشکلی رخ داد")
                 }
                 
 

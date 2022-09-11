@@ -91,7 +91,7 @@ export default function RemoveModal(props: RemoveModalProps) {
                                         }
                                         return newList
                                     })
-                                    toastShow(setIsSuccessVisible,"Player Successfully Removed")
+                                    toastShow(setIsSuccessVisible,"بازیکن با موفقیت حذف شد")
                                     console.log("length", playerToRemove.length)
                                     removePlayer(playerIndex)
                                     cancelModal()

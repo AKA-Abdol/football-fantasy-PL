@@ -16,9 +16,9 @@ export const toastHide = (setHide: SetterOrUpdater<{
 
 export const successText = (playerToRemoveState: number[], playerSelectState: number[]) => {
     if (playerToRemoveState.length) {
-        return ("Player Successfully Removed")
+        return ("بازیکن با موفقیت حذف شد")
     } else if (playerSelectState.length) {
-        return ("Player added successfully")
+        return ("بازیکن با موفقیت اضافه شد")
     }
 
 }
