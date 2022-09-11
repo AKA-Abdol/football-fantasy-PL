@@ -23,14 +23,14 @@ const fields: Array<RowFieldText> = [
         first:"نام کاربری",
         firstType: "",
         firstOptions: [],
-        firstPHolder: "Abdol Loves Mahmood",
+        firstPHolder: "Username",
         name: 'username'
     },
     {
         first: "رمز عبور",
         firstType: "",
         firstOptions: [],
-        firstPHolder: "Mahmood Loves Abdol too!",
+        firstPHolder: "password",
         name: 'password'
     }
 ]

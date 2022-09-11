@@ -20,7 +20,8 @@ export interface FieldsPlayer extends PlayerViewBase {
     type: "Field",
     key: number,
     name: string,
-    score: number
+    score: number,
+    price: number
 }
 
 export interface DefaultView extends PlayerViewBase {
@@ -37,7 +38,8 @@ export const dummyGenerator = () => {
             key: i,
             pose: i + 1,
             name: `Abdol${i}`,
-            score: i * 5 + 25
+            score: i * 5 + 25,
+            price: 100 
         } : {
                 pose: i + 1, type: "Default"};
 
@@ -45,24 +47,6 @@ export const dummyGenerator = () => {
     }
     return basePlayersArray;
 }
-
-// const dbPlayerToFieldsPlayer = (dbPlayer: RecruitedPlayerType) => {
-//     return {
-
-//         pose: dbPlayer.id,
-//         name: `${dbPlayer.firstName} ${dbPlayer.secondName}`,
-//         score: dbPlayer.playerStats.score
-//     }
-// }
-
-// const addPlayersToField = (dbPlayers: RecruitedPlayerType[]) => {
-//     const list = dummyGenerator();
-//     dbPlayers.forEach((player) => {
-//         list.splice(player.positionNum, 1, dbPlayerToFieldsPlayer(player));
-//     })
-//     return list;
-// }
-
 
 type PlayerOutputType = {
     id: number;
@@ -169,7 +153,6 @@ const playerGenerator = () => {
     return Players;
 }
 
-// console.log(playerGenerator())
 console.log(dummyGenerator());
 
 const myTeam: TeamOutputType = {
@@ -180,7 +163,6 @@ const myTeam: TeamOutputType = {
 
 }
 
-// myTeam.players.reduce((previousValue, currentValue) => previousValue + currentValue, 10)
 
 interface FieldProps {
     props: Array<PlayerView>

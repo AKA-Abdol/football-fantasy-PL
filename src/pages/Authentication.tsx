@@ -24,7 +24,7 @@ const fields: Array<RowFieldText> = [
         first: "لطفا کدی که به ایمیلتان ارسال شده را در کادر زیر وارد کنید",
         firstType: "",
         firstOptions: [],
-        firstPHolder: "Abdol Loves Mahmood and Mahmood vice verse",
+        firstPHolder: "5 digit code",
         firstPose: "mx-auto",
         name: "verificationCode"
     }

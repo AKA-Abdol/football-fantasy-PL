@@ -1,12 +1,12 @@
-import axios from 'axios';
+import axios from "axios";
 
 const api = axios.create({
-    baseURL: 'http://localhost:5000/api'
-})
+  baseURL: process.env.REACT_APP_SERVER_URL,
+});
 
 export default {
-    get: api.get,
-    post: api.post,
-    put: api.put,
-    delete: api.delete
-}
+  get: api.get,
+  post: api.post,
+  put: api.put,
+  delete: api.delete,
+};

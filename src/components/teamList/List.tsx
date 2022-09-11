@@ -1,61 +1,31 @@
 import React from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { FieldPlayersAtom } from "../../pages/Home";
 import Cover from "./Cover";
 import ListItem from "./ListItem";
 
-enum Role {
-    Defenders,
-    Midfielders,
-    Goalkeepers,
-    Forwards
-}
-
-interface ListProps{
-    name: string,
-    club: string,
-    role: string,
-    point: number,
-    price: number 
-}
-
-
-const team: ListProps[] = [
-    {
-        name : "abbas",
-        club: "khar",
-        role: "forwards",
-        point: 3.4,
-        price: 20
-    },
-    {
-        name : "abbas",
-        club: "khar",
-        role: "forwards",
-        point: 3.4,
-        price: 20
-    },
-        {
-        name : "abbas",
-        club: "khar",
-        role: "forwards",
-        point: 3.4,
-        price: 20
-    },
-
-]
-
 const List = () => {
 
+    const fieldPlayers = useRecoilValue(FieldPlayersAtom);
+
+    const goalKeepers = fieldPlayers.filter(gk => gk.pose < 2);
+    const defenders = fieldPlayers.filter(def => def.pose > 2 && def.pose < 8);
+    const mids = fieldPlayers.filter(mid => mid.pose > 7 && mid.pose < 13);
+    const attacks = fieldPlayers.filter(att => att.pose > 12 && att.pose < 16);
+
+    console.log(fieldPlayers);
     
+
     return (
-        <div className="flex h-full rounded-2xl">
-            <div className="">
+        <div className="flex h-full rounded-2xl w-full z-50relative px-1 rounded-tl-lg">
+            <div className="w-1/2">
                 <Cover name = "abbas" />
             </div>
-            <div className="list content-center w-full" dir="rtl">
-                <div className="border-b-2 flex justify-end">
+            <div className="list content-center w-full rounded-r-2xl shadow-2xl h-full" dir="rtl">
+                <div className="border-b-2 flex justify-end  bg-white rounded-tr-2xl">
                     <div className="flex flex-row justify-between mx-10 
                     text-right text-fontGrey text-xs mb-2
-                    p-2 w-1/4">
+                    p-2 w-1/4 z-[1000] relative ">
                         <div className="flex items-center">
                             <p>عملکرد</p>
                         </div>
@@ -64,10 +34,12 @@ const List = () => {
                         </div>
                     </div>
                 </div>
-                <ListItem players = {team} title = "دروازه بانان"/>
-                <ListItem players={team} title = "مدافعان" />
-                <ListItem players={team} title = "هافبک ها" />
-                <ListItem players={team} title = "مهاجمین" />
+                <div className="pb-8">
+                    <ListItem players = {goalKeepers} title = "دروازه بانان"/>
+                    <ListItem players={defenders} title = "مدافعان" />
+                    <ListItem players={mids} title = "هافبک ها" />
+                    <ListItem players={attacks} title = "مهاجمین" />
+                </div>
 
             </div>
         </div>

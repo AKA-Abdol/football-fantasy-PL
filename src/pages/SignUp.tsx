@@ -21,7 +21,9 @@ interface RowFieldText{
     firstPHolder: string,
     secondPHolder: string,
     firstName: string,
-    secondName: string
+    secondName: string,
+    firstDir ?: string,
+    secondDir ?: string
 };
 
 const fields: Array<RowFieldText> = [
@@ -35,7 +37,9 @@ const fields: Array<RowFieldText> = [
         firstPHolder: "علی",
         secondPHolder: "محمودی",
         firstName: 'firstname',
-        secondName: 'lastname'
+        secondName: 'lastname',
+        firstDir: 'rtl',
+        secondDir: 'rtl'
     },
     {
         first: "ایمیل",
@@ -44,8 +48,8 @@ const fields: Array<RowFieldText> = [
         secondType: "select",
         firstOptions: [],
         secondOptions: ["ایران", "افغانستان", "تاجیکستان", "ترکیه"],
-        firstPHolder: "mahmoodi.ext@gmail.com",
-        secondPHolder: "ایران - قم",
+        firstPHolder: "test@mail.com",
+        secondPHolder: "انتخاب کشور",
         firstName: 'email',
         secondName: 'country'
     },
@@ -56,8 +60,8 @@ const fields: Array<RowFieldText> = [
         secondType: "",
         firstOptions: [],
         secondOptions: [],
-        firstPHolder: "Abdol Loves Mahmood",
-        secondPHolder: "Mahmood Loves Abdol too",
+        firstPHolder: "username",
+        secondPHolder: "password",
         firstName: 'username',
         secondName: 'password'
     }
@@ -121,7 +125,7 @@ export default function SignUp(){
                 
                 </div>
                 {
-                    fields.map(({first, second, firstType, secondType, firstOptions, secondOptions, firstPHolder, secondPHolder, firstName, secondName}: RowFieldText) => {
+                    fields.map(({first, second, firstType, secondType, firstOptions, secondOptions, firstPHolder, secondPHolder, firstName, secondName, firstDir, secondDir}: RowFieldText) => {
                         return (
                             <div className="flex flex-row-reverse w-full justify-center">
                                 {firstType === "select" ? 
@@ -137,6 +141,7 @@ export default function SignUp(){
                                     placeholder={firstPHolder}
                                     name={firstName}
                                     changeHandler={handleChange}
+                                    dir={firstDir ?? ''}
                                 />
                                 }
                                 {secondType === "select" ? 
@@ -152,6 +157,7 @@ export default function SignUp(){
                                     placeholder={secondPHolder}
                                     name={secondName}
                                     changeHandler={handleChange}
+                                    dir={secondDir ?? ''}
                                 />
                                 }
                             </div>

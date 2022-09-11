@@ -7,23 +7,17 @@ import DateBar from './DateBar';
 import PlayerLogo from '../images/user-octagon.svg';
 import WalletLogo from '../images/empty-wallet.svg';
 import RahnemaEngLogo from '../images/rahnema-college-logo-eng.svg'
-import { atom, useRecoilState } from 'recoil';
+import { atom, useRecoilState, useRecoilValue } from 'recoil';
 import { FieldPlayersAtom } from '../pages/Home';
 import { useQuery } from 'react-query';
 import { getCredit } from '../services/CreditServices';
+import { PlaygroundTabAtom } from './PageToggleTab';
 
 const MAX_PLAYER = 15;
 
-interface StateInterface {
-    playerCount: number,
-    money: number,
-    selTab: number
-};
+export default function PlayGroundBar(){
 
-export default function PlayGroundBar() {
-
-    const [fieldPlayers, setFieldPlayers] = useRecoilState(FieldPlayersAtom);
-
+    const fieldPlayers = useRecoilValue(FieldPlayersAtom);
 
     const { data, isLoading, isError } = useQuery(["credit", fieldPlayers], async () => await getCredit())
 
@@ -45,11 +39,6 @@ export default function PlayGroundBar() {
         playerNumSetter();
     }, [fieldPlayers])
 
-    const [PGState, setPGState] = useState<StateInterface>({
-        playerCount: numOfSelectesPlayer,
-        money: data,
-        selTab: 1
-    });
 
     return (
         <div className="px-[4px] flex flex-row w-full bg-white -mb-5 lg:-mb-9 -z-index-[100]">
@@ -66,22 +55,22 @@ export default function PlayGroundBar() {
                         <img className='py-4 px-1 w-[90%]' src={RahnemaEngLogo} alt='Rahnema Logo' />
                     </div>
                     <div className='mx-auto w-full'>
-                        <PToggleTab
-                            currentTab={PGState.selTab}
-                            setSelTab={setPGState}
-                        />
+                        <PToggleTab/>
                     </div>
 
                 </div>
                 <div className='w-full lg:w-[45%] ml-auto'>
                     <PlayGroundBarSideTab
-                        leftText={Eng2Fa(`${data / 10}`)}
+                        leftText={
+                            isError ? (`Error!`) :
+                                isLoading ? (`Loading...`) :
+                                    Eng2Fa(`${data / 10}`)}
                         rightLogo={WalletLogo}
                         rightText='باقی مانده پول'
                     />
                 </div>
             </div>
 
-        </div>
-    );
+            </div>
+            );
 }
