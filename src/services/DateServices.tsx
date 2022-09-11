@@ -13,5 +13,6 @@ export const getWeek = async () => {
     const data = response.data.week;
     const weekNum = data.weekNum;
     const startDate = new Date(data.startDate);
+    console.log("dataHere: ", startDate);
     return {weekNum, startDate};
 }
