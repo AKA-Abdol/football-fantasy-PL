@@ -43,6 +43,7 @@ export const FieldPlayersAtom = atom({
 interface PlayerProps {
   firstName: string,
   secondName: string,
+  webname: string,
   club: string,
   role: string,
   id: number,
@@ -70,7 +71,7 @@ const dbPlayerToFieldsPlayer = (dbPlayer: PlayerProps) => {
   const newFieldsPlayer: FieldsPlayer = {
     type: "Field",
     pose: dbPlayer.positionNum,
-    name: makeWebName(`${dbPlayer.secondName}`),
+    name: makeWebName(`${dbPlayer.webname}`),
     score: dbPlayer.playerStats.score,
     key: dbPlayer.positionNum,
     price: dbPlayer.playerStats.price

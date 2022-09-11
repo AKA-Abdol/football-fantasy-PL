@@ -144,7 +144,7 @@ const MainList = () => {
                  (data.map( (player: any) => {
                     return(
                             <MainListItem
-                                name = {player.secondName}
+                                name = {player.webname}
                                 club = {player.club}
                                 role = {player.role}
                                 pose = {player.pose}
