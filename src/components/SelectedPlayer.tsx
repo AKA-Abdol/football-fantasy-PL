@@ -65,6 +65,7 @@ export default function SelectedPlayers(props: selectedPlayer) {
                 className="cursor-pointer ml-auto w-3 sm:w-6"
                 onClick={(event) => {
                     event.stopPropagation();
+                    console.log("playerSelect State",playerSelect)
                     viewModal();
 
 

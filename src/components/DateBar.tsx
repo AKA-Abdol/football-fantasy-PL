@@ -24,7 +24,7 @@ export default function DateBar(){
     console.log(getDateString(data?.startDate ?? new Date(1)));
     
     return (
-        <div className='DateBar flex flex-row w-full lg:w-2/3 py-2 mb-10 rounded-lg bg-[#3D195B] justify-around theme-font'>
+        <div className='DateBar flex flex-row w-[90%] lg:w-1/3 lg:mr-52 py-2 mb-10 rounded-lg bg-[#3D195B] justify-around theme-font'>
         {isError ? <p className='text-[#00FF87]'>Error!</p>:
          isLoading ? <p className='text-[#00FF87]'>Loading!</p>:
             <>   
