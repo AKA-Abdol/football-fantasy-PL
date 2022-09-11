@@ -5,13 +5,14 @@ interface FieldProps{
     placeholder: string,
     name ?: string,
     options: string[],
-    changeHandler ?: any
+    changeHandler ?: any,
+    poseClass?: string
 }
 
-export default function SelectField({label, placeholder, name, options, changeHandler}: FieldProps){
+export default function SelectField({label, placeholder, name, options, changeHandler, poseClass}: FieldProps){
     return (
         <div className="flex flex-col theme-font text-white space-y-2 mx-3 w-full">
-            <p className="ml-auto">{label}</p>
+            <p className={`ml-auto ${poseClass}`}>{label}</p>
             <select onChange={changeHandler} className="select bg-transparent border-[#A057DB] arrow-left" dir="rtl" name={name}>
                 <option className="bg-[#3D185B]" disabled selected>{placeholder}</option>
                 {

@@ -9,7 +9,8 @@ import PLWhiteLogo from "../images/PLWhiteLogo.png"
 import { useState } from "react";
 import { postSignupData, TOKEN_SESSION_NAME } from '../services/SignServices'
 import { useNavigate } from "react-router-dom";
-import { atom } from "recoil";
+import { INPUT_FIELD_CLASS } from './SignIn';
+import FPLButtomImg from '../images/FPLButtomImg.png';
 
 interface RowFieldText{
     first: string,
@@ -104,17 +105,18 @@ export default function SignUp(){
     }, [signupData]);
 
     return (
-        <div className="flex flex-row h-screen">
+        <div className="flex flex-col h-screen bg-[#3D185B] overflow-scroll justify-start">
+            <div className="flex flex-col w-full h-full lg:flex-row">
             
-            <div className="sideImg w-full relative">
-                <img className="h-full w-full relative" src={SUPLayers} alt="players-image"/>
+            <div className="sideImg w-full relative hidden lg:block">
+                <img className="h-full w-full relative" src={SUPLayers} alt="players"/>
                 
                 <div className="flex justify-center">
                     <img className="absolute bottom-10" src={PLWhiteLogo} alt="PL Logo"/>
                 </div>    
             </div>
 
-            <div className="fields flex flex-col bg-[#3D185B] h-full px-20 w-full justify-center items-center space-y-10 theme-font">
+            <div className="fields flex flex-col bg-[#3D185B] lg:px-20 w-full pt-8 lg:pt-0 lg:justify-center items-center space-y-4 lg:space-y-10 theme-font">
                 <div className="flex flex-row w-full items-center">
                     
                     <img className="w-1/4 mr-auto ml-4" src={LeftLine} alt=""/>
@@ -127,7 +129,7 @@ export default function SignUp(){
                 {
                     fields.map(({first, second, firstType, secondType, firstOptions, secondOptions, firstPHolder, secondPHolder, firstName, secondName, firstDir, secondDir}: RowFieldText) => {
                         return (
-                            <div className="flex flex-row-reverse w-full justify-center">
+                            <div className="flex flex-col space-y-4 lg:flex-row-reverse w-full justify-center items-center px-3 lg:px-0">
                                 {firstType === "select" ? 
                                 <SelectField
                                     label={first}
@@ -135,6 +137,7 @@ export default function SignUp(){
                                     options={firstOptions}
                                     name={firstName}
                                     changeHandler={handleChange}
+                                    poseClass={INPUT_FIELD_CLASS}
                                 />:
                                 <InputField
                                     label={first}
@@ -142,6 +145,7 @@ export default function SignUp(){
                                     name={firstName}
                                     changeHandler={handleChange}
                                     dir={firstDir ?? ''}
+                                    poseClass={INPUT_FIELD_CLASS}
                                 />
                                 }
                                 {secondType === "select" ? 
@@ -151,6 +155,7 @@ export default function SignUp(){
                                     options={secondOptions}
                                     name={secondName}
                                     changeHandler={handleChange}
+                                    poseClass={INPUT_FIELD_CLASS}
                                 />:
                                 <InputField
                                     label={second}
@@ -158,18 +163,23 @@ export default function SignUp(){
                                     name={secondName}
                                     changeHandler={handleChange}
                                     dir={secondDir ?? ''}
+                                    poseClass={INPUT_FIELD_CLASS}
                                 />
                                 }
                             </div>
                         )
                     })
                 }
-                <div className="w-full px-3 pt-2">
-                    <button onClick={signup} className="btn bg-sign w-full text-xl font-normal">
+                <div className="w-full pt-2 px-3">
+                    <button onClick={signup} className="btn bg-sign w-full text-xl font-normal mb-8 lg:mb-0">
                         ثبت نام
                     </button>
                 </div>
             </div>  
+            <div className="bottomImg w-full mt-auto block lg:hidden">
+                <img className="w-full h-full" src={FPLButtomImg} placeholder="FPL Players Logo"/>
+            </div> 
         </div>
+    </div>
     );
 }

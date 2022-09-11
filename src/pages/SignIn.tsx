@@ -8,7 +8,9 @@ import PLWhiteLogo from "../images/PLWhiteLogo.png";
 import { useEffect, useState } from "react";
 import { postLoginData, TOKEN_SESSION_NAME } from '../services/SignServices';
 import { useNavigate } from "react-router-dom";
+import FPLButtomImg from '../images/FPLButtomImg.png';
 
+export const INPUT_FIELD_CLASS = 'mx-auto lg:mx-0 lg:ml-auto';
 
 interface RowFieldText{
     first: string,
@@ -65,56 +67,64 @@ export default function SignIn(){
     }
 
     return (
-        <div className="flex flex-row h-screen">
-            <div className="sideImg w-full relative">
-                <img className="h-full w-full relative" src={SUPLayers} alt="players-image"/>
-                
-                <div className="flex justify-center">
-                    <img className="absolute bottom-10" src={PLWhiteLogo} alt="PL Logo"/>
-                </div>    
-            </div>
-            <div className="fields flex flex-col bg-[#3D185B] h-full px-20 w-full justify-center items-center space-y-10 theme-font">
-                <div className="flex flex-row w-full items-center">
+        <div className="flex flex-col h-screen bg-[#3D185B] overflow-scroll justify-start">
+            <div className="flex flex-col w-full h-full lg:flex-row">
+
+                <div className="sideImg w-full relative hidden lg:block">
+                    <img className="h-full w-full relative" src={SUPLayers} alt="players"/>
                     
-                    <img className="w-1/4 mr-auto ml-4" src={LeftLine} alt=""/>
-                
-                    <p className="mx-auto text-2xl text-white font-normal">ورود به فانتزی</p>
-                
-                    <img className="w-1/4 ml-auto mr-4" src={RightLine} alt=""/>
-                
+                    <div className="flex justify-center">
+                        <img className="absolute bottom-10" src={PLWhiteLogo} alt="PL Logo"/>
+                    </div>    
                 </div>
-                {
-                    fields.map(({first, firstType, firstOptions, firstPHolder, name}: RowFieldText) => {
-                        return (
-                            <div className="flex flex-row-reverse w-full justify-center">
-                                {firstType === "select" ? 
-                                <SelectField
-                                    label={first}
-                                    placeholder={firstPHolder}
-                                    options={firstOptions}
-                                    name={name}
-                                    changeHandler={handleChange}
-                                />:
-                                <InputField
-                                    label={first}
-                                    placeholder={firstPHolder}
-                                    name={name}
-                                    changeHandler={handleChange}
-                                />
-                                }
-                            </div>
-                        )
-                    })
-                }
-                <div className="flex flex-row w-full px-3 pt-2">
-                    <button onClick={() => navigate('/signup')} className="btn bg-transparent border-sign border-2 w-[48%] mr-auto text-xl font-normal">
-                        ثبت نام
-                    </button>
-                    <button onClick={signin} className="btn bg-sign w-[48%] ml-auto text-xl font-semibold">
-                        ورود
-                    </button>
-                </div>
-            </div>  
+                <div className="fields flex flex-col bg-[#3D185B] w-full justify-center items-center space-y-10 theme-font pt-8 lg:pt-0 lg:px-20">
+                    <div className="flex flex-row w-full items-center">
+                        
+                        <img className="w-1/4 mr-auto ml-4" src={LeftLine} alt=""/>
+                    
+                        <p className="mx-auto text-2xl text-white font-normal">ورود به فانتزی</p>
+                    
+                        <img className="w-1/4 ml-auto mr-4" src={RightLine} alt=""/>
+                    
+                    </div>
+                    {
+                        fields.map(({first, firstType, firstOptions, firstPHolder, name}: RowFieldText) => {
+                            return (
+                                <div className="flex flex-row-reverse w-full justify-center">
+                                    {firstType === "select" ? 
+                                    <SelectField
+                                        label={first}
+                                        placeholder={firstPHolder}
+                                        options={firstOptions}
+                                        name={name}
+                                        changeHandler={handleChange}
+                                        poseClass={INPUT_FIELD_CLASS}
+                                    />:
+                                    <InputField
+                                        label={first}
+                                        placeholder={firstPHolder}
+                                        name={name}
+                                        changeHandler={handleChange}
+                                        poseClass={INPUT_FIELD_CLASS}
+                                    />
+                                    }
+                                </div>
+                            )
+                        })
+                    }
+                    <div className="flex flex-col-reverse w-full px-3 pt-2 lg:flex-row">
+                        <button onClick={() => navigate('/signup')} className="btn bg-transparent border-sign border-2 w-full lg:w-[48%] mr-auto text-xl font-normal mt-5 lg:mt-0 mb-8 lg:mb-0">
+                            ثبت نام
+                        </button>
+                        <button onClick={signin} className="btn bg-sign w-full lg:w-[48%] ml-auto text-xl font-semibold">
+                            ورود
+                        </button>
+                    </div>
+                </div> 
+                <div className="bottomImg w-full mt-auto lg:hidden">
+                    <img className="w-full h-full" src={FPLButtomImg} placeholder="FPL Players Logo"/>
+                </div> 
+            </div>
         </div>
     );
 }

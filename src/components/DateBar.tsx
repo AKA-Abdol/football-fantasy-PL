@@ -9,6 +9,7 @@ export default function DateBar(){
     const { data, isLoading, isError } = useQuery("sara", async () => await getWeek());
 
     const getDateString = (date: Date) => {
+        console.log(date);
         const FA_DAY: string[] = ['دوشنبه', 'سه شنبه', 'چهارشنبه', 'پنج شنبه', 'جمعه', 'شنبه', 'یکشنبه'];
         const weekDay: string = FA_DAY[date.getDay()];
         const FA_MONTH: string[] = ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'];
