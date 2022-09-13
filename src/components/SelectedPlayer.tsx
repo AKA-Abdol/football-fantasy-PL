@@ -62,7 +62,7 @@ export default function SelectedPlayers(props: selectedPlayer) {
             className="flex flex-col sm:-mt-6 items-center justify-center w-[15%]"
         >
             <img src={closeIcon} alt="close icon"
-                className="cursor-pointer ml-auto w-3 sm:w-6"
+                className=" cursor-pointer ml-auto w-3 sm:w-6"
                 onClick={(event) => {
                     event.stopPropagation();
                     console.log("playerSelect State",playerSelect)

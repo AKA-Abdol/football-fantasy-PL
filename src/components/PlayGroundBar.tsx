@@ -11,7 +11,6 @@ import { atom, useRecoilState, useRecoilValue } from 'recoil';
 import { FieldPlayersAtom } from '../pages/Home';
 import { useQuery } from 'react-query';
 import { getCredit } from '../services/CreditServices';
-import { PlaygroundTabAtom } from './PageToggleTab';
 
 const MAX_PLAYER = 15;
 

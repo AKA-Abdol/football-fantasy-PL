@@ -1,5 +1,5 @@
 import React from 'react'
-import { SetterOrUpdater, useRecoilState } from 'recoil';
+import { SetterOrUpdater, useRecoilState, useSetRecoilState } from 'recoil';
 import { isErrorVisibleAtom, isWarningVisibleAtom, isSuccessVisibleAtom } from "./../pages/Home"
 
 
@@ -25,8 +25,7 @@ export const successText = (playerToRemoveState: number[], playerSelectState: nu
 
 export default function SuccessToast(props: ToastProps) {
 
-    const [isSuccessVisible, setIsSuccessVisible] = useRecoilState(isSuccessVisibleAtom);
-    const [isWarningVisible, setIsWarningVisible] = useRecoilState(isWarningVisibleAtom);
+    const setIsSuccessVisible = useSetRecoilState(isSuccessVisibleAtom);
 
     return (
         <div id="toast-success" className="fixed bottom-[77px] z-[10000] right-0 flex items-center p-4 mb-4 w-full max-w-xs text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
