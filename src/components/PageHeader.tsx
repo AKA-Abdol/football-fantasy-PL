@@ -4,14 +4,16 @@ import fplLogo from "./../images/fplLogo.svg"
 import players from "./../images/players.png"
 import bgLayer from "./../images/bgLayer.png"
 import Navbar from "./Navbar";
+import { Outlet } from "react-router-dom";
 
 export default function PageHeader() {
     return (
+    <div className="flex flex-col h-screen w-full theme-font items-center relative">
         <div className="flex flex-col justify-center items-center w-full">
             <div
                 className="relative h-full flex flex-row w-full bg-center bg-no-repeat bg-cover"
                 style={{ backgroundImage: `url(${headerBg})` }}
-                >
+            >
                 <img src={bgLayer} alt="background layer"
                     className="w-2/3 h-full absolute opacity-5 right-0"
                 />
@@ -32,5 +34,8 @@ export default function PageHeader() {
             </div>
             <Navbar />
         </div>
+        <Outlet/>
+    </div>
+
     )
 }

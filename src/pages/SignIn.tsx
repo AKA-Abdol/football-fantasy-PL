@@ -67,7 +67,7 @@ export default function SignIn(){
     }
 
     return (
-        <div className="flex flex-col h-screen bg-[#3D185B] overflow-scroll justify-start">
+        <div className="flex flex-col h-screen bg-[#3D185B] overflow-auto justify-start">
             <div className="flex flex-col w-full h-full lg:flex-row">
 
                 <div className="sideImg w-full relative hidden lg:block">

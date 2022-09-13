@@ -107,42 +107,39 @@ const Home = () => {
 
 
   return (
-    <div className="relative">
+    <div className="w-full">
       <RemoveModal
         playerName={playerToRemove.length ? getPlayerName(fieldPlayers[playerToRemove[0]]) : ""}
       />
-      <div className="flex flex-col h-screen w-full theme-font items-center">
-        <div className='Header w-full'>
+      {/* <div className="flex flex-col h-screen w-full theme-font items-center"> */}
+        {/* <div className='Header w-full'>
           <PageHeader />
+        </div> */}
+        <div className='Body w-full flex flex-col items-center justify-center mt-16 lg:space-x-6'>
+          <DateBar />
+          <div className="flex flex-col px-2 w-full lg:w-2/3 lg:flex-row">
+            <div className='soccer-field-all w-full px-4 sm:max-w-screen-md flex flex-col items-center'>
+
+              <PlayGroundBar />
+              {selTab === 1 ?
+                <SoccerField
+                  props={fieldPlayers}
+                /> :
+                <List />
+              }
+            </div>
+            <MainList />
+          </div>
+
         </div>
-  <div className='Body w-full flex flex-col items-center justify-center mt-16 lg:space-x-6'>
-    <DateBar />
-    <div className="flex flex-col px-2 w-full lg:w-2/3 lg:flex-row">
-      <div className='soccer-field-all w-full px-4 sm:max-w-screen-md flex flex-col items-center'>
-
-        <PlayGroundBar />
-        {selTab === 1 ?
-          <SoccerField
-            props={fieldPlayers}
-          /> :
-          <List />
-        }
-      </div>
-      <MainList />
-        </div>
-
-      </div>
+      {/* </div> */}
 
 
 
-
-
-
+      {isErrorVisible.active && <ErrorToast message={isErrorVisible.msg} />}
+      {isSuccessVisible.active && <SuccessToast message={isSuccessVisible.msg} />}
+      {isWarningVisible.active && <WarningToast />}
     </div>
-    {isErrorVisible.active && <ErrorToast message={isErrorVisible.msg} />}
-    {isSuccessVisible.active && <SuccessToast message={isSuccessVisible.msg} />}
-    {isWarningVisible.active && <WarningToast />}
-  </div>
 
   )
 }
