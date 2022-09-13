@@ -1,10 +1,62 @@
-import React from "react";
-import { atom, useRecoilState } from "recoil";
+import React, { useEffect } from "react";
+import { atom, useRecoilState, useRecoilValue } from "recoil";
 import SoccerFieldImg from "./../images/SoccerField.png";
 import DefaultPlayer from "./DefaultPlayer";
 import SelectedPlayers from "./SelectedPlayer";
 import onselectShirt from "./../images/onselect_shirt.png";
 import { useQuery } from "react-query";
+import { makeWebName } from '../UsefullFunctions';
+import { FieldPlayersAtom } from "../pages/Home";
+import { getTeamPlayers } from '../services/TeamPlayerServices';
+
+//// new
+interface PlayerProps {
+    firstName: string,
+    secondName: string,
+    webname: string,
+    club: string,
+    role: string,
+    id: number,
+    positionNum: number,
+    playerStats: {
+      score: number,
+      price: number,
+      weekId: number
+    }
+  }
+  
+  const make_mockett = () => {
+    const list: Array<PlayerView> = [];
+    for (let i = 0; i < 15; i++) {
+      const new_player: DefaultView = {
+        type: "Default",
+        pose: i,
+      };
+      list.push(new_player);
+    }
+    return list;
+  }
+  
+  const dbPlayerToFieldsPlayer = (dbPlayer: PlayerProps) => {
+    const newFieldsPlayer: FieldsPlayer = {
+      type: "Field",
+      pose: dbPlayer.positionNum,
+      name: makeWebName(`${dbPlayer.webname}`),
+      score: dbPlayer.playerStats.score,
+      key: dbPlayer.positionNum,
+      price: dbPlayer.playerStats.price
+    }
+    return newFieldsPlayer;
+  }
+  
+  const addPlayersToField = (dbPlayers: PlayerProps[]) => {
+    const list = make_mockett();
+    dbPlayers.forEach((player) => {
+      list.splice(player.positionNum, 1, dbPlayerToFieldsPlayer(player));
+    })
+    return list;
+  }
+//// new
 
 export const playerSelectAtom = atom({
     key: 'playerSelect',
@@ -164,12 +216,21 @@ const myTeam: TeamOutputType = {
 }
 
 
-interface FieldProps {
-    props: Array<PlayerView>
-}
+// interface FieldProps {
+//     props: Array<PlayerView>
+// }
 
 
-export default function SoccerField({ props }: FieldProps) {
+export default function SoccerField() {
+    const [fieldsPlayer, setFieldsPlayer] = useRecoilState(FieldPlayersAtom);
+
+    useEffect( () => {
+        const setProps = async () => {
+            const players = await getTeamPlayers();
+            setFieldsPlayer(addPlayersToField(players));
+        }
+        setProps();
+    })
 
     const [playerSelect, setPlayerSelect] = useRecoilState(playerSelectAtom)
 
@@ -195,7 +256,7 @@ export default function SoccerField({ props }: FieldProps) {
             >
 
                 {
-                    props.slice(0, 2).map((item, index) => {
+                    fieldsPlayer.slice(0, 2).map((item, index) => {
                         if (item.type === "Default") {
                             return <DefaultPlayer
                                 key={item.pose}
@@ -217,7 +278,7 @@ export default function SoccerField({ props }: FieldProps) {
                 className="w-full h-[15%] px-4 sm:py-4 flex flex-row justify-around"
             >
                 {
-                    props.slice(2, 7).map((item) => {
+                    fieldsPlayer.slice(2, 7).map((item) => {
                         if (item.type === "Default") {
                             return <DefaultPlayer
                                 key={item.pose}
@@ -241,7 +302,7 @@ export default function SoccerField({ props }: FieldProps) {
                 className="w-full h-[15%] p-4 flex flex-row justify-around"
             >
                 {
-                    props.slice(7, 12).map((item) => {
+                    fieldsPlayer.slice(7, 12).map((item) => {
                         if (item.type === "Default") {
                             return <DefaultPlayer
                                 key={item.pose}
@@ -265,7 +326,7 @@ export default function SoccerField({ props }: FieldProps) {
                 className="w-full h-[15%] py-4 px-6 flex flex-row justify-around"
             >
                 {
-                    props.slice(12, 16).map((item) => {
+                    fieldsPlayer.slice(12, 16).map((item) => {
                         if (item.type === "Default") {
                             return <DefaultPlayer
                                 key={item.pose}
