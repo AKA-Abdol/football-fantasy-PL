@@ -1,5 +1,5 @@
 import React from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { MainListProps } from "./MainPlayerList";
 import { PlayerListAtom } from "./MainPlayerList"
 import { playerSelectAtom } from "./../SoccerField"
@@ -13,11 +13,10 @@ import { isSuccessVisibleAtom,isErrorVisibleAtom } from "./../../pages/Home"
 
 const MainListItem = (props: MainListProps) => {
 
-    const [playerList, setPlayerList] = useRecoilState<Array<MainListProps>>(PlayerListAtom)
     const [playerSelect, setPlayerSelect] = useRecoilState(playerSelectAtom)
-    const [fieldPlayers, setFieldPlayers] = useRecoilState(FieldPlayersAtom);
-    const [isSuccessVisible, setIsSuccessVisible] = useRecoilState(isSuccessVisibleAtom);
-    const [isErrorVisible, setIsErrorVisible] = useRecoilState(isErrorVisibleAtom);
+    const setFieldPlayers = useSetRecoilState(FieldPlayersAtom);
+    const setIsSuccessVisible = useSetRecoilState(isSuccessVisibleAtom);
+    const setIsErrorVisible = useSetRecoilState(isErrorVisibleAtom);
     const [errorMessage, setErrorMessage] = useRecoilState(ErrorMessageAtom)
 
 

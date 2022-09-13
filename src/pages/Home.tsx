@@ -91,20 +91,13 @@ const addPlayersToField = (dbPlayers: PlayerProps[]) => {
 
 const Home = () => {
 
-  const [fieldPlayers, setFieldPlayers] = useRecoilState(FieldPlayersAtom);
-  const [isErrorVisible, setIsErrorVisible] = useRecoilState(isErrorVisibleAtom);
-  const [isSuccessVisible, setIsSuccessVisible] = useRecoilState(isSuccessVisibleAtom);
-  const [isWarningVisible, setIsWarningVisible] = useRecoilState(isWarningVisibleAtom);
-  const [playerToRemove, setPlayerToRemove] = useRecoilState(PlayerToRemoveAtom)
-  const [playerSelect, setPlayerSelect] = useRecoilState(playerSelectAtom)
+  const fieldPlayers = useRecoilValue(FieldPlayersAtom);
+  const isErrorVisible = useRecoilValue(isErrorVisibleAtom);
+  const isSuccessVisible = useRecoilValue(isSuccessVisibleAtom);
+  const isWarningVisible = useRecoilValue(isWarningVisibleAtom);
+  const playerToRemove = useRecoilValue(PlayerToRemoveAtom)
   const selTab = useRecoilValue(PlaygroundTabAtom);
 
-  const { data, isLoading, isError } = useQuery("teamPlayers", async () => {
-    const players = await getTeamPlayers();
-    console.log('here');
-    setFieldPlayers(addPlayersToField(players));
-    return players;
-  });
 
   const getPlayerName = (player: PlayerView) => {
     console.log("type:", player.type)
