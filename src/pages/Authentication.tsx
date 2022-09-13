@@ -10,6 +10,7 @@ import { EMAIL_SESSION } from './SignUp';
 import { confirmSignup, TOKEN_SESSION_NAME } from "../services/SignServices";
 import { useNavigate } from "react-router-dom";
 import FPLButtomImg from '../images/FPLButtomImg.png';
+import { handleKeyboardEvent } from "../GenericFunctions";
 
 interface RowFieldText{
     first: string,
@@ -55,7 +56,9 @@ export default function Authentication(){
     }, [authCode]);
 
     return (
-        <div className="flex flex-col h-screen bg-[#3D185B] overflow-scroll justify-start">
+        <div className="flex flex-col h-screen bg-[#3D185B] overflow-auto justify-start"
+            onKeyDown={handleKeyboardEvent<HTMLDivElement>('Enter', verifyNnavigate)}
+        >
             <div className="flex flex-col w-full h-full lg:flex-row">
             
                 <div className="sideImg w-full relative hidden lg:block">

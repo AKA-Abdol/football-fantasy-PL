@@ -5,10 +5,11 @@ import SelectField from "../components/SignComponents/SelectField";
 import LeftLine from "../images/Line1.png";
 import RightLine from "../images/Line2.png";
 import PLWhiteLogo from "../images/PLWhiteLogo.png";
-import { useEffect, useState } from "react";
+import React, { KeyboardEvent, useEffect, useState } from "react";
 import { postLoginData, TOKEN_SESSION_NAME } from "../services/SignServices";
 import { useNavigate } from "react-router-dom";
 import FPLButtomImg from "../images/FPLButtomImg.png";
+import { handleKeyboardEvent } from "../GenericFunctions";
 
 export const INPUT_FIELD_CLASS = "mx-auto lg:mx-0 lg:ml-auto";
 
@@ -68,7 +69,9 @@ export default function SignIn() {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-[#3D185B] overflow-auto justify-start">
+    <div className="flex flex-col h-screen bg-[#3D185B] overflow-auto justify-start"
+        onKeyDown={handleKeyboardEvent<HTMLDivElement>('Enter', signin)}
+    >
       <div className="flex flex-col w-full h-full lg:flex-row">
         <div className="sideImg w-full relative hidden lg:block">
           <img

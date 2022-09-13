@@ -16,7 +16,6 @@ function App() {
           <Routes>
             <Route element={<PageHeader/>}>
               <Route path="myteam" element={<Home />} />
-              <Route path="authentication" element={<Authentication />} />
               <Route path="award" element={<Home />} />
               <Route path="event" element={<Home />} />
               <Route path="profile" element={<Home />} />
@@ -24,6 +23,7 @@ function App() {
             </Route>
             <Route path="signup" element={<SignUp />} />
             <Route path="/" element={<SignIn />} />
+            <Route path="authentication" element={<Authentication />} />
           </Routes>
         </BrowserRouter>
       </div>

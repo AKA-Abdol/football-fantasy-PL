@@ -7,11 +7,7 @@ import RemoveModal from "./../components/RemoveModal";
 import DateBar from "../components/DateBar";
 import { dummyGenerator } from "./../components/SoccerField";
 import { atom, useRecoilState, useRecoilValue } from "recoil";
-import { useQuery } from "react-query";
-import { getTeamPlayers } from "../services/TeamPlayerServices";
-import { DefaultView } from "../components/SoccerField";
 import { FieldsPlayer } from "../components/SoccerField";
-import { makeWebName } from "../UsefullFunctions";
 import SuccessToast, {
   ErrorToast,
   WarningToast,
@@ -19,9 +15,9 @@ import SuccessToast, {
 } from "../components/Toasts";
 import {} from "./../components/Toasts";
 import { PlayerToRemoveAtom } from "./../components/SelectedPlayer";
-import { playerSelectAtom } from "./../components/SoccerField";
 import List from "../components/teamList/List";
 import { PlaygroundTabAtom } from "../components/PageToggleTab";
+import { useNavigate } from "react-router-dom";
 
 export const isErrorVisibleAtom = atom({
   key: "isErrorVisible",
@@ -43,53 +39,6 @@ export const FieldPlayersAtom = atom({
   key: "FieldPlayers",
   default: dummyData,
 });
-
-interface PlayerProps {
-  firstName: string;
-  secondName: string;
-  webname: string;
-  club: string;
-  role: string;
-  id: number;
-  positionNum: number;
-  playerStats: {
-    score: number;
-    price: number;
-    weekId: number;
-  };
-}
-
-const make_mockett = () => {
-  const list: Array<PlayerView> = [];
-  for (let i = 0; i < 15; i++) {
-    const new_player: DefaultView = {
-      type: "Default",
-      pose: i,
-    };
-    list.push(new_player);
-  }
-  return list;
-};
-
-const dbPlayerToFieldsPlayer = (dbPlayer: PlayerProps) => {
-  const newFieldsPlayer: FieldsPlayer = {
-    type: "Field",
-    pose: dbPlayer.positionNum,
-    name: makeWebName(`${dbPlayer.webname}`),
-    score: dbPlayer.playerStats.score,
-    key: dbPlayer.positionNum,
-    price: dbPlayer.playerStats.price,
-  };
-  return newFieldsPlayer;
-};
-
-const addPlayersToField = (dbPlayers: PlayerProps[]) => {
-  const list = make_mockett();
-  dbPlayers.forEach((player) => {
-    list.splice(player.positionNum, 1, dbPlayerToFieldsPlayer(player));
-  });
-  return list;
-};
 
 const Home = () => {
   const fieldPlayers = useRecoilValue(FieldPlayersAtom);

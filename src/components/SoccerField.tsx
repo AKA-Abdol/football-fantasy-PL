@@ -8,6 +8,8 @@ import { useQuery } from "react-query";
 import { makeWebName } from '../UsefullFunctions';
 import { FieldPlayersAtom } from "../pages/Home";
 import { getTeamPlayers } from '../services/TeamPlayerServices';
+import { useNavigate } from "react-router-dom";
+import { TOKEN_SESSION_NAME } from "../services/SignServices";
 
 //// new
 interface PlayerProps {
@@ -215,19 +217,19 @@ const myTeam: TeamOutputType = {
 
 }
 
-
-// interface FieldProps {
-//     props: Array<PlayerView>
-// }
-
-
 export default function SoccerField() {
     const [fieldsPlayer, setFieldsPlayer] = useRecoilState(FieldPlayersAtom);
+    const navigate = useNavigate();
 
     useEffect( () => {
         const setProps = async () => {
-            const players = await getTeamPlayers();
-            setFieldsPlayer(addPlayersToField(players));
+            const response = await getTeamPlayers();
+            if(response?.isSuccessful)
+                setFieldsPlayer(addPlayersToField(response.res));
+            else if(true /* this must be type of error */){
+                localStorage.removeItem(TOKEN_SESSION_NAME);
+                navigate('/');
+            }
         }
         setProps();
     })

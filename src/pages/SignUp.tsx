@@ -11,6 +11,7 @@ import { postSignupData, TOKEN_SESSION_NAME } from '../services/SignServices'
 import { useNavigate } from "react-router-dom";
 import { INPUT_FIELD_CLASS } from './SignIn';
 import FPLButtomImg from '../images/FPLButtomImg.png';
+import { handleKeyboardEvent } from "../GenericFunctions";
 
 interface RowFieldText{
     first: string,
@@ -105,7 +106,9 @@ export default function SignUp(){
     }, [signupData]);
 
     return (
-        <div className="flex flex-col h-screen bg-[#3D185B] overflow-auto justify-start">
+        <div className="flex flex-col h-screen bg-[#3D185B] overflow-auto justify-start"
+            onKeyDown={handleKeyboardEvent<HTMLDivElement>('Enter', signup)}
+        >
             <div className="flex flex-col w-full h-full lg:flex-row">
             
             <div className="sideImg w-full relative hidden lg:block">
