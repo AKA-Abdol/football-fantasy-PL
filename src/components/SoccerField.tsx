@@ -10,6 +10,7 @@ import { FieldPlayersAtom } from "../pages/Home";
 import { getTeamPlayers } from '../services/TeamPlayerServices';
 import { useNavigate } from "react-router-dom";
 import { TOKEN_SESSION_NAME } from "../services/SignServices";
+import { ServiceErrorInterface, ServiceResponseInterface } from "../services/Services";
 
 //// new
 interface PlayerProps {
@@ -224,11 +225,20 @@ export default function SoccerField() {
     useEffect( () => {
         const setProps = async () => {
             const response = await getTeamPlayers();
-            if(response?.isSuccessful)
-                setFieldsPlayer(addPlayersToField(response.res));
-            else if(true /* this must be type of error */){
-                localStorage.removeItem(TOKEN_SESSION_NAME);
-                navigate('/');
+            if(response?.isSuccessful){
+                const successResponse: PlayerProps[] = response.res as PlayerProps[];
+                setFieldsPlayer(addPlayersToField(successResponse));
+                return;
+            }
+
+            const error: ServiceErrorInterface = response as ServiceErrorInterface;
+            switch(error.errorType){
+                case "NotAuthorized":
+                    localStorage.removeItem(TOKEN_SESSION_NAME);
+                    navigate('/');
+                    break;
+                default:
+                    console.log('was here');
             }
         }
         setProps();
