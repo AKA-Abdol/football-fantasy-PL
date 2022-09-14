@@ -1,9 +1,13 @@
 export interface ServiceResponseInterface<T> {
-    isSuccessful: boolean,
     res: T
 }
 
+export interface ServiceSuccessInterface<T> extends ServiceResponseInterface<T> {
+    isSuccessful: true
+}
+
 export interface ServiceErrorInterface extends ServiceResponseInterface<string> {
+    isSuccessful: false,
     errorType: string
 }
 
@@ -16,8 +20,8 @@ export const ServiceError = (errorType: string, message: string) => {
     return error;
 }
 
-export const ServiceResponse = <T>(res: T) => {
-    const response: ServiceResponseInterface<T> = {
+export const ServiceSuccess = <T>(res: T) => {
+    const response: ServiceSuccessInterface<T> = {
         isSuccessful: true,
         res: res
     }
