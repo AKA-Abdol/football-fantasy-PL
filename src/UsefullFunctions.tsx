@@ -7,8 +7,8 @@ export const Fa2Eng = (s: string) => (
 );
 
 export const makeWebName = (fullName: string) => {
-  const MAX_LEN = 10;
-  if(fullName.length < MAX_LEN)
+  const MAX_LEN = 7;
+  if(fullName.length < MAX_LEN + 3)
     return fullName;
   let reduced: string = fullName.slice(0,  MAX_LEN)
   return reduced + '...';
