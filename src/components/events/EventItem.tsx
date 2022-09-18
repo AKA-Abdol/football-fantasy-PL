@@ -15,16 +15,16 @@ const EventItem = () => {
           <img src={Avatar} alt="avatar" />
         </div>
         <p className=" text-xs font-semibold mb-2">امیرمحمد مهری</p>
-        <div className="like w-5 h-5">
+        <div className="like w-5 h-5 cursor-pointer">
           <img src={Like} alt="like" />
         </div>
       </div>
       <div className="detail bg-white rounded-lg w-[484px]  mr-auto py-4 pr-4 text-xs">
-        <div className="score font-semibold flex">
-          <p className="ml-2 mb-4">امتیاز هفته</p>
-          <div className="score-bar flex items-center justify-around w-16 h-7 bg-gradient-to-l
-           from-detailListBoxColor1 to-detailListBoxColor2 p-1 rounded">
-            <img src={Star} alt="vector" className="w-3 h-3"/>
+        <div className="score font-semibold flex flex-row items-center py-4">
+          <div className="">امتیاز هفته</div>
+          <div className="score-bar flex flex-row items-center justify-around bg-gradient-to-l
+           from-detailListBoxColor1 to-detailListBoxColor2 px-3 rounded mr-4">
+            <img src={Star} alt="vector" className="w-3 h-3 ml-1"/>
             <p className="text-base">104</p>
           </div>
         </div>
@@ -68,7 +68,7 @@ const EventItem = () => {
         </div>
         <div
           className="week text-[#3d195b] bg-[#3d195b0f] w-[106px] h-[30px] mr-auto
-         rounded flex justify-center p-1 items-center mt-4 -rotate-90 font-semibold"
+         rounded flex justify-center items-center -rotate-90 font-semibold"
         >
           <p>#هفته_پنجم</p>
         </div>
