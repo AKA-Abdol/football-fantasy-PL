@@ -18,7 +18,7 @@ export default function PlayGroundBar(){
 
     const fieldPlayers = useRecoilValue(FieldPlayersAtom);
 
-    const { data, isLoading, isError } = useQuery(["credit", fieldPlayers], async () => await getCredit())
+    const { data, isLoading, isError } = useQuery(["credit", fieldPlayers], async () => await getCredit())    
 
 
     const numOfSelectedPlayerAtom = atom({
