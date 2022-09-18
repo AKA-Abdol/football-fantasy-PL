@@ -8,10 +8,10 @@ const EventItem = () => {
   return (
     <div
       dir="rtl"
-      className="event-container bg-[#fbfbfb] p-3 rounded-lg w-[640px] flex"
+      className="event-container p-1 bg-[#fbf] rounded-lg w-full flex"
     >
-      <div className="avatar mx-auto flex flex-col justify-center items-center">
-        <div className="avatar-photo w-20 h-20 rounded-full mb-1">
+      <div className="avatar w-1/4 ml-auto flex flex-col justify-center items-center">
+        <div className="avatar-photo w-1/2 rounded-full mb-1">
           <img src={Avatar} alt="avatar" />
         </div>
         <p className=" text-xs font-semibold mb-2">امیرمحمد مهری</p>
@@ -19,8 +19,8 @@ const EventItem = () => {
           <img src={Like} alt="like" />
         </div>
       </div>
-      <div className="detail bg-white rounded-lg w-[484px]  mr-auto py-4 pr-4 text-xs">
-        <div className="score font-semibold flex flex-row items-center py-4">
+      <div className="detail w-3/4 bg-white rounded-lg  mr-auto pr-4 text-xs">
+        <div className="score font-semibold flex flex-row items-center py-2">
           <div className="">امتیاز هفته</div>
           <div className="score-bar flex flex-row items-center justify-around bg-gradient-to-l
            from-detailListBoxColor1 to-detailListBoxColor2 px-3 rounded mr-4">
@@ -67,8 +67,8 @@ const EventItem = () => {
           </div>
         </div>
         <div
-          className="week text-[#3d195b] bg-[#3d195b0f] w-[106px] h-[30px] mr-auto
-         rounded flex justify-center items-center -rotate-90 font-semibold"
+          className="week text-[#3d195b] bg-[#3d195b0f] h-1/3 p-1 mr-auto
+         rounded flex justify-center items-center -rotate-90 font-semibold text-2xs"
         >
           <p>#هفته_پنجم</p>
         </div>

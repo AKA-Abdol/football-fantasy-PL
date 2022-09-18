@@ -6,7 +6,7 @@ import ListHeader from "../ListHeader";
 import MainListButton from "./Button";
 import MainListPagination from "./Pagination";
 import polygon from "../../assets/Polygon 4.svg"
-import { searchKeyAtom } from './SearchBox';
+import { playerNameSearchKeyAtom } from './SearchBox';
 import { currentPageAtom } from "./Pagination";
 import { atom, useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { useQuery } from "react-query";
@@ -77,7 +77,7 @@ export const NUM_OF_PLAYERS = 15;
 
 const MainList = () => {
 
-    const searchKey = useRecoilValue(searchKeyAtom);
+    const searchKey = useRecoilValue(playerNameSearchKeyAtom);
     const [currentPage, setCurrentPage] = useRecoilState(currentPageAtom);
     const [filter, setFilter] = useRecoilState(FilterAtom);
     const setMaxPage = useSetRecoilState(maxPageAtom);
@@ -109,7 +109,9 @@ const MainList = () => {
                 text="انتخاب بازیکن"
             />
             <div className="w-full px-3">
-                <SearchBox />
+                <SearchBox
+                    whatToSearch="playerName"
+                />
                 <div className="button-group flex justify-center flex-row-reverse">
 
                     {
