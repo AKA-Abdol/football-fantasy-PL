@@ -69,8 +69,8 @@ export const PlayerListAtom = atom({
 })
 
 export const FilterAtom = atom({
-    key:"filter",
-    default:"All" as Filter
+    key: "filter",
+    default: "All" as Filter
 })
 
 export const NUM_OF_PLAYERS = 15;
@@ -81,16 +81,16 @@ const MainList = () => {
     const [currentPage, setCurrentPage] = useRecoilState(currentPageAtom);
     const [filter, setFilter] = useRecoilState(FilterAtom);
     const setMaxPage = useSetRecoilState(maxPageAtom);
-    const [maxPlayers,setMaxPlayers] = useState(0);
+    const [maxPlayers, setMaxPlayers] = useState(0);
 
-    const make_query = useCallback( () => {
+    const make_query = useCallback(() => {
         let query = '?';
         query += `page=${currentPage}&num=${NUM_OF_PLAYERS}&search=${searchKey}&role=${filter}`;
         return query;
     }, [currentPage, searchKey, filter])
 
-    const {data, isLoading, isError} = useQuery(['playersList', currentPage, searchKey, filter], async () => {
-        const [ players, maxPlayer ] = await getPlayers(make_query());
+    const { data, isLoading, isError } = useQuery(['playersList', currentPage, searchKey, filter], async () => {
+        const [players, maxPlayer] = await getPlayers(make_query());
         setMaxPlayers(() => maxPlayer)
         setMaxPage(Math.ceil(maxPlayer / NUM_OF_PLAYERS));
         return players;
@@ -105,57 +105,62 @@ const MainList = () => {
 
     return (
         <div className="list mx-auto max-w-max flex flex-col  ml-auto rounded-2xl shadow-md pb-1 mb-2 h-full">
-            <ListHeader />
-            <SearchBox />
-            <div className="button-group flex justify-center mx-4 flex-row-reverse">
+            <ListHeader
+                text="انتخاب بازیکن"
+            />
+            <div className="w-full px-3">
+                <SearchBox />
+                <div className="button-group flex justify-center flex-row-reverse">
 
-                {
-                    filterButtons.map(({name, filterName}: FilterField) => 
+                    {
+                        filterButtons.map(({ name, filterName }: FilterField) =>
                         (
                             <MainListButton
                                 name={filterName}
                                 inner={name}
                                 onclick={handleFilter}
-                                selected = {filterName as Filter === filter}
+                                selected={filterName as Filter === filter}
                             />
                         )
-                    )
-                }
+                        )
+                    }
 
-            </div >
-            <DetailBox
-                number={maxPlayers.toString()}
-            />
-            <div className="flex flex-row-reverse justify-between mx-5 
+                </div >
+                <DetailBox
+                    number={maxPlayers.toString()}
+                />
+                <div className="flex flex-row-reverse justify-between
                 text-right text-fontGrey text-xs mb-2">
-                <p className="w-16">نام بازیکن</p>
-                <div className="flex items-center">
-                    <img src={polygon} alt="vec" className="mr-1px" />
-                    <p>عملکرد</p>
+                    <p className="w-16">نام بازیکن</p>
+                    <div className="flex items-center">
+                        <img src={polygon} alt="vec" className="" />
+                        <p>عملکرد</p>
+                    </div>
+                    <div className="flex items-center">
+                        <img src={polygon} alt="vec" className="" />
+                        <p>قیمت</p>
+                    </div>
                 </div>
-                <div className="flex items-center">
-                    <img src={polygon} alt="vec" className="mr-1px" />
-                    <p>قیمت</p>
+                <div className="bg-white-100 text-right">
+                    {isError ? (<div>Error!</div>) :
+                        isLoading ? (<div>Loading!</div>) :
+                            (data.map((player: any) => {
+                                return (
+                                    <MainListItem
+                                        name={player.webname}
+                                        club={player.club}
+                                        role={player.role}
+                                        pose={player.pose}
+                                        id={player.id}
+                                        playerStats={player.playerStats}
+                                    />
+                                )
+                            }))}
                 </div>
-            </div>
-            <div className="bg-white-100 text-right">
-                {isError ? (<div>Error!</div>) :
-                 isLoading ? (<div>Loading!</div>) :
-                 (data.map( (player: any) => {
-                    return(
-                            <MainListItem
-                                name = {player.webname}
-                                club = {player.club}
-                                role = {player.role}
-                                pose = {player.pose}
-                                id = {player.id}
-                                playerStats = {player.playerStats}
-                            />
-                    )
-                }))}
+
+                <MainListPagination />
             </div>
 
-            <MainListPagination />
         </div >
     )
 

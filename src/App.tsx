@@ -7,6 +7,7 @@ import SignUp from './pages/SignUp';
 import SignIn from './pages/SignIn';
 import Authentication from './pages/Authentication';
 import PageHeader from './components/PageHeader';
+import Events from './pages/Events';
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
               <Route path="myteam" element={<Home />} />
               <Route path="authentication" element={<Authentication />} />
               <Route path="award" element={<Home />} />
-              <Route path="event" element={<Home />} />
+              <Route path="event" element={<Events />} />
               <Route path="profile" element={<Home />} />
               <Route path="transfer" element={<Home />} />
             </Route>
