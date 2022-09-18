@@ -55,7 +55,7 @@ const MainListItem = (props: MainListProps) => {
 
             }}
             className="main-item-list  flex 
-        flex-row-reverse border-solid border-t-2 border-borderItemColor hover:bg-gray-200 mx-5 pt-1 cursor-pointer">
+        flex-row-reverse border-solid border-t-2 border-borderItemColor hover:bg-gray-200 pt-1 cursor-pointer">
             <div className="player-name font-bold text-nameFontColor text-xs ml-auto w-14">
                 {props.name}
                 <div className="player-name font-bold text-teamFontColor text-9">{props.club}</div>
