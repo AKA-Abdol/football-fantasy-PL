@@ -9,7 +9,7 @@ const List = () => {
     const fieldPlayers = useRecoilValue(FieldPlayersAtom);
 
     const goalKeepers = fieldPlayers.filter(gk => gk.pose < 2);
-    const defenders = fieldPlayers.filter(def => def.pose > 2 && def.pose < 8);
+    const defenders = fieldPlayers.filter(def => def.pose > 1 && def.pose < 8);
     const mids = fieldPlayers.filter(mid => mid.pose > 7 && mid.pose < 13);
     const attacks = fieldPlayers.filter(att => att.pose > 12 && att.pose < 16);
 
@@ -17,8 +17,8 @@ const List = () => {
     
 
     return (
-        <div className="flex h-full rounded-2xl w-full z-50 relative px-1 rounded-tl-lg">
-            <div className="w-1/2">
+        <div className="flex h-full rounded-2xl w-full z-50relative px-1 rounded-tl-lg">
+            <div className="w-[45%]">
                 <Cover name = "abbas" />
             </div>
             <div className="list content-center w-full rounded-r-2xl shadow-2xl h-full" dir="rtl">

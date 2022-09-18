@@ -3,7 +3,7 @@ import selectedShirt from "./../images/selected_shirt.png"
 import '../index.css';
 import { PlayerToRemoveAtom } from "./SelectedPlayer"
 import { FieldPlayersAtom } from "./../pages/Home"
-import { removePlayer } from "./../services/MainListServices"
+import { ErrorMessageAtom, removePlayer } from "./../services/MainListServices"
 import { isErrorVisibleAtom, isWarningVisibleAtom, isSuccessVisibleAtom } from "./../pages/Home"
 
 
@@ -19,16 +19,16 @@ export const modalAtom = atom({
 export const toastShow = (setShow: SetterOrUpdater<{
     active: boolean;
     msg: string;
-}>, message:string) => {
+}>, message: string) => {
     setShow(() => ({
-        active:true,
+        active: true,
         msg: message
     }));
 
     setTimeout(() => {
         setShow({
             active: false,
-            msg:""
+            msg: ""
         });
     }, 3000);
 }
@@ -42,6 +42,7 @@ export default function RemoveModal(props: RemoveModalProps) {
     const [isErrorVisible, setIsErrorVisible] = useRecoilState(isErrorVisibleAtom);
     const [isSuccessVisible, setIsSuccessVisible] = useRecoilState(isSuccessVisibleAtom);
     const [isWarningVisible, setIsWarningVisible] = useRecoilState(isWarningVisibleAtom);
+
 
 
 
@@ -91,7 +92,7 @@ export default function RemoveModal(props: RemoveModalProps) {
                                         }
                                         return newList
                                     })
-                                    toastShow(setIsSuccessVisible,"بازیکن با موفقیت حذف شد")
+                                    toastShow(setIsSuccessVisible, "بازیکن با موفقیت حذف شد")
                                     console.log("length", playerToRemove.length)
                                     removePlayer(playerIndex)
                                     cancelModal()
