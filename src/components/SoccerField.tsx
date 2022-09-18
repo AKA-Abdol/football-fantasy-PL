@@ -241,7 +241,7 @@ export default function SoccerField() {
             }
         }
         setProps();
-    })
+    }, []);
 
     const [playerSelect, setPlayerSelect] = useRecoilState(playerSelectAtom)
 
