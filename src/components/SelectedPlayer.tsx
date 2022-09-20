@@ -1,4 +1,4 @@
-import { atom, SetterOrUpdater, useRecoilState } from "recoil";
+import { atom, SetterOrUpdater, useRecoilState, useSetRecoilState } from "recoil";
 import selectedShirt from "./../images/selected_shirt.png"
 import onSelectShirt from "./../images/onselect_shirt.png"
 import { playerSelectAtom } from "./SoccerField"
@@ -6,6 +6,7 @@ import { modalAtom } from "./RemoveModal";
 import closeIcon from "./../images/close-circle.svg"
 import { FieldPlayersAtom } from "./../pages/Home"
 import {FilterAtom} from "./mainListComponents/MainPlayerList"
+import { currentPageAtom } from "./mainListComponents/Pagination";
 
 
 
@@ -44,6 +45,7 @@ export default function SelectedPlayers(props: selectedPlayer) {
     const [showModal, setShowModal] = useRecoilState(modalAtom)
     const [playerToRemove, setPlayerToRemove] = useRecoilState(PlayerToRemoveAtom)
     const [filter, setFilter] = useRecoilState(FilterAtom);
+    const setCurrentPage = useSetRecoilState(currentPageAtom);
 
     const viewModal = () => {
         setShowModal(true)
@@ -74,6 +76,7 @@ export default function SelectedPlayers(props: selectedPlayer) {
             <img
                 onClick={(event) => {
                     event.stopPropagation();
+                    setCurrentPage(1);
                     filterSetter(props.pose,setFilter)
                     setPlayerSelect(() => {
                         let newState = [];

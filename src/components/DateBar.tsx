@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-import { useQuery } from "react-query";
-import "../index.css";
-import { Eng2Fa, Fa2Eng, getOrderedString } from "../UsefullFunctions";
-import { getWeek } from "../services/DateServices";
+import { useQuery } from 'react-query';
+import '../index.css'
+import { Eng2Fa, Fa2Eng, getOrderedString } from '../UsefullFunctions';
+import { getWeek } from '../services/DateServices';
 
 export default function DateBar() {
   const { data, isLoading, isError } = useQuery(
