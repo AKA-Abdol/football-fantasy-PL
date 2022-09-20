@@ -23,9 +23,16 @@ const FollowModal = () => {
 
     return (
         <div 
-        onClick={cancelModal}
+        onClick={()=>{
+            
+            cancelModal();
+        }}
         className={showModal ? "theme-font bg-black h-full bg-opacity-50 absolute z-[10000] inset-0 flex justify-center items-center" : "hidden"}>
-            <div className="modal-container mx-auto flex flex-col text-base items-center jus bg-white w-1/3 my-3 rounded-2xl p-7">
+            <div
+            onClick={(event)=>{
+                event.stopPropagation();    
+            }}
+            className="modal-container mx-auto flex flex-col text-base items-center jus bg-white w-1/3 my-3 rounded-2xl p-7">
                 <div className="data flex flex-col justify-center items-center my-auto space-y-5">
                     <div className="avatar-image w-36 h-36 flex">
                         <img src={Avatar} alt="avatar" className="object-cover rounded-full"/>

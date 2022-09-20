@@ -8,6 +8,7 @@ import SignIn from './pages/SignIn';
 import Authentication from './pages/Authentication';
 import PageHeader from './components/PageHeader';
 import Events from './pages/Events';
+import FollowModal from './components/eventsComponents/FollowModal';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route element={<PageHeader/>}>
+              <Route path="test" element={<FollowModal/>}/>
               <Route path="myteam" element={<Home />} />
               <Route path="award" element={<Home />} />
               <Route path="event" element={<Events />} />
