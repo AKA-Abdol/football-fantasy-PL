@@ -56,7 +56,9 @@ export default function Events() {
 
 
 
-                        <MainListPagination />
+                        <MainListPagination
+                            disabled={false}
+                        />
                     </div>
 
                 </div >
