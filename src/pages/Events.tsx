@@ -6,12 +6,14 @@ import FollowItem from '../components/eventsComponents/FollowItem'
 import ListHeader from '../components/ListHeader'
 import MainListPagination from '../components/mainListComponents/Pagination'
 import SearchBox from '../components/mainListComponents/SearchBox'
+import useBreakpoint from '../customHooks/useBreakpoint'
 
 
 
 export default function Events() {
 
     const [eventTabToggle, setEventTabToggle] = useRecoilState(EventTabToggleAtom);
+    const breakpoint = useBreakpoint();
 
 
 
@@ -37,7 +39,7 @@ export default function Events() {
             <h2 className='hidden lg:flex ml-auto font-black text-2xl text-[#3D195B]'>آخرید رویدادها</h2>
             <EventTab />
             <div className='flex lg:w-[95%] flex-col-reverse lg:flex-row lg:justify-between lg:space-x-6'>
-                <div className="flex list mx-auto max-w-max min-w-fit flex-col  ml-auto rounded-2xl shadow-md mb-2 overflow-auto h-full">
+                <div className="hidden lg:flex list mx-auto max-w-max min-w-fit flex-col  ml-auto rounded-2xl shadow-md mb-2 overflow-auto h-full">
                     <ListHeader
                         text='دوستان شما'
                     />
@@ -58,12 +60,22 @@ export default function Events() {
                     </div>
 
                 </div >
-                <div className='w-full flex flex-col items-end space-y-4'>
+                {(eventTabToggle === 2 || 3) && <div className='w-full min-w-[475px] flex flex-col pt-6 pb-1 px-8 h-full  lg:hidden'>
+                    <SearchBox
+                        whatToSearch='followList'
+                    />
+
+                    <div className='w-full py-2'>
+                        <FollowItem />
+                    </div>
+                </div>}
+
+                {(eventTabToggle === 1 || breakpoint > 1024)  && <div className='w-full flex flex-col items-end space-y-4'>
                     <EventItem />
                     <EventItem />
                     <EventItem />
                     <EventItem />
-                </div>
+                </div>}
             </div>
 
         </div>
