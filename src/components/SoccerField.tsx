@@ -4,14 +4,12 @@ import SoccerFieldImg from "./../images/SoccerField.png";
 import DefaultPlayer from "./DefaultPlayer";
 import SelectedPlayers from "./SelectedPlayer";
 import onselectShirt from "./../images/onselect_shirt.png";
-import { useQuery } from "react-query";
 import { makeWebName } from '../UsefullFunctions';
 import { FieldPlayersAtom } from "../pages/Home";
 import { getTeamPlayers } from '../services/TeamPlayerServices';
 import { useNavigate } from "react-router-dom";
 import { TOKEN_SESSION_NAME } from "../services/SignServices";
-import { ServiceErrorInterface, ServiceResponseInterface } from "../services/Services";
-import { responseEncoding } from "axios";
+
 
 //// new
 export interface PlayerProps {
@@ -89,7 +87,7 @@ export type PlayerView = DefaultView | FieldsPlayer
 export const dummyGenerator = () => {
     const basePlayersArray: Array<PlayerView> = []
     for (let i = 0; i < 15; i++) {
-        const myPlayer: PlayerView = i % 2 == 1 ? {
+        const myPlayer: PlayerView = i % 2 === 1 ? {
             type: "Field",
             key: i,
             pose: i + 1,
@@ -244,8 +242,6 @@ export default function SoccerField() {
     }, []);
 
     const [playerSelect, setPlayerSelect] = useRecoilState(playerSelectAtom)
-
-    //const { isLoading, isError, data } = useQuery('players', )
 
     return (
         <div

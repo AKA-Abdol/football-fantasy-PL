@@ -45,12 +45,9 @@ export default function events() {
                     <MainListPagination />
                 </div>
 
-            </div >
-            <div className='w-full'>
-                <EventItem/>
-                <EventItem/>
-                <EventItem/>
-                <EventItem/>
+                <MainListPagination 
+                    disabled={false}
+                />
             </div>
         </div>
 

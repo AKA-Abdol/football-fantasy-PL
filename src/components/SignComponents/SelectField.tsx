@@ -6,14 +6,15 @@ interface FieldProps{
     name ?: string,
     options: string[],
     changeHandler ?: any,
-    poseClass?: string
+    poseClass?: string,
+    isInvalidField ?: boolean
 }
 
-export default function SelectField({label, placeholder, name, options, changeHandler, poseClass}: FieldProps){
+export default function SelectField({label, placeholder, name, options, changeHandler, poseClass, isInvalidField}: FieldProps){
     return (
         <div className="flex flex-col theme-font text-white space-y-2 mx-3 w-full">
             <p className={`ml-auto ${poseClass}`}>{label}</p>
-            <select onChange={changeHandler} className="select bg-transparent border-[#A057DB] arrow-left" dir="rtl" name={name}>
+            <select onChange={changeHandler} className={`select bg-transparent arrow-left ${isInvalidField ? 'border-yellow-400 bg-red-900' : 'border-[#A057DB]'}`} dir="rtl" name={name}>
                 <option className="bg-[#3D185B]" disabled selected>{placeholder}</option>
                 {
                     options.map( (current: string) => {

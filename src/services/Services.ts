@@ -28,8 +28,6 @@ export const ServiceSuccess = <T>(res: T) => {
     return response;
 }
 
-
-
 export interface ErrorData {
     errorType: string,
     message: string

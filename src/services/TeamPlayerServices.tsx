@@ -17,14 +17,13 @@ export const getTeamPlayers: () => Promise<ServiceSuccessInterface<PlayerProps[]
       },
     });
     const players = response.data.team.players;
-    console.log(players);
     const res = ServiceSuccess<PlayerProps[]>(players);
     return res;
   } 
   catch (err) {
     if(axios.isAxiosError(err)){
-        const data: ErrorData = err.response?.data as ErrorData;
-        const res = ServiceError(data.errorType ?? DEFAULT_ERROR, data.message ?? DEFAULT_ERROR_MESSAGE);
+        const data = err.response?.data as ErrorData;
+        const res = ServiceError(data.errorType, data.message);
         return res;
     }
     else{

@@ -1,10 +1,11 @@
-import { atom, useRecoilState } from "recoil";
+import { atom, useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import defaultShirt from "./../images/default_shirt.png"
 import addCircle from "./../images/add-circle.png"
 import onSelectShirt from "./../images/onselect_shirt.png"
 import { playerSelectAtom } from "./SoccerField"
 import {filterSetter} from "./SelectedPlayer"
 import {FilterAtom} from "./mainListComponents/MainPlayerList"
+import { currentPageAtom } from "./mainListComponents/Pagination";
 
 
 interface defaultProps {
@@ -17,6 +18,7 @@ interface defaultProps {
 export default function DefaultPlayer(props: defaultProps) {
     const [playerSelect, setPlayerSelect] = useRecoilState(playerSelectAtom)
     const [filter, setFilter] = useRecoilState(FilterAtom);
+    const setCurrentPage = useSetRecoilState(currentPageAtom);
 
 
 
@@ -24,6 +26,7 @@ export default function DefaultPlayer(props: defaultProps) {
         <div
             onClick={(event) => {
                 event.stopPropagation();
+                setCurrentPage(1);
                 filterSetter(props.pose,setFilter)
                 setPlayerSelect(() => {
                     let newState = [];
