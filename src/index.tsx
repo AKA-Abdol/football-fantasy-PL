@@ -9,8 +9,16 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
+const NUMBER_OF_RETRY = 1;
+
 // process.env.SERVER_URL
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: NUMBER_OF_RETRY
+    }
+  }
+});
 
 root.render(
   <React.StrictMode>

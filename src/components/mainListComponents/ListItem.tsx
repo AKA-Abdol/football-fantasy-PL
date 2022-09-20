@@ -29,8 +29,8 @@ const MainListItem = (props: MainListProps) => {
             onClick={async () => {
                 const playerIndex = playerSelect[0];
                 console.log("selPlayerIndex:", playerIndex);
-                const is_added = await addPlayer(playerIndex, props.id);
-                if (playerSelect.length && is_added?.hasResolved) {
+                const response = await addPlayer(playerIndex, props.id);
+                if (playerSelect.length && response.isSuccessful) {
                     setFieldPlayers(prevList => {
                         const newList = [...prevList]
                         newList[playerIndex] = {
@@ -47,9 +47,9 @@ const MainListItem = (props: MainListProps) => {
                         return [];
                     })
                     toastShow(setIsSuccessVisible, "بازیکن با موفقیت اضافه شد")
-                } else if (playerSelect.length && !is_added?.hasResolved) {
+                } else if (playerSelect.length && !response.isSuccessful) {
                     console.log("isAdd false shod")
-                    toastShow(setIsErrorVisible,is_added?.message ?? '')
+                    toastShow(setIsErrorVisible, response.res)
                 }
                 
 

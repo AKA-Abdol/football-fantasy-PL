@@ -1,5 +1,7 @@
 import http from "./http";
 import { EMAIL_SESSION } from "../pages/SignUp";
+import axios, { AxiosError } from "axios";
+import { ErrorData, ServiceError, ServiceErrorInterface, ServiceSuccess, ServiceSuccessInterface } from "./Services";
 
 const USER_PREFIX = '/auth/';
 const SIGNUP_URL = USER_PREFIX + 'signup';
@@ -27,23 +29,56 @@ interface ConfirmData{
     email: string | null
 }
 
-export const postSignupData = async (signupData: SignupData) => {
-    console.log("in the service:", signupData);
-    const response = await http.post(SIGNUP_URL, signupData);
-    return response.status === OK;
+export const postSignupData: (signupData: SignupData) => Promise<ServiceSuccessInterface<string> | ServiceErrorInterface> = async (signupData: SignupData) => {
+
+    try {
+        const response = await http.post(SIGNUP_URL, signupData);
+        console.log("signupTest: ", response);
+        const res = ServiceSuccess<string>(response.data);
+        return res;
+    }
+    catch(err) {
+        const DEFAULT_ERROR = 'unknown';
+        console.log(err);
+        if(axios.isAxiosError(err)){
+            const data = err.response?.data as ErrorData;
+            console.log(data);
+            const res = ServiceError('firstname username password country' , data.message);
+            return res;
+        }
+        else{
+          return ServiceError(DEFAULT_ERROR, "یه اروری داداچ");
+        }
+    }
 }
 
-export const postLoginData = async (loginData: LoginData) => {
-    const response = await http.post(LOGIN_URL, loginData);
-    const res_data = response.data;
-
-    localStorage.setItem(TOKEN_SESSION_NAME, res_data.token);
-    console.log(localStorage.getItem(TOKEN_SESSION_NAME));
+export const postLoginData: (loginData: LoginData) => Promise<ServiceSuccessInterface<string> | ServiceErrorInterface> = async (loginData: LoginData) => {
+    try {
+        const response = await http.post(LOGIN_URL, loginData);
+        const token = response.data.token;
+        localStorage.setItem(TOKEN_SESSION_NAME, token);
+        return ServiceSuccess<string>(response.data);
+    }
+    catch(err) {
+        const _err = err as AxiosError;
+        const data = _err.response?.data as ErrorData;
+        console.log('hereinlogindata:', data);
+        return ServiceError('username password', 'اطلاعات ورودی اشتباه است');
+    }
 }
 
 export const confirmSignup = async (confirmData: ConfirmData) => {
-    const response = await http.post(CONFIRM_URL, confirmData);
-    const token = response.data.token;
-    localStorage.setItem(TOKEN_SESSION_NAME, token);
-    localStorage.removeItem(EMAIL_SESSION);
+    try {
+        const response = await http.post(CONFIRM_URL, confirmData);
+        const token = response.data.token;
+        localStorage.setItem(TOKEN_SESSION_NAME, token);
+        localStorage.removeItem(EMAIL_SESSION);
+        return ServiceSuccess<string>(response.data);
+    }
+    catch(err) {
+        const _err = err as AxiosError;
+        const data = _err.response?.data as ErrorData;
+        console.log('authdata: ', data);
+        return ServiceError('verificationCode', 'کد وارد شده اشتباه است');
+    }
 }

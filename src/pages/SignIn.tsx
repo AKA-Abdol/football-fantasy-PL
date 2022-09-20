@@ -9,7 +9,9 @@ import React, { KeyboardEvent, useEffect, useState } from "react";
 import { postLoginData, TOKEN_SESSION_NAME } from "../services/SignServices";
 import { useNavigate } from "react-router-dom";
 import FPLButtomImg from "../images/FPLButtomImg.png";
-import { handleKeyboardEvent } from "../GenericFunctions";
+import { handleKeyboardEvent, toastShow } from "../GenericFunctions";
+import { Toast } from "./SignUp";
+import SuccessToast, { ErrorToast, WarningToast } from "../components/Toasts";
 
 export const INPUT_FIELD_CLASS = "mx-auto lg:mx-0 lg:ml-auto";
 
@@ -51,6 +53,15 @@ export default function SignIn() {
   });
   console.log(signinData);
 
+  const [invalidFields, setInvalidFields] = useState< Array<string> >([]);
+  console.log("invalidFields", invalidFields);
+
+  const [toast, setToast] = useState<Toast>({
+    active: false,
+    type: 'none',
+    msg: ''
+  })
+
   const handleChange = (
     event:
       | React.ChangeEvent<HTMLInputElement>
@@ -63,9 +74,19 @@ export default function SignIn() {
   };
 
   const signin = async () => {
-    await postLoginData(signinData);
-    if (localStorage.getItem(TOKEN_SESSION_NAME)) navigate("/myteam");
-    else navigate("/signup");
+    const response = await postLoginData(signinData);
+    if(response.isSuccessful){
+      if (localStorage.getItem(TOKEN_SESSION_NAME)) navigate("/myteam");
+    }
+    else{
+      const errors = response.errorType;
+      setInvalidFields(errors.split(' '));
+      toastShow(setToast, {
+        active: true,
+        type: 'Error',
+        msg: response.res
+      })
+    }
   };
 
   return (
@@ -116,6 +137,7 @@ export default function SignIn() {
                       name={name}
                       changeHandler={handleChange}
                       poseClass={INPUT_FIELD_CLASS}
+                      isInvalidField={invalidFields.includes(name)}
                     />
                   ) : (
                     <InputField
@@ -124,6 +146,7 @@ export default function SignIn() {
                       name={name}
                       changeHandler={handleChange}
                       poseClass={INPUT_FIELD_CLASS}
+                      isInvalidField={invalidFields.includes(name)}
                     />
                   )}
                 </div>
@@ -153,6 +176,15 @@ export default function SignIn() {
           />
         </div>
       </div>
+      {toast.active ? (
+        toast.type === "Error" ? (
+          <ErrorToast message={toast.msg} />
+        ) : toast.type === "Success" ? (
+          <SuccessToast message={toast.msg} />
+        ) : (
+          <WarningToast />
+        )
+      ) : null}
     </div>
   );
 }

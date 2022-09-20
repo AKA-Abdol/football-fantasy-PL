@@ -45,7 +45,8 @@ export default function RemoveModal(props: RemoveModalProps) {
 
 
 
-
+    console.log("showModal",showModal);
+    
     const cancelModal = () => {
         setShowModal(false)
         setPlayerToRemove(() => {
@@ -80,22 +81,29 @@ export default function RemoveModal(props: RemoveModalProps) {
                             className="px-12 py-1 border border-[#3D195B] rounded hover:bg-red-300 hover:bg-opacity-50 hover:text-red-900">لغو</button>
                         <button
                             className="px-12 py-1 bg-red-800 text-gray-200 hover:bg-red-600 rounded"
-                            onClick={(event) => {
+                            onClick={async (event) => {
                                 event.stopPropagation()
                                 if (playerToRemove.length) {
                                     const playerIndex = playerToRemove[0];
-                                    setFieldPlayers(prevList => {
-                                        const newList = [...prevList]
-                                        newList[playerIndex] = {
-                                            type: "Default",
-                                            pose: playerIndex
-                                        }
-                                        return newList
-                                    })
-                                    toastShow(setIsSuccessVisible, "بازیکن با موفقیت حذف شد")
-                                    console.log("length", playerToRemove.length)
-                                    removePlayer(playerIndex)
-                                    cancelModal()
+                                    const response = await removePlayer(playerIndex);
+                                    if(response.isSuccessful){
+                                        setFieldPlayers(prevList => {
+                                            const newList = [...prevList]
+                                            newList[playerIndex] = {
+                                                type: "Default",
+                                                pose: playerIndex
+                                            }
+                                            return newList
+                                        })
+                                        toastShow(setIsSuccessVisible, "بازیکن با موفقیت حذف شد")
+                                        console.log("length", playerToRemove.length)
+                                        cancelModal()
+                                    }
+                                    else{
+                                        toastShow(setIsErrorVisible, response.res);
+                                        console.log("length", playerToRemove.length)
+                                        cancelModal()
+                                    }
 
                                 }
 
