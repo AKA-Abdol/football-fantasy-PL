@@ -8,14 +8,14 @@ const Button = () => {
     )
 }
 
-export const modalAtom = atom({
-    key: 'showModal',
+export const profileModalAtom = atom({
+    key: 'profileModal',
     default: true
 })
 
 
 const FollowModal = () => {
-    const [showModal, setShowModal] = useRecoilState(modalAtom)
+    const [showModal, setShowModal] = useRecoilState(profileModalAtom)
 
     const cancelModal = () => {
         setShowModal(false)

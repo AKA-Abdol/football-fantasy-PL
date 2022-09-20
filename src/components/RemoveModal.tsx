@@ -45,7 +45,8 @@ export default function RemoveModal(props: RemoveModalProps) {
 
 
 
-
+    console.log("showModal",showModal);
+    
     const cancelModal = () => {
         setShowModal(false)
         setPlayerToRemove(() => {

@@ -85,7 +85,7 @@ export const FilterAtom = atom({
 export const NUM_OF_PLAYERS = 15;
 
 const MainList = () => {
-  const searchKey = useRecoilValue(searchKeyAtom);
+  const searchKey = useRecoilValue(playerNameSearchKeyAtom);
   const [currentPage, setCurrentPage] = useRecoilState(currentPageAtom);
   const [filter, setFilter] = useRecoilState(FilterAtom);
   const setMaxPage = useSetRecoilState(maxPageAtom);
@@ -119,7 +119,9 @@ const MainList = () => {
     <div className="list mx-auto max-w-max flex flex-col  ml-auto rounded-2xl shadow-md pb-1 mb-2 h-full">
       <ListHeader text="انتخاب بازیکن" />
       <div className="w-full px-3">
-        <SearchBox />
+        <SearchBox 
+          whatToSearch="playerName"
+        />
         <div className="button-group flex justify-center flex-row-reverse">
           {filterButtons.map(({ name, filterName }: FilterField) => (
             <MainListButton
@@ -128,28 +130,38 @@ const MainList = () => {
               onclick={handleFilter}
               selected={(filterName as Filter) === filter}
             />
-            <div className="w-full px-3">
-                <SearchBox
-                    whatToSearch="playerName"
-                />
-                <div className="button-group flex justify-center flex-row-reverse">
-
-                    {
-                        filterButtons.map(({ name, filterName }: FilterField) =>
-                        (
-                            <MainListButton
-                                name={filterName}
-                                inner={name}
-                                onclick={handleFilter}
-                                selected={filterName as Filter === filter}
-                            />
-                        )
-                        )
-                    }
-
-                </div >
-                <DetailBox
-                    number={maxPlayers.toString()}
+          ))}
+        </div>
+        <DetailBox number={maxPlayers.toString()} />
+        <div
+          className="flex flex-row-reverse justify-between
+                text-right text-fontGrey text-xs mb-2"
+        >
+          <p className="w-16">نام بازیکن</p>
+          <div className="flex items-center">
+            <img src={polygon} alt="vec" className="" />
+            <p>عملکرد</p>
+          </div>
+          <div className="flex items-center">
+            <img src={polygon} alt="vec" className="" />
+            <p>قیمت</p>
+          </div>
+        </div>
+        <div className="bg-white-100 text-right">
+          {isError ? (
+            <div>Error!</div>
+          ) : isLoading ? (
+            <div>Loading!</div>
+          ) : (
+            data.map((player: any) => {
+              return (
+                <MainListItem
+                  name={player.webname}
+                  club={player.club}
+                  role={player.role}
+                  pose={player.pose}
+                  id={player.id}
+                  playerStats={player.playerStats}
                 />
               );
             })

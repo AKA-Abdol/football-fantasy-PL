@@ -5,8 +5,8 @@ import { getWeek } from '../services/DateServices';
 
 export default function DateBar() {
   const { data, isLoading, isError } = useQuery(
-    "sara",
-    async () => await getWeek()
+    "week",
+    getWeek
   );
 
   const getDateString = (date: Date) => {
