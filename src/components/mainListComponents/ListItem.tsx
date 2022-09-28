@@ -3,11 +3,11 @@ import { useRecoilState, useSetRecoilState } from "recoil";
 import { MainListProps } from "./MainPlayerList";
 import { PlayerListAtom } from "./MainPlayerList"
 import { playerSelectAtom } from "./../SoccerField"
-import { FieldPlayersAtom } from "./../../pages/Home"
+import { FieldPlayersAtom } from "../../pages/Transfers"
 import { addPlayer, ErrorMessageAtom } from "../../services/MainListServices";
 import { makeWebName } from "../../UsefullFunctions";
 import { toastShow } from "../RemoveModal";
-import { isSuccessVisibleAtom,isErrorVisibleAtom } from "./../../pages/Home"
+import { isSuccessVisibleAtom,isErrorVisibleAtom } from "../../pages/Transfers"
 
 
 

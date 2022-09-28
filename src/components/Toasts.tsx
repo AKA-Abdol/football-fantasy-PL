@@ -1,6 +1,6 @@
 import React from 'react'
 import { SetterOrUpdater, useRecoilState, useSetRecoilState } from 'recoil';
-import { isErrorVisibleAtom, isWarningVisibleAtom, isSuccessVisibleAtom } from "./../pages/Home"
+import { isErrorVisibleAtom, isWarningVisibleAtom, isSuccessVisibleAtom } from "../pages/Transfers"
 
 
 interface ToastProps {

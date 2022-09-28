@@ -5,7 +5,7 @@ import DefaultPlayer from "./DefaultPlayer";
 import SelectedPlayers from "./SelectedPlayer";
 import onselectShirt from "./../images/onselect_shirt.png";
 import { makeWebName } from '../UsefullFunctions';
-import { FieldPlayersAtom } from "../pages/Home";
+import { FieldPlayersAtom } from "../pages/Transfers";
 import { getTeamPlayers } from '../services/TeamPlayerServices';
 import { useNavigate } from "react-router-dom";
 import { TOKEN_SESSION_NAME } from "../services/SignServices";

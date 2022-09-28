@@ -4,7 +4,7 @@ import onSelectShirt from "./../images/onselect_shirt.png"
 import { playerSelectAtom } from "./SoccerField"
 import { modalAtom } from "./RemoveModal";
 import closeIcon from "./../images/close-circle.svg"
-import { FieldPlayersAtom } from "./../pages/Home"
+import { FieldPlayersAtom } from "../pages/Transfers"
 import {FilterAtom} from "./mainListComponents/MainPlayerList"
 import { currentPageAtom } from "./mainListComponents/Pagination";
 

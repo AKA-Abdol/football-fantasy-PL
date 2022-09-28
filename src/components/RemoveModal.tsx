@@ -2,9 +2,9 @@ import { useRecoilState, atom, SetterOrUpdater } from "recoil"
 import selectedShirt from "./../images/selected_shirt.png"
 import '../index.css';
 import { PlayerToRemoveAtom } from "./SelectedPlayer"
-import { FieldPlayersAtom } from "./../pages/Home"
+import { FieldPlayersAtom } from "../pages/Transfers"
 import { ErrorMessageAtom, removePlayer } from "./../services/MainListServices"
-import { isErrorVisibleAtom, isWarningVisibleAtom, isSuccessVisibleAtom } from "./../pages/Home"
+import { isErrorVisibleAtom, isWarningVisibleAtom, isSuccessVisibleAtom } from "../pages/Transfers"
 
 
 interface RemoveModalProps {

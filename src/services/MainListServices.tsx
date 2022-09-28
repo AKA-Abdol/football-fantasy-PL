@@ -25,8 +25,8 @@ export const getPlayers = async (queryParams: TeamQueryParams) => {
   console.log("Query: ", queryParams);
 
   const response = await http.get(ALL_PLAYERS, { params: queryParams });
-  const data = response.data.players;
-  return [data.players, data.count];
+  const data = response.data
+  return [data.values, data.count];
 };
 
 export const addPlayer: (

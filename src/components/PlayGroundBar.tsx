@@ -8,7 +8,7 @@ import PlayerLogo from '../images/user-octagon.svg';
 import WalletLogo from '../images/empty-wallet.svg';
 import RahnemaEngLogo from '../images/rahnema-college-logo-eng.svg'
 import { atom, useRecoilState, useRecoilValue } from 'recoil';
-import { FieldPlayersAtom } from '../pages/Home';
+import { FieldPlayersAtom } from '../pages/Transfers';
 import { useQuery } from 'react-query';
 import { getCredit } from '../services/CreditServices';
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { FieldPlayersAtom } from "../../pages/Home";
+import { FieldPlayersAtom } from "../../pages/Transfers";
 import Cover from "./Cover";
 import ListItem from "./ListItem";
 
