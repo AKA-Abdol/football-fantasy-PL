@@ -40,7 +40,7 @@ export const FieldPlayersAtom = atom({
   default: dummyData,
 });
 
-const Home = () => {
+const Transfers = () => {
   const fieldPlayers = useRecoilValue(FieldPlayersAtom);
   const isErrorVisible = useRecoilValue(isErrorVisibleAtom);
   const isSuccessVisible = useRecoilValue(isSuccessVisibleAtom);
@@ -88,4 +88,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Transfers;
