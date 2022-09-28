@@ -1,7 +1,7 @@
 import React from "react";
 import { useRecoilState } from "recoil";
 import SoccerFieldImg from "../../images/SoccerField.png";
-import { FieldPlayersAtom } from "../../pages/Home";
+import { FieldPlayersAtom } from "../../pages/Transfers";
 import DefaultShirt from "./DefaultShirt";
 import Shirt from "./Shirt";
 

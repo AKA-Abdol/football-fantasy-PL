@@ -17,7 +17,7 @@ const Shirt = ({
       <div className="flex flex-row relative justify-center">
         <img src={SelectedShirt} alt="shirt" className="flex justify-center" />
         {!isInTheList ? (
-          <div className="in-out bg-[#FFE870C9] p-1 rounded absolute bottom-0 right-0">
+          <div className="in-out bg-[#FFE870C9] p-1 rounded absolute bottom-0 right-0 cursor-pointer">
             <img src={Out} alt="vector out" className="w-3 mr-1 mb-auto" />
             <img src={In} alt="vector in" className="w-3 ml-auto mt-auto" />
           </div>
