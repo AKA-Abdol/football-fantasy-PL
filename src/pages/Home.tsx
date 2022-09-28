@@ -18,36 +18,10 @@ import { PlayerToRemoveAtom } from "../components/SelectedPlayer";
 import List from "../components/teamList/List";
 import { PlaygroundTabAtom } from "../components/PageToggleTab";
 import { useNavigate } from "react-router-dom";
-
-export const isErrorVisibleAtom = atom({
-  key: "isErrorVisible",
-  default: { active: false, msg: "" },
-});
-export const isSuccessVisibleAtom = atom({
-  key: "isSuccessVisible",
-  default: { active: false, msg: "" },
-});
-export const isWarningVisibleAtom = atom({
-  key: "isWarningVisible",
-  default: { active: false, msg: "" },
-});
-
-const dummyData = dummyGenerator();
-console.log(dummyData);
-
-export const FieldPlayersAtom = atom({
-  key: "FieldPlayers",
-  default: dummyData,
-});
+import { TransferPlaygroundTabAtom } from "../components/transfer/PageToggleTab";
 
 const Home = () => {
-  const fieldPlayers = useRecoilValue(FieldPlayersAtom);
-  const isErrorVisible = useRecoilValue(isErrorVisibleAtom);
-  const isSuccessVisible = useRecoilValue(isSuccessVisibleAtom);
-  const isWarningVisible = useRecoilValue(isWarningVisibleAtom);
-  const playerToRemove = useRecoilValue(PlayerToRemoveAtom);
-  const selTab = useRecoilValue(PlaygroundTabAtom);
-
+  const selTab = useRecoilValue(TransferPlaygroundTabAtom);
   const getPlayerName = (player: PlayerView) => {
     console.log("type:", player.type);
     const existed_player = player as FieldsPlayer;
@@ -56,14 +30,6 @@ const Home = () => {
 
   return (
     <div className="w-full">
-      <RemoveModal
-        playerName={
-          playerToRemove.length
-            ? getPlayerName(fieldPlayers[playerToRemove[0]])
-            : ""
-        }
-      />
-      
       <div className="Body w-full flex flex-col items-center justify-center mt-16 lg:space-x-6">
         <DateBar />
         <div className="flex flex-col px-2 w-full lg:w-2/3 lg:flex-row">
@@ -74,12 +40,6 @@ const Home = () => {
           <MainList />
         </div>
       </div>
-
-      {isErrorVisible.active && <ErrorToast message={isErrorVisible.msg} />}
-      {isSuccessVisible.active && (
-        <SuccessToast message={isSuccessVisible.msg} />
-      )}
-      {isWarningVisible.active && <WarningToast />}
     </div>
   );
 };
