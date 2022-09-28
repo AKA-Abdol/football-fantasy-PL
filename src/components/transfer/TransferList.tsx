@@ -11,10 +11,10 @@ const TransferList = () => {
           className="flex flex-col justify-between
                 text-right text-fontGrey text-xs mb-2 space-y-5"
         >
-          <Shirt name="sara" rightIcon={false} />
-          <Shirt name="sara" rightIcon={false} />
-          <Shirt name="sara" rightIcon={false} />
-          <Shirt name="sara" rightIcon={false} />
+          <Shirt name="sara" pose={2} isInTheList={false} />
+          <Shirt name="sara" pose={3} isInTheList={false} />
+          <Shirt name="sara" pose={5} isInTheList={false} />
+          <Shirt name="sara" pose={7} isInTheList={false} />
         </div>
       </div>
     </div>
