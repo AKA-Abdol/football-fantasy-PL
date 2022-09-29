@@ -51,7 +51,7 @@ const SearchBox = (props: SearchBoxI) => {
 
     return (
         <div className="search-box border-solid border-b-2 border-borderSearchBoxColor mt-20px flex justify-end w-full ">
-            <div className="mb-2">
+            <div className="mb-2 w-full">
                 <input type="text" name="" id="" placeholder="جستجو" dir="rtl" onChange={(event) => handleSearch(event, props.whatToSearch)} className=" w-full text-sm placeholder-placeholderColor placeholder-opacity-70 focus:outline-none" />
             </div>
             <div className="mr-3 mb-1">
