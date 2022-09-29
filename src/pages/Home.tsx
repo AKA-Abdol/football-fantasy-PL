@@ -43,7 +43,7 @@ const Home = () => {
             <PlayGroundBar />
             {selTab === 1 ? <SoccerField /> : <List />}
           </div>
-          <div className="transfer-list-container">
+          <div className="transfer-list-container mt-auto">
             <TransferList />
           </div>
         </div>

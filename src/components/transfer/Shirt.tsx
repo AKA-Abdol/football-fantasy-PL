@@ -13,7 +13,7 @@ const Shirt = ({
   isInTheList: boolean;
 }) => {
   return (
-    <div className="shirt relative">
+    <div className="shirt relative w-20">
       <div className="flex flex-row relative justify-center">
         <img src={SelectedShirt} alt="shirt" className="flex justify-center" />
         {!isInTheList ? (

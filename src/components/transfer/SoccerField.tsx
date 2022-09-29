@@ -15,7 +15,7 @@ const SoccerField = () => {
         alt="soccer field"
         className="absolute w-full h-max -z-50"
       />
-      <div className="w-full h-[0%] px-4 sm:pt-2 flex flex-row justify-around">
+      <div className="w-full px-4 sm:pt-2 flex flex-row justify-around">
         {fieldsPlayer.slice(0, 1).map((item, index) => {
           if (item.type === "Default") {
             return <DefaultShirt key={item.pose} pose={item.pose} />;
@@ -26,7 +26,7 @@ const SoccerField = () => {
           }
         })}
       </div>
-      <div className="w-full h-[10%] px-4 sm:py-4 flex flex-row justify-around">
+      <div className="w-full  px-4 sm:py-4 flex flex-row justify-around">
         {fieldsPlayer.slice(2, 6).map((item) => {
           if (item.type === "Default") {
             return <DefaultShirt key={item.pose} pose={item.pose} />;
@@ -37,7 +37,7 @@ const SoccerField = () => {
           }
         })}
       </div>
-      <div className="w-full h-[10%] px-4 sm:py-4 flex flex-row justify-around">
+      <div className="w-full px-4 sm:py-4 flex flex-row justify-around">
         {fieldsPlayer.slice(7, 11).map((item) => {
           if (item.type === "Default") {
             return <DefaultShirt key={item.pose} pose={item.pose} />;
@@ -48,7 +48,7 @@ const SoccerField = () => {
           }
         })}
       </div>
-      <div className="w-full h-[10%] py-4 px-6 flex flex-row justify-around">
+      <div className="w-full py-4 px-6 flex flex-row justify-around">
         {fieldsPlayer.slice(12, 15).map((item) => {
           if (item.type === "Default") {
             return <DefaultShirt key={item.pose} pose={item.pose} />;
