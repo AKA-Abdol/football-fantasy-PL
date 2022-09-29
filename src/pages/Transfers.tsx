@@ -3,7 +3,7 @@ import PlayGroundBar from "../components/PlayGroundBar";
 import SoccerField, { PlayerView } from "../components/SoccerField";
 import PageHeader from "../components/PageHeader";
 import MainList from "../components/mainListComponents/MainPlayerList";
-import RemoveModal from "../components/RemoveModal";
+import FieldModal from "../components/RemoveModal";
 import DateBar from "../components/DateBar";
 import { dummyGenerator } from "../components/SoccerField";
 import { atom, useRecoilState, useRecoilValue } from "recoil";
@@ -56,12 +56,14 @@ const Transfers = () => {
 
   return (
     <div className="w-full">
-      <RemoveModal
+      <FieldModal
         playerName={
           playerToRemove.length
             ? getPlayerName(fieldPlayers[playerToRemove[0]])
             : ""
         }
+        actionText="تعویض"
+        buttonColor="red"
       />
       {/* <div className="flex flex-col h-screen w-full theme-font items-center"> */}
       {/* <div className='Header w-full'>
