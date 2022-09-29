@@ -21,6 +21,7 @@ import { useNavigate } from "react-router-dom";
 import { TransferPlaygroundTabAtom } from "../components/transfer/PageToggleTab";
 import NarrowDateBar from "../components/NarrowDateBar";
 import TransferList from "../components/transfer/TransferList";
+import NarrowDeadlineBar from "../components/NarrowDeadlineBar";
 
 const Home = () => {
   const selTab = useRecoilValue(TransferPlaygroundTabAtom);
@@ -35,7 +36,7 @@ const Home = () => {
       <div className="flex flex-row w-2/3 space-x-2">
         <div className="Body flex flex-col mt-16 w-full">
           <div className="flex flex-row w-full justify-between px-1">
-            <NarrowDateBar />
+            <NarrowDeadlineBar />
             <NarrowDateBar />
           </div>
 

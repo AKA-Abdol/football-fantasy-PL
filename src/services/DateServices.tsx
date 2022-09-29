@@ -12,7 +12,16 @@ export const getWeek = async () => {
 
   const data = response.data.week;
   const weekNum = data.weekNum;
-  const startDate = new Date(data.startDate);
+  const startDate = new Date(data.endDate);
   console.log("dataHere: ", startDate);
   return { weekNum, startDate };
 };
+
+export const getDeadline = async () => {
+  const response = await http.get(GET_DATE);
+  const data = response.data.week;
+  const deadlineDate = new Date(data.deadlineDate);
+  console.log('deadline: ', deadlineDate);
+  
+  return deadlineDate;
+}
