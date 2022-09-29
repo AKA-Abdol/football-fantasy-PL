@@ -43,7 +43,7 @@ export default function NarrowDateBar() {
   console.log(getDateString(data?.startDate ?? new Date(1)));
 
   return (
-    <div className="DateBar flex flex-row px-2 py-2 mb-10 rounded-lg bg-[#3D195B] justify-around theme-font text-sm">
+    <div className="DateBar flex flex-row px-2 py-2 mb-7 rounded-lg bg-[#3D195B] justify-around theme-font text-sm">
       {isError ? (
         <p className="text-[#00FF87]">Error!</p>
       ) : isLoading ? (

@@ -232,7 +232,7 @@ export default function SoccerField() {
             switch(response.errorType){
                 case "NotAuthorized":
                     localStorage.removeItem(TOKEN_SESSION_NAME);
-                    navigate('/');
+                    //navigate('/');
                     break;
                 default:
                     console.log('was here');

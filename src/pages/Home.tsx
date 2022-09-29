@@ -32,20 +32,20 @@ const Home = () => {
 
   return (
     <div className="w-full flex justify-center">
-      <div className="Body flex flex-col mt-16 w-2/3">
-        <div className="flex flex-row w-full space-x-4 pl-6">
-          <NarrowDateBar />
-          <NarrowDateBar />
-        </div>
+      <div className="flex flex-row w-2/3 space-x-2">
+        <div className="Body flex flex-col mt-16 w-full">
+          <div className="flex flex-row w-full justify-between px-1">
+            <NarrowDateBar />
+            <NarrowDateBar />
+          </div>
 
-        <div className="flex flex-col px-2 w-full  lg:flex-row">
-          <div className="soccer-field-all w-full px-4 sm:max-w-screen-md flex flex-col items-center">
-            <PlayGroundBar />
-            {selTab === 1 ? <SoccerField /> : <List />}
-          </div>
-          <div className="transfer-list-container mt-auto">
-            <TransferList />
-          </div>
+          {/* <div className="flex flex-col px-2 w-full  lg:flex-row"> */}
+          {/* <div className="soccer-field-all w-full px-4 sm:max-w-screen-md flex flex-col items-center"> */}
+          <PlayGroundBar />
+          {selTab === 1 ? <SoccerField /> : <List />}
+        </div>
+        <div className="transfer-list-container mt-60">
+          <TransferList />
         </div>
       </div>
     </div>
