@@ -1,13 +1,10 @@
-import { useQuery } from 'react-query';
-import '../index.css'
-import { Eng2Fa, Fa2Eng, getOrderedString } from '../UsefullFunctions';
-import { getWeek } from '../services/DateServices';
+import { useQuery } from "react-query";
+import "../index.css";
+import { Eng2Fa, Fa2Eng, getOrderedString } from "../UsefullFunctions";
+import { getWeek } from "../services/DateServices";
 
 export default function NarrowDateBar() {
-  const { data, isLoading, isError } = useQuery(
-    "week",
-    getWeek
-  );
+  const { data, isLoading, isError } = useQuery("week", getWeek);
 
   const getDateString = (date: Date) => {
     console.log(date);
@@ -53,7 +50,7 @@ export default function NarrowDateBar() {
         <p className="text-[#00FF87]">Loading!</p>
       ) : (
         <>
-          <div className="text-white">
+          <div className="text-white mr-4">
             {getDateString(data?.startDate ?? new Date(0))}
           </div>
           <div className="text-[#00FF87]">{`هفته ${getOrderedString(
