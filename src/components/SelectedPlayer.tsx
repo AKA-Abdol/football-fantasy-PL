@@ -2,7 +2,7 @@ import { atom, SetterOrUpdater, useRecoilState, useSetRecoilState } from "recoil
 import selectedShirt from "./../images/selected_shirt.png"
 import onSelectShirt from "./../images/onselect_shirt.png"
 import { playerSelectAtom } from "./SoccerField"
-import { modalAtom } from "./RemoveModal";
+import { modalAtom } from "./FieldModal";
 import closeIcon from "./../images/close-circle.svg"
 import { FieldPlayersAtom } from "../pages/Transfers"
 import {FilterAtom} from "./mainListComponents/MainPlayerList"

@@ -4,7 +4,7 @@ import { PlayerView } from "../components/SoccerField";
 import SoccerField from "../components/transfer/SoccerField";
 import PageHeader from "../components/PageHeader";
 import MainList from "../components/mainListComponents/MainPlayerList";
-import FieldModal from "../components/RemoveModal";
+import FieldModal from "../components/FieldModal";
 import { dummyGenerator } from "../components/SoccerField";
 import { atom, useRecoilState, useRecoilValue } from "recoil";
 import { FieldsPlayer } from "../components/SoccerField";

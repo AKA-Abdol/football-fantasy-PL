@@ -3,7 +3,7 @@ import PlayGroundBar from "../components/PlayGroundBar";
 import SoccerField, { PlayerView } from "../components/SoccerField";
 import PageHeader from "../components/PageHeader";
 import MainList from "../components/mainListComponents/MainPlayerList";
-import FieldModal from "../components/RemoveModal";
+import FieldModal from "../components/FieldModal";
 import DateBar from "../components/DateBar";
 import { dummyGenerator } from "../components/SoccerField";
 import { atom, useRecoilState, useRecoilValue } from "recoil";
