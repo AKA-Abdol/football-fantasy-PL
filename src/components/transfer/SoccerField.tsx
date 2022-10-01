@@ -9,11 +9,11 @@ const SoccerField = () => {
   const [fieldsPlayer, setFieldsPlayer] = useRecoilState(FieldPlayersAtom);
 
   return (
-    <div className="soccer-field flex flex-col py-2 sm:space-y-4 w-full h-full relative z-50 justify-around">
+    <div className="soccer-field flex flex-col py-2 sm:space-y-4 w-full relative z-50 justify-around">
       <img
         src={SoccerFieldImg}
         alt="soccer field"
-        className="absolute w-full h-max -z-50"
+        className="absolute w-full h-[100%] -z-50"
       />
       <div className="w-full px-4 sm:pt-2 flex flex-row justify-around">
         {fieldsPlayer.slice(0, 1).map((item, index) => {

@@ -39,9 +39,6 @@ const Home = () => {
             <NarrowDeadlineBar />
             <NarrowDateBar />
           </div>
-
-          {/* <div className="flex flex-col px-2 w-full  lg:flex-row"> */}
-          {/* <div className="soccer-field-all w-full px-4 sm:max-w-screen-md flex flex-col items-center"> */}
           <PlayGroundBar />
           {selTab === 1 ? <SoccerField /> : <List />}
         </div>
