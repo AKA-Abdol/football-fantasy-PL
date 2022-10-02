@@ -23,7 +23,7 @@ const fakeUser: EventUser = {
 export const eventModalAtom = atom({
   key: "event-modal",
   default: {
-    show: true,
+    show: false,
     user: fakeUser,
   },
 });
