@@ -22,6 +22,7 @@ import { TransferPlaygroundTabAtom } from "../components/transfer/PageToggleTab"
 import NarrowDateBar from "../components/NarrowDateBar";
 import TransferList from "../components/transfer/TransferList";
 import NarrowDeadlineBar from "../components/NarrowDeadlineBar";
+import ResponsiveList from "../components/transfer/ResponsiveList";
 
 const Home = () => {
   const selTab = useRecoilValue(TransferPlaygroundTabAtom);
@@ -33,17 +34,20 @@ const Home = () => {
 
   return (
     <div className="w-full flex justify-center">
-      <div className="flex flex-row w-2/3 space-x-2">
+      <div className="md:flex md:flex-row w-2/3 space-x-2">
         <div className="Body flex flex-col mt-16 w-full">
-          <div className="flex flex-row w-full justify-between px-1">
+          <div className="md:flex md:flex-row w-full justify-between px-1">
             <NarrowDeadlineBar />
             <NarrowDateBar />
           </div>
           <PlayGroundBar />
           {selTab === 1 ? <SoccerField /> : <List />}
         </div>
-        <div className="transfer-list-container mt-60">
+        <div className="transfer-list-container mt-60 hidden md:block">
           <TransferList />
+        </div>
+        <div className="responsive-list md:hidden w-[100%]">
+          <ResponsiveList />
         </div>
       </div>
     </div>

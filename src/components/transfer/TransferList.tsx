@@ -9,7 +9,8 @@ const TransferList = () => {
       <div className="w-full px-11 py-10 h-full">
         <div
           className="flex flex-col justify-between
-                text-right text-fontGrey text-xs h-full"
+                text-right text-fontGrey text-xs h-full
+                rounded-t"
         >
           <Shirt name="no sara" pose={2} isInTheList={true} />
           <Shirt name="no sara" pose={3} isInTheList={true} />

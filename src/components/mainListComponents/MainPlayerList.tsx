@@ -5,8 +5,8 @@ import DetailBox from "./DetailBox";
 import ListHeader from "../ListHeader";
 import MainListButton from "./Button";
 import MainListPagination from "./Pagination";
-import polygon from "../../assets/Polygon 4.svg"
-import { playerNameSearchKeyAtom } from './SearchBox';
+import polygon from "../../assets/Polygon 4.svg";
+import { playerNameSearchKeyAtom } from "./SearchBox";
 import { currentPageAtom } from "./Pagination";
 import {
   atom,
@@ -64,6 +64,7 @@ export interface MainListProps {
     price: number;
     weekId: number;
   };
+  isPlaying: boolean;
 }
 
 export const DEFAULT_PAGE = 1;
@@ -103,8 +104,9 @@ const MainList = () => {
       setMaxPlayers(() => maxPlayer);
       setMaxPage(Math.ceil(maxPlayer / NUM_OF_PLAYERS));
       return players;
-    }, {
-        keepPreviousData: true
+    },
+    {
+      keepPreviousData: true,
     }
   );
 
@@ -119,9 +121,7 @@ const MainList = () => {
     <div className="list mx-auto max-w-max flex flex-col  ml-auto rounded-2xl shadow-md pb-1 mb-2 h-full">
       <ListHeader text="انتخاب بازیکن" />
       <div className="w-full px-3">
-        <SearchBox 
-          whatToSearch="playerName"
-        />
+        <SearchBox whatToSearch="playerName" />
         <div className="button-group flex justify-center flex-row-reverse">
           {filterButtons.map(({ name, filterName }: FilterField) => (
             <MainListButton
@@ -162,15 +162,14 @@ const MainList = () => {
                   pose={player.pose}
                   id={player.id}
                   playerStats={player.playerStats}
+                  isPlaying={player.isPlaying}
                 />
               );
             })
           )}
         </div>
 
-        <MainListPagination
-          disabled={isFetching}
-        />
+        <MainListPagination disabled={isFetching} />
       </div>
     </div>
   );
