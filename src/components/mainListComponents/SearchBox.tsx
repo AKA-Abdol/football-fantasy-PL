@@ -1,16 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { atom, useSetRecoilState } from "recoil";
 import SearchIcon from "../../assets/search-normal.svg";
 import { currentPageAtom } from "./Pagination";
 import { DEFAULT_PAGE } from "./MainPlayerList";
+import { getSearchedUsers, EventUser } from "../../services/EventServices";
+import { useQuery } from "react-query";
 
 export const playerNameSearchKeyAtom = atom({
     key: "playerNameSearchKey",
     default: ""
 })
-export const usersSearchKeyAtom = atom({
-    key: "usersSearchKey",
-    default: ""
+export const resultedUsersAtom = atom({
+    key: "resultedUsers",
+    default: [] as EventUser[]
 })
 export const followListSearchKeyAtom = atom({
     key: "followListSearchKey",
@@ -26,7 +28,7 @@ interface SearchBoxI {
 const SearchBox = (props: SearchBoxI) => {
 
     const setPlayerNameSearchKey = useSetRecoilState(playerNameSearchKeyAtom);
-    const setUsersSearchKey = useSetRecoilState(usersSearchKeyAtom);
+    const setResultedUsers = useSetRecoilState(resultedUsersAtom);
     const setFollowListSearchKey = useSetRecoilState(followListSearchKeyAtom);
     const setCurrentPage = useSetRecoilState(currentPageAtom);
 
@@ -36,9 +38,23 @@ const SearchBox = (props: SearchBoxI) => {
                 setPlayerNameSearchKey(event.target.value);
                 setCurrentPage(DEFAULT_PAGE);
                 break;
+
             case "users":
-                setUsersSearchKey(event.target.value);
+                const searchKey = event.target.value;
+                const handleSearchedUsers = async () => {
+                    const searchedUsers = await getSearchedUsers(searchKey);
+                    console.log('resulted users in searchbox: ', searchedUsers);
+                    
+                    setResultedUsers(() => searchedUsers);
+                }
+                if(searchKey === ''){
+                    setResultedUsers(() => []);
+                }
+                else{
+                    handleSearchedUsers();
+                }
                 break;
+
             case "followList":
                 setFollowListSearchKey(event.target.value);
                 break;
