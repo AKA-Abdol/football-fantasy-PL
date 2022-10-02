@@ -5,7 +5,7 @@ import Out from "../../images/Vector_out.svg";
 
 const DefaultShirt = ({ pose }: { pose: number }) => {
   return (
-    <div className="shirt relative w-32">
+    <div className="shirt relative w-[15%]">
       <div className="flex flex-row relative justify-center">
         <img src={Shirt} alt="shirt" className="flex justify-center" />
       </div>

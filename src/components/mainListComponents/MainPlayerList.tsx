@@ -17,11 +17,17 @@ import {
 import { useQuery } from "react-query";
 import { QueryFunctionContext } from "react-query";
 import { getPlayers } from "../../services/MainListServices";
+import { PlayerView } from "../SoccerField";
 
 interface FilterField {
   name: string;
   filterName: string;
 }
+
+type Players = {
+  GK: [PlayerView, PlayerView];
+  DEF: [PlayerView, PlayerView, PlayerView];
+};
 
 const filterButtons: FilterField[] = [
   {
