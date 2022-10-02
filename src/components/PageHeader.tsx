@@ -8,7 +8,7 @@ import { Outlet } from "react-router-dom";
 
 export default function PageHeader() {
     return (
-    <div className="flex flex-col h-screen w-full theme-font items-center relative">
+    <div className="flex flex-col w-full theme-font items-center relative">
         <div className="flex flex-col justify-center items-center w-full">
             <div
                 className="relative h-full flex flex-row w-full bg-center bg-no-repeat bg-cover"
