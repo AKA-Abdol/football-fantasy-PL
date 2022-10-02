@@ -20,7 +20,7 @@ const Button = () => {
 const Profile = () => {
   return (
     <div className="profile my-[5%] flex flex-col justify-center items-center space-y-5 text-center">
-      <div className="title hidden md:block font-semibold text-headerBackgroundColor">
+      <div className="title hidden md:block font-semibold text-[#3D195B]">
         اطلاعات فردی
       </div>
       <img
@@ -32,41 +32,29 @@ const Profile = () => {
         <div className="col1 md:flex md:flex-col md:space-y-6 px-16">
           <div className="firstname ">
             نام
-            <div className="font-semibold text-headerBackgroundColor">
-              {data.firstname}
-            </div>
+            <div className="font-semibold text-[#3D195B]">{data.firstname}</div>
           </div>
           <div className="lastname">
             نام خانوادگی
-            <div className="font-semibold text-headerBackgroundColor">
-              {data.lastname}
-            </div>
+            <div className="font-semibold text-[#3D195B]">{data.lastname}</div>
           </div>
           <div className="email">
             ایمیل
-            <div className="font-semibold text-headerBackgroundColor">
-              {data.email}
-            </div>
+            <div className="font-semibold text-[#3D195B]">{data.email}</div>
           </div>
         </div>
         <div className="col2 md:flex md:flex-col md:space-y-6 px-16">
           <div className="country">
             کشور
-            <div className="font-semibold text-headerBackgroundColor">
-              {data.country}
-            </div>
+            <div className="font-semibold text-[#3D195B]">{data.country}</div>
           </div>
           <div className="username">
             نام کاربری
-            <div className="font-semibold text-headerBackgroundColor">
-              {data.username}
-            </div>
+            <div className="font-semibold text-[#3D195B]">{data.username}</div>
           </div>
           <div className="password">
             رمزعبور
-            <div className="font-semibold text-headerBackgroundColor">
-              {data.password}
-            </div>
+            <div className="font-semibold text-[#3D195B]">{data.password}</div>
           </div>
         </div>
       </div>
