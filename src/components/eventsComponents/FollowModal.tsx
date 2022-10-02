@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { useQueryClient } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import {
   atom,
   useRecoilState,
@@ -8,16 +8,20 @@ import {
 } from "recoil";
 import Avatar from "../../images/WIN_20220906_19_33_10_Pro.jpg";
 import {
-  EventUser,
   followPlayer,
+  getUserData,
+  ModalUser,
   unfollowPlayer,
 } from "../../services/EventServices";
 
-const fakeUser: EventUser = {
+const fakeUser: ModalUser = {
   id: 0,
   firstname: "امیرحسین",
   lastname: "شاید عبدلی",
   isFollowed: true,
+  country: "ایران",
+  age: 21,
+  score: 104,
 };
 
 export const eventModalAtom = atom({
@@ -28,7 +32,7 @@ export const eventModalAtom = atom({
   },
 });
 
-const ModalButton = ({_isFollowed} : {_isFollowed: boolean}) => {
+const ModalButton = ({ _isFollowed }: { _isFollowed: boolean }) => {
   const queryClient = useQueryClient();
   const [modalOptions, setModalOptions] = useRecoilState(eventModalAtom);
 
@@ -45,13 +49,21 @@ const ModalButton = ({_isFollowed} : {_isFollowed: boolean}) => {
         },
       }));
       queryClient.invalidateQueries("followers-list");
-    }
-    else{
-        // if it's not valid
+    } else {
+      // if it's not valid
     }
   }, [modalOptions]);
   return (
-    <button onClick={modalButtonOnclick} className={`px-14 py-3 rounded ${_isFollowed ? 'border-[#ED1B5D] border-2 text-[#ED1B5D]' : 'bg-[#05D6E2]'}`}>دنبال کردن</button>
+    <button
+      onClick={modalButtonOnclick}
+      className={`px-14 py-3 rounded ${
+        _isFollowed
+          ? "border-[#ED1B5D] border-2 text-[#ED1B5D]"
+          : "bg-[#05D6E2]"
+      }`}
+    >
+      دنبال کردن
+    </button>
   );
 };
 
@@ -93,7 +105,7 @@ const FollowModal = () => {
           </div>
 
           <div className="follow  mx-auto font-semibold text-white">
-            <ModalButton _isFollowed={modalOptions.user.isFollowed}/>
+            <ModalButton _isFollowed={modalOptions.user.isFollowed} />
           </div>
           <div className="profile-detail flex flex-col text-black space-y-3 p-5">
             <div className="name flex flex-row-reverse justify-center">
@@ -106,7 +118,7 @@ const FollowModal = () => {
             </div>
             <div className="country flex flex-row-reverse justify-center">
               <p>:کشور</p>
-              <p className="font-semibold mr-1">ایران</p>
+              <p className="font-semibold mr-1">{modalOptions.user.country}</p>
             </div>
             <div className="score flex flex-row-reverse justify-center">
               <p>:آخرین امتیاز</p>

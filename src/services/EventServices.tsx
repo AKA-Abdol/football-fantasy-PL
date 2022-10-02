@@ -4,7 +4,8 @@ import http from "./http";
 import { ErrorData, ServiceError, ServiceSuccess } from "./Services";
 import { TOKEN_SESSION_NAME } from "./SignServices";
 
-const USER_SEARCH_API_ROUTE = "/user/all";
+const USER_ROUTE = '/user';
+const USER_SEARCH_API_ROUTE = USER_ROUTE + "/all";
 
 const SOCIAL_ROUTE = "/social";
 const FOLLOW_ROUTE = SOCIAL_ROUTE + "/follow";
@@ -26,7 +27,6 @@ export interface EventUser {
     firstname: string,
     lastname: string,
     isFollowed: boolean,
-    hasInvalidation ?: boolean
   }
 
 export const getFollowers = async (
@@ -45,7 +45,8 @@ export const getFollowers = async (
     }
   );
   const data = response.data;
-  return [data.values, data.count];
+  const followers: EventUser[] = data.values;
+  return [followers, data.count];
 };
 
 export const followPlayer = async (id: number) => {
@@ -98,3 +99,27 @@ export const getSearchedUsers = async (searchKey: string) => {
   }));
   return dummyUsers;
 };
+
+export interface ModalUser extends EventUser {
+  country: string,
+  age: number, 
+  score: number
+}
+
+export const getUserData = async (id: number) => {
+  try {
+    const response = await http.get(`${USER_ROUTE}/${id}`, {
+      headers: {
+        Authentication: `Abdol ${localStorage.getItem(TOKEN_SESSION_NAME)}`
+      }
+    })
+    const userData: ModalUser = response.data.user; //delete the '.user' if new back is up
+    return ServiceSuccess(userData);
+
+  }
+  catch(err){
+    const _err = err as AxiosError;
+    const data = _err.response?.data as ErrorData;
+    return ServiceError(data.errorType, data.message);
+  }
+}
