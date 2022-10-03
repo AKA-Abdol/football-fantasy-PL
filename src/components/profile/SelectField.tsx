@@ -30,11 +30,11 @@ export default function SelectField({
         dir="rtl"
         name={name}
       >
-        <option className="bg-[#3D185B]" disabled selected>
+        <option className="bg-[#f4f4f4]" disabled selected>
           {placeholder}
         </option>
         {options.map((current: string) => {
-          return <option className="bg-[#3D185B]">{current}</option>;
+          return <option className="bg-[#f4f4f4]">{current}</option>;
         })}
       </select>
     </div>
