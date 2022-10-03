@@ -1,5 +1,8 @@
 import Avatar from "../images/WIN_20220906_19_33_10_Pro.jpg";
 import Edit from "../images/edit-2.svg";
+import LeftLine from "../images/Line 2.svg";
+import RighttLine from "../images/Line 3.svg";
+
 const data = {
   firstname: "امیرمحمد",
   lastname: "مهری",
@@ -20,8 +23,10 @@ const Button = () => {
 const Profile = () => {
   return (
     <div className="profile my-[5%] flex flex-col justify-center items-center space-y-5 text-center">
-      <div className="title hidden md:block font-semibold text-[#3D195B]">
-        اطلاعات فردی
+      <div className="title hidden md:block font-semibold text-[#3D195B] md:flex flex-row space-x-9">
+        <img src={RighttLine} alt="line" />
+        <div className="">اطلاعات فردی</div>
+        <img src={LeftLine} alt="line" />
       </div>
       <img
         src={Avatar}

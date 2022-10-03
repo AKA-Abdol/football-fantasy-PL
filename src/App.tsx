@@ -11,7 +11,7 @@ import PageHeader from "./components/PageHeader";
 import Events from "./pages/Events";
 import FollowModal from "./components/eventsComponents/FollowModal";
 import SoccerField from "./components/transfer/SoccerField";
-import Profile from "./pages/Profile";
+import ProfileForm from "./pages/ProfileForm";
 
 function App() {
   return (
@@ -23,7 +23,7 @@ function App() {
               <Route path="myteam" element={<Home />} />
               <Route path="award" element={<Home />} />
               <Route path="event" element={<Events />} />
-              <Route path="profile" element={<Profile />} />
+              <Route path="profile" element={<ProfileForm />} />
               <Route path="transfer" element={<Transfers />} />
             </Route>
             <Route path="signup" element={<SignUp />} />
