@@ -13,10 +13,10 @@ const ResponsiveList = () => {
           className="flex flex-row justify-between
                 w-full space-x-4"
         >
-          <Shirt name="no sara" pose={2} isInTheList={true} />
-          <Shirt name="no sara" pose={3} isInTheList={true} />
-          <Shirt name="no sara" pose={5} isInTheList={true} />
-          <Shirt name="no sara" pose={7} isInTheList={true} />
+          {/* <Shirt name="player" pose={2} isInTheList={true} />
+          <Shirt name="player" pose={3} isInTheList={true} />
+          <Shirt name="player" pose={5} isInTheList={true} />
+          <Shirt name="player" pose={7} isInTheList={true} /> */}
         </div>
       </div>
     </div>
