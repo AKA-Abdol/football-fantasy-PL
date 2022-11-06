@@ -73,8 +73,8 @@ export default function Events() {
   );
   console.log("this is event data list: ", data);
 
-  if (isLoading) return <p>Loading!</p>;
-  if (isError) return <p>Error!</p>;
+  if (isLoading) return <p>درحال بارگزاری</p>;
+  if (isError) return <p>بارگزاری با خطا مواجه شد</p>;
 
   return (
     <>
