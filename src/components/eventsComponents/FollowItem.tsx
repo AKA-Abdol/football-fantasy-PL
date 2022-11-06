@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { EventUser } from "../../services/EventServices";
+import { EventUser, getUserData } from "../../services/EventServices";
 import { followPlayer, unfollowPlayer } from "../../services/EventServices";
 import followPic from "./../../images/follow_pic.png";
 import { useQueryClient } from "react-query";
@@ -12,38 +12,41 @@ export default function FollowItem({ user }: { user: EventUser }) {
   const setResultedUsers = useSetRecoilState(resultedUsersAtom);
   const setModalOptions = useSetRecoilState(eventModalAtom);
 
-  const followPlayerOnclick = useCallback(
-    async (id: number) => {
-      const response = await followPlayer(id);
-      queryClient.invalidateQueries("followers-list");
-      if (response.isSuccessful) {
-        setResultedUsers((oldUsers) => {
-          const currentUserIndex = oldUsers.findIndex((user) => user.id === id);
-          console.log("in user inja", currentUserIndex, "user id: ", id);
+  const followPlayerOnclick = useCallback(async (id: number) => {
+    const response = await followPlayer(id);
+    queryClient.invalidateQueries("followers-list");
+    if (response.isSuccessful) {
+      setResultedUsers((oldUsers) => {
+        const currentUserIndex = oldUsers.findIndex((user) => user.id === id);
+        console.log("in user inja", currentUserIndex, "user id: ", id);
 
-          const newUsers: EventUser[] = oldUsers.slice();
-          if (currentUserIndex !== -1) {
-            newUsers[currentUserIndex] = {
-              ...oldUsers[currentUserIndex],
-              isFollowed: true,
-            };
-          }
-          return newUsers;
-        });
-      } else {
-        // if it's not valid following
-      }
-    },
-    []
-  );
+        const newUsers: EventUser[] = oldUsers.slice();
+        if (currentUserIndex !== -1) {
+          newUsers[currentUserIndex] = {
+            ...oldUsers[currentUserIndex],
+            isFollowed: true,
+          };
+        }
+        return newUsers;
+      });
+    } else {
+      // if it's not valid following
+    }
+  }, []);
 
-  const showPlayerOnclick = useCallback((_user: EventUser) => {
-    console.log('we really clicked to show user: ', _user);
-    setModalOptions(() => ({
-      show: true,
-      user: _user
-    }))
-  }, [])
+  const showPlayerOnclick = useCallback(async (_user: EventUser) => {
+    console.log("we really clicked to show user: ", _user);
+    const response = await getUserData(_user.id);
+    if (response.isSuccessful) {
+      setModalOptions(() => ({
+        show: true,
+        user: response.res,
+      }));
+    }
+    else{
+      // do sth for not found from back user
+    }
+  }, []);
 
   console.log("this user: ", user);
 
@@ -56,7 +59,11 @@ export default function FollowItem({ user }: { user: EventUser }) {
             ? "border-[#05D6E2] text-[#05D6E2]"
             : "border-borderSearchBoxColor text-gray-500")
         }
-        onClick={async () => await (user.isFollowed ? showPlayerOnclick(user) : followPlayerOnclick(user.id))}
+        onClick={async () =>
+          await (user.isFollowed
+            ? showPlayerOnclick(user)
+            : followPlayerOnclick(user.id))
+        }
       >
         {!user.isFollowed ? "دنبال کردن" : "مشاهده"}
       </button>

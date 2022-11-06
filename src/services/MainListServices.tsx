@@ -4,7 +4,13 @@ import { TOKEN_SESSION_NAME } from "./SignServices";
 import axios, { AxiosError } from "axios";
 import { atom, useRecoilState } from "recoil";
 import { Filter } from "../components/mainListComponents/MainPlayerList";
-import { ErrorData, ServiceError, ServiceErrorInterface, ServiceSuccess, ServiceSuccessInterface } from "./Services";
+import {
+  ErrorData,
+  ServiceError,
+  ServiceErrorInterface,
+  ServiceSuccess,
+  ServiceSuccessInterface,
+} from "./Services";
 
 const PLAYER_PREFIX = "/player";
 const ALL_PLAYERS = PLAYER_PREFIX + "/all";
@@ -25,7 +31,7 @@ export const getPlayers = async (queryParams: TeamQueryParams) => {
   console.log("Query: ", queryParams);
 
   const response = await http.get(ALL_PLAYERS, { params: queryParams });
-  const data = response.data
+  const data = response.data;
   return [data.values, data.count];
 };
 
@@ -48,33 +54,32 @@ export const addPlayer: (
         Authorization: `Abdol ${localStorage.getItem(TOKEN_SESSION_NAME)}`,
       },
     });
-    return ServiceSuccess<string>('ok');
+    return ServiceSuccess<string>("ok");
   } catch (err) {
     const _err = err as AxiosError;
     const data = _err.response?.data as ErrorData;
-    return ServiceError(data.errorType, data.message)
+    return ServiceError(data.errorType, data.message);
   }
 };
 export const removePlayer = async (pose: number) => {
-    try {
-        console.log("position:", pose);
-        const body = {
-            position_num: pose,
-        };
-        console.log(body);
-        const response = await http.delete(
-            `${TEAM_PLAYER_PREFIX}?position_num=${pose}`,
-            {
-            headers: {
-                Authorization: `Ali ${localStorage.getItem(TOKEN_SESSION_NAME)}`,
-            },
-            }
-        );
-        return ServiceSuccess('ok');
-    }
-    catch(err) {
-        const _err = err as AxiosError;
-        const data = _err.response?.data as ErrorData;
-        return ServiceError(data.errorType, data.message)
-    }
+  try {
+    console.log("position:", pose);
+    const body = {
+      position_num: pose,
+    };
+    console.log(body);
+    const response = await http.delete(
+      `${TEAM_PLAYER_PREFIX}?position_num=${pose}`,
+      {
+        headers: {
+          Authorization: `Ali ${localStorage.getItem(TOKEN_SESSION_NAME)}`,
+        },
+      }
+    );
+    return ServiceSuccess("ok");
+  } catch (err) {
+    const _err = err as AxiosError;
+    const data = _err.response?.data as ErrorData;
+    return ServiceError(data.errorType, data.message);
+  }
 };

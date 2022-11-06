@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import SelectedShirt from "../../images/selected_shirt.png";
 import In from "../../images/Vector_in.svg";
 import Out from "../../images/Vector_out.svg";
@@ -12,8 +12,14 @@ const Shirt = ({
   pose: number;
   isInTheList: boolean;
 }) => {
+  const [isActive, setIsActive] = useState(false);
+
+  const handleClick = () => {
+    setIsActive((current) => !current);
+  };
+
   return (
-    <div className="shirt relative w-20">
+    <div className="shirt relative cursor-pointer" onClick={handleClick}>
       <div className="flex flex-row relative justify-center">
         <img src={SelectedShirt} alt="shirt" className="flex justify-center" />
         {!isInTheList ? (
@@ -24,10 +30,17 @@ const Shirt = ({
         ) : undefined}
       </div>
       <div
-        className="bg-[#37013B] sm:py-1
+        className={
+          isActive
+            ? `sm:py-1
+            text-black font-bold text-[0.5rem] sm:text-xs
+               rounded flex items-center justify-center
+               mt-1 p-1 bg-white`
+            : `bg-[#37013B] sm:py-1
              text-white font-bold text-[0.5rem] sm:text-xs
                 rounded flex items-center justify-center
-                mt-1 p-1"
+                mt-1 p-1`
+        }
       >
         {name}
       </div>

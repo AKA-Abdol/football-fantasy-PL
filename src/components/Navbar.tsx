@@ -3,60 +3,75 @@ import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { atom, useRecoilState } from "recoil";
 
-export type NavbarType = "MyTeam" | "Transfer" | "Event" | "Profile" | "Award";
+const NavbarArray = [
+  "MyTeam",
+  "Transfer",
+  "Event",
+  "Profile",
+  "Award",
+] as const;
+export type NavbarType = typeof NavbarArray[number];
 
 const navbarStateAtom = atom<NavbarType>({
   key: "navbarState",
   default: "MyTeam",
 });
 
-const NavbarItem = (props: NavbarType, item: string) => {
+const NavbarItem = ({ navbarItem }: { navbarItem: NavbarType }) => {
   const [navbarState, setNavbarState] =
     useRecoilState<NavbarType>(navbarStateAtom);
-  const endpoint = props.toLowerCase();
+  const endpoint = navbarItem.toLowerCase();
   return (
     <Link to={`/${endpoint}`}>
       <li
         onClick={() => {
-          setNavbarState(props);
+          setNavbarState(navbarItem);
         }}
         className={
           `rounded-lg hover:bg-teal-200 hover:bg-none` +
-          (navbarState === props
+          (navbarState === navbarItem
             ? ` bg-gradient-to-l from-detailListBoxColor1
              to-detailListBoxColor2 border-none `
             : ` bg-base-100 `)
         }
       >
-        <a> {item} </a>
+        <a> {NavbarDictionary[navbarItem]} </a>
       </li>
     </Link>
   );
 };
 
-const ResponsiveNavbarItem = (props: NavbarType, item: string) => {
+const NavbarDictionary: Record<NavbarType, string> = {
+  Award: "جوایز",
+  MyTeam: "تیم من",
+  Transfer: "نقل و انتقالات",
+  Event: "رویدادها",
+  Profile: "پروفایل",
+};
+
+const ResponsiveNavbarItem = ({ navbarType }: { navbarType: NavbarType }) => {
   const [navbarState, setNavbarState] =
     useRecoilState<NavbarType>(navbarStateAtom);
-  const endpoint = props.toLowerCase();
+  const endpoint = navbarType.toLowerCase();
   return (
     <li
       onClick={() => {
-        setNavbarState(props);
+        setNavbarState(navbarType);
       }}
       className={
         `px-14` +
-        (navbarState === props
+        (navbarState === navbarType
           ? ` rounded-lg w-64 justify-center text-gradient-to-l text-detailListBoxColor1 `
-          : ` bg-base-100 bg-inherit `)
+          : ` bg-base-100 bg-inherit`)
       }
     >
-      <Link to={`/${endpoint}`}>{item}</Link>
+      <Link to={`/${endpoint}`}>{NavbarDictionary[navbarType]}</Link>
     </li>
   );
 };
 
 const Navbar = () => {
-  const navbarState = useRecoilState<NavbarType>(navbarStateAtom);
+  const [navbar] = useRecoilState<NavbarType>(navbarStateAtom);
 
   const [showMenu, setShowMenu] = React.useState(false);
   const handleMenu = () => {
@@ -66,21 +81,17 @@ const Navbar = () => {
   return (
     <div className="navbar w-full h-full sm:max-w-[60%]  bg-base-100 shadow-xl rounded-lg lg:-mt-6 z-50 font-semibold text-nameFontColor">
       <div className="hidden text-xs w-full lg:flex lg:text-xl sm:hidden">
-        <ul className="menu  w-full flex flex-row justify-around rounded-box active:bg-none">
-          {NavbarItem("Award", "جوایز")}
-          {NavbarItem("Profile", "پروفایل")}
-          {NavbarItem("Event", "رویدادها")}
-          {NavbarItem("Transfer", "نقل و انتقالات")}
-          {NavbarItem("MyTeam", "تیم من")}
+        <ul className="menu  w-full flex flex-row-reverse justify-around rounded-box active:bg-none">
+          {NavbarArray.map((x) => (
+            <NavbarItem navbarItem={x} key={x} />
+          ))}
         </ul>
       </div>
       <div className={showMenu ? "flex w-full lg:hidden" : "hidden"}>
-        <ul className="menu menu-horizontal w-full h-full flex flex-col-reverse text-xl justify-around items-center rounded-box">
-          {ResponsiveNavbarItem("Award", "جوایز")}
-          {ResponsiveNavbarItem("Profile", "پروفایل")}
-          {ResponsiveNavbarItem("Event", "رویدادها")}
-          {ResponsiveNavbarItem("Transfer", "نقل و انتقالات")}
-          {ResponsiveNavbarItem("MyTeam", "تیم من")}
+        <ul className="menu menu-horizontal w-full h-full flex flex-col text-xl justify-around items-center rounded-box">
+          {NavbarArray.map((x) => (
+            <ResponsiveNavbarItem navbarType={x} key={x} />
+          ))}
         </ul>
       </div>
       <div
@@ -91,17 +102,7 @@ const Navbar = () => {
         }
       >
         <a className="mx-auto text-2xl sm:text-3xl">
-          {navbarState[0] === "Award"
-            ? "جوایز"
-            : navbarState[0] === "MyTeam"
-            ? "تیم من"
-            : navbarState[0] === "Event"
-            ? "رویدادها"
-            : navbarState[0] === "Transfer"
-            ? "نقل و انتقالات"
-            : navbarState[0] === "Profile"
-            ? "پروفایل"
-            : "تیم من"}
+          {NavbarDictionary[navbar]}
         </a>
       </div>
       <AiOutlineMenu

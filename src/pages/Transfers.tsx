@@ -33,7 +33,6 @@ export const isWarningVisibleAtom = atom({
 });
 
 const dummyData = dummyGenerator();
-console.log(dummyData);
 
 export const FieldPlayersAtom = atom({
   key: "FieldPlayers",

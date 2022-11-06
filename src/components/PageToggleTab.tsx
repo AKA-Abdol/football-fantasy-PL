@@ -2,13 +2,12 @@ import { atom, useRecoilState } from "recoil";
 import "../index.css";
 
 export const PlaygroundTabAtom = atom({
-  key: 'PGTab',
-  default: 1
+  key: "PGTab",
+  default: 1,
 });
 
 export default function PToggleTab() {
-
-  const [selTab, setSelTab] = useRecoilState(PlaygroundTabAtom)
+  const [selTab, setSelTab] = useRecoilState(PlaygroundTabAtom);
 
   return (
     <div className="tabs tabs-boxed mx-auto h-full w-[90%] lg:w-full justify-center items-center bg-gray-100 theme-font -mt-[1px] -z-index-[50]">
