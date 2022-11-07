@@ -6,6 +6,7 @@ import { useQueryClient } from "react-query";
 import { useSetRecoilState } from "recoil";
 import { resultedUsersAtom } from "../mainListComponents/SearchBox";
 import { eventModalAtom } from "./FollowModal";
+import { getImageSource } from "../../UsefullFunctions";
 
 export default function FollowItem({ user }: { user: EventUser }) {
   const queryClient = useQueryClient();
@@ -42,8 +43,7 @@ export default function FollowItem({ user }: { user: EventUser }) {
         show: true,
         user: response.res,
       }));
-    }
-    else{
+    } else {
       // do sth for not found from back user
     }
   }, []);
@@ -69,7 +69,14 @@ export default function FollowItem({ user }: { user: EventUser }) {
       </button>
       <div className="flex flex-row items-center space-x-3 ml-auto cursor-pointer">
         <p>{`${user.firstname} ${user.lastname}`}</p>
-        <img src={followPic} alt="Profile pictures" />
+        <div className="avatar">
+          <div className="w-12 rounded-full">
+            <img
+              src={getImageSource(user.profileImage)}
+              alt="Profile pictures"
+            />
+          </div>
+        </div>
       </div>
     </div>
   );

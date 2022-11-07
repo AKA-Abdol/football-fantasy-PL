@@ -71,3 +71,7 @@ export const getDateString = (date: Date) => {
   const time: string = Eng2Fa(`${date.getHours()}${date.getMinutes() === 0 ? '' : `:${date.getMinutes()}`}`);
   return `${weekDay} ${day} ${month} ${year} - ساعت ${time}`;
 };
+
+export const getImageSource = (address: string) => {
+  return `${process.env.REACT_APP_BASE_SERVER_URL}/${address}`;
+}

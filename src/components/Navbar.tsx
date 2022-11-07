@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { atom, useRecoilState } from "recoil";
+import { TOKEN_SESSION_NAME } from "../services/SignServices";
 
 const NavbarArray = [
   "MyTeam",
@@ -77,6 +78,10 @@ const Navbar = () => {
   const handleMenu = () => {
     setShowMenu((prevState) => !prevState);
   };
+
+  const removeToken = useCallback(() => {
+    localStorage.removeItem(TOKEN_SESSION_NAME);
+  }, []);
 
   return (
     <div className="navbar w-full h-full sm:max-w-[60%]  bg-base-100 shadow-xl rounded-lg lg:-mt-6 z-50 font-semibold text-nameFontColor">
