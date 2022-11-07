@@ -6,12 +6,13 @@ import LeftLine from "../images/Line1.png";
 import RightLine from "../images/Line2.png";
 import PLWhiteLogo from "../images/PLWhiteLogo.png";
 import { useCallback, useEffect, useState } from "react";
-import { EMAIL_SESSION, Toast } from "./SignUp";
+import { EMAIL_SESSION, imageAtom, Toast } from "./SignUp";
 import { confirmSignup, TOKEN_SESSION_NAME } from "../services/SignServices";
 import { useNavigate } from "react-router-dom";
 import FPLButtomImg from "../images/FPLButtomImg.png";
 import { handleKeyboardEvent, toastShow } from "../GenericFunctions";
 import SuccessToast, { ErrorToast, WarningToast } from "../components/Toasts";
+import { useRecoilValue } from "recoil";
 
 interface RowFieldText {
   first: string;
@@ -25,7 +26,7 @@ interface RowFieldText {
 const fields: Array<RowFieldText> = [
   {
     first: "لطفا کدی که به ایمیلتان ارسال شده را در کادر زیر وارد کنید",
-    firstType: "",
+    firstType: "text",
     firstOptions: [],
     firstPHolder: "5 digit code",
     firstPose: "mx-auto text-center",
@@ -41,6 +42,7 @@ export default function Authentication() {
     type: 'none',
     msg: ''
   }) 
+  const imageData = useRecoilValue(imageAtom);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -60,7 +62,7 @@ export default function Authentication() {
     const response = await confirmSignup({
       email: localStorage.getItem(EMAIL_SESSION),
       code: parseInt(authCode),
-    });
+    }, imageData);
     if(response.isSuccessful) {
         navigate("/myteam");
     }
@@ -119,7 +121,7 @@ export default function Authentication() {
               name,
             }: RowFieldText) => {
               return (
-                <div className="flex flex-row-reverse w-full justify-center">
+                <div className="flex flex-row-reverse w-full justify-center px-4 lg:px-0">
                   {firstType === "select" ? (
                     <SelectField
                       label={first}
@@ -137,6 +139,8 @@ export default function Authentication() {
                       name={name}
                       changeHandler={handleChange}
                       isInvalidField={invalidFields.includes(name)}
+                      isOnlyText={true}
+                      type={firstType}
                     />
                   )}
                 </div>

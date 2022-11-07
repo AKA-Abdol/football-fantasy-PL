@@ -1,5 +1,5 @@
 import "../index.css";
-import React, { Dispatch, useCallback, useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import SUPLayers from "../images/SU-players.png";
 import InputField from "../components/SignComponents/InputField";
 import SelectField from "../components/SignComponents/SelectField";
@@ -13,6 +13,8 @@ import { INPUT_FIELD_CLASS } from "./SignIn";
 import FPLButtomImg from "../images/FPLButtomImg.png";
 import { handleKeyboardEvent, toastShow } from "../GenericFunctions";
 import SuccessToast, { ErrorToast, WarningToast } from "../components/Toasts";
+import DateField from "../components/SignComponents/DateField";
+import { atom, useSetRecoilState } from "recoil";
 
 interface RowFieldText {
   first: string;
@@ -33,8 +35,8 @@ const fields: Array<RowFieldText> = [
   {
     first: "نام",
     second: "نام خانوادگی",
-    firstType: "",
-    secondType: "",
+    firstType: "text",
+    secondType: "text",
     firstOptions: [],
     secondOptions: [],
     firstPHolder: "علی",
@@ -47,7 +49,7 @@ const fields: Array<RowFieldText> = [
   {
     first: "ایمیل",
     second: "کشور",
-    firstType: "",
+    firstType: "email",
     secondType: "select",
     firstOptions: [],
     secondOptions: ["ایران", "افغانستان", "تاجیکستان", "ترکیه"],
@@ -57,10 +59,22 @@ const fields: Array<RowFieldText> = [
     secondName: "country",
   },
   {
+    first: "تاریخ تولد",
+    second: "بارگزاری تصویر",
+    firstType: "date",
+    secondType: "file",
+    firstOptions: [],
+    secondOptions: [],
+    firstPHolder: "birthday",
+    secondPHolder: "profileImage",
+    firstName: "birthday",
+    secondName: "image",
+  },
+  {
     first: "نام کاربری",
     second: "رمز عبور",
-    firstType: "",
-    secondType: "",
+    firstType: "text",
+    secondType: "password",
     firstOptions: [],
     secondOptions: [],
     firstPHolder: "username",
@@ -71,12 +85,18 @@ const fields: Array<RowFieldText> = [
 ];
 
 export const EMAIL_SESSION = "FPLEmail";
+export const IMAGE_SESSION = "FPLImage";
 
 export interface Toast {
   active: boolean;
   type: string;
   msg: string;
 }
+
+export const imageAtom = atom({
+  key: 'image-atom',
+  default: new File([''], 'dummy')
+})
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -85,6 +105,8 @@ export default function SignUp() {
     if (localStorage.getItem(TOKEN_SESSION_NAME)) navigate("/myteam");
   }, []);
 
+  const setImageData = useSetRecoilState(imageAtom);
+
   const [signupData, setSignupData] = useState({
     firstname: "",
     lastname: "",
@@ -92,8 +114,10 @@ export default function SignUp() {
     country: "",
     username: "",
     password: "",
+    birthday: new Date(0),
+    image: new File([""], "filename"),
   });
-  console.log(signupData);
+  console.log("signup data: ", signupData);
 
   const [invalidFields, setInvalidFields] = useState<Array<string>>([]);
   console.log("invalid: ", invalidFields);
@@ -104,15 +128,44 @@ export default function SignUp() {
     msg: "",
   });
 
-  const handleChange = (
-    event:
-      | React.ChangeEvent<HTMLInputElement>
-      | React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    setSignupData((oldState) => ({
-      ...oldState,
-      [event.target.name]: event.target.value,
-    }));
+  const handleDateFor = useCallback((dateKey: string) => {
+    return (newDate: Date) => {
+      setSignupData((oldState) => ({
+        ...oldState,
+        [dateKey]: newDate,
+      }));
+    };
+  }, []);
+
+  const handleChangeFor = (type: string) => {
+    switch (type) {
+      case "file":
+        return (event: React.ChangeEvent<HTMLInputElement>) => {
+          const newVal =
+            event.target.files === null ? new File([''], 'dummy') : event.target.files[0];
+          console.log('files', typeof event.target.files);
+          console.log('val', newVal);
+
+          setImageData(() => newVal);
+          
+          setSignupData((oldState) => ({
+            ...oldState,
+            [event.target.name]: newVal,
+          }));
+        };
+
+      default:
+        return (
+          event:
+            | React.ChangeEvent<HTMLInputElement>
+            | React.ChangeEvent<HTMLSelectElement>
+        ) => {
+          setSignupData((oldState) => ({
+            ...oldState,
+            [event.target.name]: event.target.value,
+          }));
+        };
+    }
   };
 
   const signup = useCallback(async () => {
@@ -127,11 +180,11 @@ export default function SignUp() {
       // toast maybe setup
       toastShow(setToast, {
         active: true,
-        type: 'Error',
-        msg: response.res
+        type: "Error",
+        msg: response.res,
       });
     }
-  }, [signupData]);
+  }, [navigate, signupData]);
 
   return (
     <div
@@ -181,27 +234,30 @@ export default function SignUp() {
               secondDir,
             }: RowFieldText) => {
               return (
-                <div className="flex flex-col space-y-4 lg:flex-row-reverse w-full justify-center items-center px-3 lg:px-0">
+                <div className="flex flex-col space-y-4 lg:flex-row-reverse w-full justify-center px-3 lg:px-0">
                   {firstType === "select" ? (
                     <SelectField
                       label={first}
                       placeholder={firstPHolder}
                       options={firstOptions}
                       name={firstName}
-                      changeHandler={handleChange}
+                      changeHandler={handleChangeFor(firstType)}
                       poseClass={INPUT_FIELD_CLASS}
                       isInvalidField={
                         invalidFields.includes(firstName) ? true : false
                       }
                     />
+                  ) : firstType === "date" ? (
+                    <DateField setDate={handleDateFor(firstName)} label={first} />
                   ) : (
                     <InputField
                       label={first}
                       placeholder={firstPHolder}
                       name={firstName}
-                      changeHandler={handleChange}
+                      changeHandler={handleChangeFor(firstType)}
                       dir={firstDir ?? ""}
                       poseClass={INPUT_FIELD_CLASS}
+                      type={firstType}
                       isInvalidField={
                         invalidFields.includes(firstName) ? true : false
                       }
@@ -213,20 +269,23 @@ export default function SignUp() {
                       placeholder={secondPHolder}
                       options={secondOptions}
                       name={secondName}
-                      changeHandler={handleChange}
+                      changeHandler={handleChangeFor(secondType)}
                       poseClass={INPUT_FIELD_CLASS}
                       isInvalidField={
                         invalidFields.includes(secondName) ? true : false
                       }
                     />
+                  ) : secondType === "date" ? (
+                    <DateField setDate={handleDateFor(secondName)} label={second} />
                   ) : (
                     <InputField
                       label={second}
                       placeholder={secondPHolder}
                       name={secondName}
-                      changeHandler={handleChange}
+                      changeHandler={handleChangeFor(secondType)}
                       dir={secondDir ?? ""}
                       poseClass={INPUT_FIELD_CLASS}
+                      type={secondType}
                       isInvalidField={
                         invalidFields.includes(secondName) ? true : false
                       }
@@ -236,7 +295,7 @@ export default function SignUp() {
               );
             }
           )}
-          <div className="w-full pt-2 px-3">
+          <div className="w-full pt-2 px-2">
             <button
               onClick={signup}
               className="btn bg-sign w-full text-xl font-normal mb-8 lg:mb-0"

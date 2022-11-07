@@ -26,14 +26,14 @@ interface RowFieldText {
 const fields: Array<RowFieldText> = [
   {
     first: "نام کاربری",
-    firstType: "",
+    firstType: "text",
     firstOptions: [],
-    firstPHolder: "Username",
+    firstPHolder: "username",
     name: "username",
   },
   {
     first: "رمز عبور",
-    firstType: "",
+    firstType: "password",
     firstOptions: [],
     firstPHolder: "password",
     name: "password",
@@ -128,7 +128,7 @@ export default function SignIn() {
               name,
             }: RowFieldText) => {
               return (
-                <div className="flex flex-row-reverse w-full justify-center">
+                <div className="flex flex-row-reverse w-full justify-center px-4 lg:px-0">
                   {firstType === "select" ? (
                     <SelectField
                       label={first}
@@ -147,6 +147,8 @@ export default function SignIn() {
                       changeHandler={handleChange}
                       poseClass={INPUT_FIELD_CLASS}
                       isInvalidField={invalidFields.includes(name)}
+                      isOnlyText={true}
+                      type={firstType}
                     />
                   )}
                 </div>

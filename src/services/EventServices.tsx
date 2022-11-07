@@ -27,6 +27,7 @@ export interface EventUser {
     firstname: string,
     lastname: string,
     isFollowed: boolean,
+    profileImage: string
   }
 
 export const getFollowers = async (

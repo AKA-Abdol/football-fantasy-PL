@@ -13,7 +13,9 @@
     "axios": "^0.27.2",
     "daisyui": "^2.24.0",
     "hamburger-react": "^2.5.0",
+    "jalali-moment": "^3.3.11",
     "react": "^18.2.0",
+    "react-advance-jalaali-datepicker": "^1.4.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",
     "react-query": "^3.39.2",
@@ -23,7 +25,8 @@
     "typescript": "^4.7.4",
     "vazirmatn": "^33.0.3",
     "web-vitals": "^2.1.4",
-    "wordifyfa": "^1.4.1"
+    "wordifyfa": "^1.4.1",
+    "zod": "^3.19.1"
   },
   "scripts": {
     "start": "react-scripts start",

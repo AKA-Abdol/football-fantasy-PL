@@ -13,6 +13,7 @@ import {
   ModalUser,
   unfollowPlayer,
 } from "../../services/EventServices";
+import { getImageSource } from "../../UsefullFunctions";
 
 const fakeUser: ModalUser = {
   id: 0,
@@ -22,6 +23,7 @@ const fakeUser: ModalUser = {
   country: "ایران",
   age: 21,
   score: 104,
+  profileImage: 'http://localhost:5000/uploads/images/small/default.png'
 };
 
 export const eventModalAtom = atom({
@@ -69,7 +71,7 @@ const ModalButton = ({ _isFollowed }: { _isFollowed: boolean }) => {
 
 const FollowModal = () => {
   const [modalOptions, setModalOptions] = useRecoilState(eventModalAtom);
-  console.log("here in followModal: ", modalOptions);
+  console.log("here in followModal: ", getImageSource(modalOptions.user.profileImage));
 
   const cancelModal = () => {
     setModalOptions((oldState) => ({
@@ -98,7 +100,7 @@ const FollowModal = () => {
         <div className="data flex flex-col justify-center items-center my-auto space-y-5">
           <div className="avatar-image w-36 h-36 flex">
             <img
-              src={Avatar}
+              src={getImageSource(modalOptions.user.profileImage)}
               alt="avatar"
               className="object-cover rounded-full"
             />

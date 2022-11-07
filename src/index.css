@@ -65,3 +65,7 @@ code {
 .arrow-left:active {
   background-image: url('./images/deselect-arrow.png');
 }
+
+.dir-rtl {
+  direction: rtl;
+}
