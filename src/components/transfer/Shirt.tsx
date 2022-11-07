@@ -1,7 +1,14 @@
 import React, { useState } from "react";
+import { atom, useRecoilState } from "recoil";
 import SelectedShirt from "../../images/selected_shirt.png";
 import In from "../../images/Vector_in.svg";
 import Out from "../../images/Vector_out.svg";
+import { playerSelectAtom } from "../SoccerField";
+
+export const TransferSelectAtom = atom({
+  key: 'transferSelectAtom',
+  default: [] as number[]
+})
 
 const Shirt = ({
   name,
@@ -12,14 +19,27 @@ const Shirt = ({
   pose: number;
   isInTheList: boolean;
 }) => {
-  const [isActive, setIsActive] = useState(false);
+  const [transferSelect, setTransferSelect] = useRecoilState(TransferSelectAtom)
+
 
   const handleClick = () => {
-    setIsActive((current) => !current);
+    setTransferSelect(() => {
+      let newState = [];
+      if (!transferSelect.includes(pose)) {
+        newState.push(pose)
+      } else {
+        newState = []
+      }
+      console.log("newState", newState)
+      return newState
+    })
   };
 
   return (
-    <div className="shirt relative cursor-pointer" onClick={handleClick}>
+    <div className="shirt relative cursor-pointer" onClick={(event)=>{
+      event.stopPropagation();
+      handleClick()
+      }}>
       <div className="flex flex-row relative justify-center">
         <img src={SelectedShirt} alt="shirt" className="flex justify-center" />
         {!isInTheList ? (
@@ -31,7 +51,7 @@ const Shirt = ({
       </div>
       <div
         className={
-          isActive
+          transferSelect.includes(pose)
             ? `sm:py-1
             text-black font-bold text-[0.5rem] sm:text-xs
                rounded flex items-center justify-center

@@ -3,19 +3,26 @@ import { useRecoilState } from "recoil";
 import SoccerFieldImg from "../../images/SoccerField.png";
 import { FieldPlayersAtom } from "../../pages/Transfers";
 import DefaultShirt from "./DefaultShirt";
-import Shirt from "./Shirt";
+import Shirt, { TransferSelectAtom } from "./Shirt";
 
 const SoccerField = () => {
   const [fieldsPlayer, setFieldsPlayer] = useRecoilState(FieldPlayersAtom);
-  const [isActive, setIsActive] = useState(false);
+  const [transferSelect, setTransferSelect] = useRecoilState(TransferSelectAtom)
+
+
   console.log("player", fieldsPlayer);
 
   const handleClick = () => {
-    setIsActive((current) => !current);
+    setTransferSelect(() => {
+      const newState: number[] = [];
+      return newState;
+    });
   };
 
   return (
-    <div className="soccer-field flex flex-col py-2 sm:space-y-4 w-full h-full relative z-50 justify-around">
+    <div
+      onClick={handleClick}
+      className="soccer-field flex flex-col py-2 sm:space-y-4 w-full h-full relative z-50 justify-around">
       <img
         src={SoccerFieldImg}
         alt="soccer field"
@@ -36,9 +43,9 @@ const SoccerField = () => {
       </div>
       <div
         className={
-          isActive
-            ? `bg-[#111]`
-            : `w-full  px-4 sm:py-4 flex flex-row justify-around`
+          // transferSelect
+          //   ? `bg-[#111]`
+             `w-full  px-4 sm:py-4 flex flex-row justify-around`
         }
       >
         {fieldsPlayer.slice(2, 7).map((item: any) => {

@@ -35,7 +35,6 @@ export default function DefaultPlayer(props: defaultProps) {
                     } else{
                         newState = []
                     }
-                    console.log("newState", newState)
                     return newState
                 })
             }}
