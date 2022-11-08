@@ -82,7 +82,7 @@ export default function FieldModal(props: FieldModalProps) {
                             }}
                             className="px-12 py-1 border border-[#3D195B] rounded hover:bg-red-300 hover:bg-opacity-50 hover:text-red-900">لغو</button>
                         <button
-                            className={`px-12 py-1 bg-${props.buttonColor}-800 text-gray-200 hover:bg-${props.buttonColor}-600 rounded`}
+                            className={`px-12 py-1 bg-red-800 text-gray-200 hover:bg-red-600 rounded`}
                             onClick={async (event) => {
                                 event.stopPropagation()
                                 if (playerToRemove.length) {
