@@ -24,10 +24,11 @@ const NavbarItem = ({ navbarItem }: { navbarItem: NavbarType }) => {
     useRecoilState<NavbarType>(navbarStateAtom);
   const endpoint = navbarItem.toLowerCase();
   return (
-    <Link to={`/${endpoint}`}>
+    <Link to={`/${endpoint === 'exit' ? '' : endpoint}`}>
       <li
         onClick={() => {
           setNavbarState(navbarItem);
+          (endpoint === 'exit') && (localStorage.removeItem(TOKEN_SESSION_NAME));
         }}
         className={
           `rounded-lg hover:bg-teal-200 hover:bg-none` +
@@ -60,6 +61,7 @@ const ResponsiveNavbarItem = ({ navbarType }: { navbarType: NavbarType }) => {
     <li
       onClick={() => {
         setNavbarState(navbarType);
+        (endpoint === 'exit') && (localStorage.removeItem(TOKEN_SESSION_NAME));
       }}
       className={
         `px-14` +
@@ -68,7 +70,7 @@ const ResponsiveNavbarItem = ({ navbarType }: { navbarType: NavbarType }) => {
           : ` bg-base-100 bg-inherit`)
       }
     >
-      <Link to={`/${endpoint}`}>{NavbarDictionary[navbarType]}</Link>
+      <Link to={`/${endpoint === 'exit' ? '' : endpoint}`}>{NavbarDictionary[navbarType]}</Link>
     </li>
   );
 };
