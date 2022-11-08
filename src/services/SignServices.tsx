@@ -23,6 +23,7 @@ interface SignupData {
   country: string;
   username: string;
   password: string;
+  birthday: Date;
 }
 
 interface LoginData {

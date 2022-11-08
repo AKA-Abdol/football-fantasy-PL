@@ -1,19 +1,24 @@
 import "../index.css";
-import React, { Dispatch, useCallback, useEffect } from "react";
-import SUPLayers from "../images/SU-players.png";
+import React, { useCallback, useEffect } from "react";
 import InputField from "../components/profile/InputField";
 import SelectField from "../components/profile/SelectField";
+import LeftLine from "../images/Line3.svg";
+import RightLine from "../images/Line4.svg";
 import PLWhiteLogo from "../images/PLWhiteLogo.png";
 import { useState } from "react";
 import { postSignupData, TOKEN_SESSION_NAME } from "../services/SignServices";
 import { useNavigate } from "react-router-dom";
+import { INPUT_FIELD_CLASS } from "./SignIn";
 import FPLButtomImg from "../images/FPLButtomImg.png";
 import { handleKeyboardEvent, toastShow } from "../GenericFunctions";
 import SuccessToast, { ErrorToast, WarningToast } from "../components/Toasts";
-import LeftLine from "../images/Line 2.svg";
-import RighttLine from "../images/Line 3.svg";
+import DateField from "../components/profile/DateField";
+import { atom, useSetRecoilState } from "recoil";
+import jwt from "jwt-decode";
+import { getProfileData, ProfileData } from "../services/ProfileServices";
 
-const INPUT_FIELD_CLASS = "mx-auto lg:mx-0 lg:ml-auto text-black";
+type ProfileDataField = Exclude<keyof ProfileData, "birthday">;
+type ProfilePageMode = "edit" | "view";
 
 interface RowFieldText {
   first: string;
@@ -34,8 +39,8 @@ const fields: Array<RowFieldText> = [
   {
     first: "نام",
     second: "نام خانوادگی",
-    firstType: "",
-    secondType: "",
+    firstType: "text",
+    secondType: "text",
     firstOptions: [],
     secondOptions: [],
     firstPHolder: "علی",
@@ -48,7 +53,7 @@ const fields: Array<RowFieldText> = [
   {
     first: "ایمیل",
     second: "کشور",
-    firstType: "",
+    firstType: "email",
     secondType: "select",
     firstOptions: [],
     secondOptions: ["ایران", "افغانستان", "تاجیکستان", "ترکیه"],
@@ -57,21 +62,34 @@ const fields: Array<RowFieldText> = [
     firstName: "email",
     secondName: "country",
   },
+  // {
+  //   first: "تاریخ تولد",
+  //   second: "بارگزاری تصویر",
+  //   firstType: "date",
+  //   secondType: "file",
+  //   firstOptions: [],
+  //   secondOptions: [],
+  //   firstPHolder: "birthday",
+  //   secondPHolder: "profileImage",
+  //   firstName: "birthday",
+  //   secondName: "image",
+  // },
   {
     first: "نام کاربری",
     second: "رمز عبور",
-    firstType: "",
-    secondType: "",
+    firstType: "text",
+    secondType: "password",
     firstOptions: [],
     secondOptions: [],
     firstPHolder: "username",
-    secondPHolder: "password",
+    secondPHolder: "*******",
     firstName: "username",
     secondName: "password",
   },
 ];
 
 export const EMAIL_SESSION = "FPLEmail";
+export const IMAGE_SESSION = "FPLImage";
 
 export interface Toast {
   active: boolean;
@@ -79,7 +97,16 @@ export interface Toast {
   msg: string;
 }
 
+export const imageAtom = atom({
+  key: "image-atom",
+  default: new File([""], "dummy"),
+});
+
 export default function SignUp() {
+  const navigate = useNavigate();
+
+  const setImageData = useSetRecoilState(imageAtom);
+
   const [signupData, setSignupData] = useState({
     firstname: "",
     lastname: "",
@@ -87,8 +114,10 @@ export default function SignUp() {
     country: "",
     username: "",
     password: "",
+    birthday: new Date(0),
+    image: new File([""], "filename"),
   });
-  console.log(signupData);
+  console.log("signup data: ", signupData);
 
   const [invalidFields, setInvalidFields] = useState<Array<string>>([]);
   console.log("invalid: ", invalidFields);
@@ -99,15 +128,46 @@ export default function SignUp() {
     msg: "",
   });
 
-  const handleChange = (
-    event:
-      | React.ChangeEvent<HTMLInputElement>
-      | React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    setSignupData((oldState) => ({
-      ...oldState,
-      [event.target.name]: event.target.value,
-    }));
+  const handleDateFor = useCallback((dateKey: string) => {
+    return (newDate: Date) => {
+      setSignupData((oldState) => ({
+        ...oldState,
+        [dateKey]: newDate,
+      }));
+    };
+  }, []);
+
+  const handleChangeFor = (type: string) => {
+    switch (type) {
+      case "file":
+        return (event: React.ChangeEvent<HTMLInputElement>) => {
+          const newVal =
+            event.target.files === null
+              ? new File([""], "dummy")
+              : event.target.files[0];
+          console.log("files", typeof event.target.files);
+          console.log("val", newVal);
+
+          setImageData(() => newVal);
+
+          setSignupData((oldState) => ({
+            ...oldState,
+            [event.target.name]: newVal,
+          }));
+        };
+
+      default:
+        return (
+          event:
+            | React.ChangeEvent<HTMLInputElement>
+            | React.ChangeEvent<HTMLSelectElement>
+        ) => {
+          setSignupData((oldState) => ({
+            ...oldState,
+            [event.target.name]: event.target.value,
+          }));
+        };
+    }
   };
 
   const signup = useCallback(async () => {
@@ -115,7 +175,7 @@ export default function SignUp() {
     const response = await postSignupData(signupData);
     if (response.isSuccessful) {
       localStorage.setItem(EMAIL_SESSION, signupData.email);
-      //   navigate("/authentication");
+      navigate("/authentication");
     } else {
       const errors = response.errorType;
       setInvalidFields(errors.split(" "));
@@ -126,20 +186,60 @@ export default function SignUp() {
         msg: response.res,
       });
     }
-  }, [signupData]);
+  }, [navigate, signupData]);
 
+  console.log(
+    "profile for test: ",
+    jwt(localStorage.getItem(TOKEN_SESSION_NAME) ?? "")
+  );
+
+  const [mode, setMode] = useState<ProfilePageMode>("view");
+
+  const [profileData, setProfileData] = useState<ProfileData>({
+    firstname: "",
+    lastname: "",
+    email: "",
+    country: "",
+    birthday: new Date(0),
+    username: "",
+    profileImage: ""
+  });
+
+  useEffect(() => {
+    const initProfileValues = async () => {
+      const response = await getProfileData();
+      if (response.isSuccessful) {
+        setProfileData(response.res);
+      } else {
+        console.log("profile init error: ", response.errorType);
+      }
+    };
+
+    initProfileValues();
+  }, []);
   return (
     <div
-      className="flex flex-col h-screen overflow-auto justify-center items-center"
+      className="flex flex-col h-screen overflow-auto justify-start"
       onKeyDown={handleKeyboardEvent<HTMLDivElement>("Enter", signup)}
     >
-      <div className="title hidden md:block font-semibold text-[#3D195B] md:flex flex-row space-x-9 mt-12">
-        <img src={RighttLine} alt="line" />
-        <div className="">اطلاعات فردی</div>
-        <img src={LeftLine} alt="line" />
-      </div>
-      <div className="flex flex-col w-full lg:flex-row">
-        <div className="fields flex flex-col lg:px-20 w-full pt-8 lg:pt-0 lg:justify-center items-center space-y-4 lg:space-y-10 theme-font">
+      <div className="flex flex-col w-full h-full text-black lg:flex-row">
+        <div className="fields flex flex-col lg:px-20 w-full pt-8 lg:pt-0 lg:justify-center items-center space-y-4 lg:space-y-6 theme-font">
+          <div className="flex flex-row w-full items-center mb-4">
+            <img className="w-1/4 mr-auto ml-4" src={LeftLine} alt="" />
+
+            <p className="mx-auto text-2xl text-[#3D195B] font-normal">
+              فرم ثبت نام
+            </p>
+
+            <img className="w-1/4 ml-auto mr-4" src={RightLine} alt="" />
+          </div>
+          <div
+            className="w-36"
+          >
+            <img
+            className="rounded-full"
+            src={profileData.profileImage} alt="" />
+          </div>
           {fields.map(
             ({
               first,
@@ -156,30 +256,38 @@ export default function SignUp() {
               secondDir,
             }: RowFieldText) => {
               return (
-                <div className="flex flex-col space-y-4 lg:flex-row-reverse w-full justify-center items-center px-3 lg:px-0">
+                <div className="flex flex-col lg:flex-row-reverse w-full items-center justify-center px-3 lg:px-0">
                   {firstType === "select" ? (
                     <SelectField
                       label={first}
                       placeholder={firstPHolder}
                       options={firstOptions}
                       name={firstName}
-                      changeHandler={handleChange}
-                      poseClass={INPUT_FIELD_CLASS + ""}
+                      changeHandler={handleChangeFor(firstType)}
                       isInvalidField={
                         invalidFields.includes(firstName) ? true : false
                       }
+                      initVal="ایران"
+                      disable={mode === "view" ? true : false}
+                    />
+                  ) : firstType === "date" ? (
+                    <DateField
+                      setDate={handleDateFor(firstName)}
+                      label={first}
                     />
                   ) : (
                     <InputField
                       label={first}
                       placeholder={firstPHolder}
                       name={firstName}
-                      changeHandler={handleChange}
+                      changeHandler={handleChangeFor(firstType)}
                       dir={firstDir ?? ""}
-                      poseClass={INPUT_FIELD_CLASS}
+                      type={firstType}
                       isInvalidField={
                         invalidFields.includes(firstName) ? true : false
                       }
+                      initVal={profileData[firstName as ProfileDataField]}
+                      disable={mode === "view" ? true : false}
                     />
                   )}
                   {secondType === "select" ? (
@@ -188,35 +296,45 @@ export default function SignUp() {
                       placeholder={secondPHolder}
                       options={secondOptions}
                       name={secondName}
-                      changeHandler={handleChange}
-                      poseClass={INPUT_FIELD_CLASS}
+                      changeHandler={handleChangeFor(secondType)}
                       isInvalidField={
                         invalidFields.includes(secondName) ? true : false
                       }
+                      initVal="ایران"
+                      disable={mode === "view" ? true : false}
+                    />
+                  ) : secondType === "date" ? (
+                    <DateField
+                      setDate={handleDateFor(secondName)}
+                      label={second}
                     />
                   ) : (
                     <InputField
                       label={second}
-                      placeholder={secondPHolder}
+                      placeholder={mode === "edit" ? "******" : "رمز عبور"}
                       name={secondName}
-                      changeHandler={handleChange}
+                      changeHandler={handleChangeFor(secondType)}
                       dir={secondDir ?? ""}
-                      poseClass={INPUT_FIELD_CLASS}
+                      type={secondType}
                       isInvalidField={
                         invalidFields.includes(secondName) ? true : false
                       }
+                      initVal={profileData[secondName as ProfileDataField]}
+                      disable={mode === "view" ? true : false}
                     />
                   )}
                 </div>
               );
             }
           )}
-          <div className="w-full pt-2 px-3 flex justify-center">
+          <div className="w-full flex flex-col justify-center items-center pt-2 px-2">
             <button
-              onClick={signup}
-              className="bg-[#00FF87] w-full md:w-[75%] text-xl font-normal mb-8 lg:mb-0 rounded-lg px-4 py-2"
+              onClick={() =>
+                setMode((currMode) => (currMode === "view" ? "edit" : "view"))
+              }
+              className="btn bg-sign w-4/5 text-xl font-normal mb-8 lg:mb-0 mx-auto"
             >
-              تایید
+              {mode === "edit" ? "View" : "Edit"}
             </button>
           </div>
         </div>

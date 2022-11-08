@@ -68,7 +68,7 @@ const fields: Array<RowFieldText> = [
     firstPHolder: "birthday",
     secondPHolder: "profileImage",
     firstName: "birthday",
-    secondName: "image",
+    secondName: "profileImage",
   },
   {
     first: "نام کاربری",
@@ -115,7 +115,7 @@ export default function SignUp() {
     username: "",
     password: "",
     birthday: new Date(0),
-    image: new File([""], "filename"),
+    profileImage: new File([""], "filename"),
   });
   console.log("signup data: ", signupData);
 
@@ -170,7 +170,8 @@ export default function SignUp() {
 
   const signup = useCallback(async () => {
     console.log(signupData);
-    const response = await postSignupData(signupData);
+    const {profileImage: _, ...data} = signupData;
+    const response = await postSignupData(data);
     if (response.isSuccessful) {
       localStorage.setItem(EMAIL_SESSION, signupData.email);
       navigate("/authentication");

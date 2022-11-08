@@ -14,6 +14,7 @@
     "daisyui": "^2.24.0",
     "hamburger-react": "^2.5.0",
     "jalali-moment": "^3.3.11",
+    "jwt-decode": "^3.1.2",
     "react": "^18.2.0",
     "react-advance-jalaali-datepicker": "^1.4.0",
     "react-dom": "^18.2.0",

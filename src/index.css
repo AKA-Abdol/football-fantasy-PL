@@ -2,23 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
-
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
 .theme-color {
-  background: linear-gradient(93.79deg, #04F7DA -6.31%, #02FDA2 118.26%);
+  background: linear-gradient(93.79deg, #04f7da -6.31%, #02fda2 118.26%);
 }
 
 @font-face {
@@ -39,31 +38,52 @@ code {
 }
 
 .bg-sign {
-  background: linear-gradient(90deg, #CF31B9 0%, #9B3AF9 73.44%);
+  background: linear-gradient(90deg, #cf31b9 0%, #9b3af9 73.44%);
 }
 
 .border-sign {
-  background: linear-gradient(#3D185B, #3D185B) padding-box,
-              linear-gradient(90deg, #CF31B9 0%, #9B3AF9 73.44%) border-box;
+  background: linear-gradient(#3d185b, #3d185b) padding-box,
+    linear-gradient(90deg, #cf31b9 0%, #9b3af9 73.44%) border-box;
   border: 0.1rem solid transparent;
 }
 
 .border-sign:hover {
-  border-color: #A057DB;
+  border-color: #a057db;
 }
 
 .arrow-left {
   appearance: none;
   -moz-appearance: none;
   -webkit-appearance: none;
-  background-image: url('./images/select-arrow.png');
+  background-image: url("./images/select-arrow.png");
   background-repeat: no-repeat;
   background-position: 7% 50%;
   background-size: 1rem;
 }
 
 .arrow-left:active {
-  background-image: url('./images/deselect-arrow.png');
+  background-image: url("./images/deselect-arrow.png");
+}
+
+.arrow-left-black {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background-image: url("./images/select-arrow-black.png");
+  background-repeat: no-repeat;
+  background-position: 7% 50%;
+  background-size: 1rem;
+}
+
+.arrow-left-black:active {
+  background-image: url("./images/deselect-arrow-black.png");
+}
+
+.disable-arrow-none:disabled {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background-image: url("");
 }
 
 .dir-rtl {
