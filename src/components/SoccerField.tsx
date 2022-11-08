@@ -9,6 +9,7 @@ import { FieldPlayersAtom } from "../pages/Transfers";
 import { getTeamPlayers } from "../services/TeamPlayerServices";
 import { useNavigate } from "react-router-dom";
 import { TOKEN_SESSION_NAME } from "../services/SignServices";
+import { dilikhAtom } from "../pages/Home";
 
 //// new
 export interface PlayerProps {
@@ -27,7 +28,7 @@ export interface PlayerProps {
   isPlaying: boolean;
 }
 
-const make_mockett = () => {
+export const make_mockett = () => {
   const list: Array<PlayerView> = [];
   for (let i = 0; i < 15; i++) {
     const new_player: DefaultView = {
@@ -39,7 +40,7 @@ const make_mockett = () => {
   return list;
 };
 
-const dbPlayerToFieldsPlayer = (dbPlayer: PlayerProps) => {
+export const dbPlayerToFieldsPlayer = (dbPlayer: PlayerProps) => {
   const newFieldsPlayer: FieldsPlayer = {
     type: "Field",
     pose: dbPlayer.positionNum,
@@ -52,7 +53,7 @@ const dbPlayerToFieldsPlayer = (dbPlayer: PlayerProps) => {
   return newFieldsPlayer;
 };
 
-const addPlayersToField = (dbPlayers: PlayerProps[]) => {
+export const addPlayersToField = (dbPlayers: PlayerProps[]) => {
   const list = make_mockett();
   dbPlayers.forEach((player) => {
     list.splice(player.positionNum, 1, dbPlayerToFieldsPlayer(player));
