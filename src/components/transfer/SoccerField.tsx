@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useRecoilState } from "recoil";
 import SoccerFieldImg from "../../images/SoccerField.png";
+import { HomePlayersAtom } from "../../pages/Home";
 import { FieldPlayersAtom } from "../../pages/Transfers";
 import DefaultShirt from "./DefaultShirt";
 import Shirt, { TransferSelectAtom } from "./Shirt";
 
 const SoccerField = () => {
-  const [fieldsPlayer, setFieldsPlayer] = useRecoilState(FieldPlayersAtom);
+  const [fieldsPlayer, setFieldsPlayer] = useRecoilState(HomePlayersAtom);
   const [transferSelect, setTransferSelect] =
     useRecoilState(TransferSelectAtom);
 

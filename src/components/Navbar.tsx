@@ -10,6 +10,7 @@ const NavbarArray = [
   "Event",
   "Profile",
   "Award",
+  "Exit",
 ] as const;
 export type NavbarType = typeof NavbarArray[number];
 
@@ -48,6 +49,7 @@ const NavbarDictionary: Record<NavbarType, string> = {
   Transfer: "نقل و انتقالات",
   Event: "رویدادها",
   Profile: "پروفایل",
+  Exit: 'خروج',
 };
 
 const ResponsiveNavbarItem = ({ navbarType }: { navbarType: NavbarType }) => {
