@@ -5,6 +5,9 @@ import { useRecoilState } from "recoil";
 import { FieldPlayersAtom } from "../../pages/Transfers";
 import DefaultShirt from "./DefaultShirt";
 
+type BenchPose = 1 | 6 | 11 | 14;
+const benchPoseList: BenchPose[] = [1, 6, 11, 14];
+
 const TransferList = () => {
   const [fieldsPlayer, setFieldsPlayer] = useRecoilState(FieldPlayersAtom);
   return (
@@ -16,74 +19,25 @@ const TransferList = () => {
                 text-right text-fontGrey text-xs h-full
                 rounded-t"
         >
-          <div className="w-full px-4 sm:pt-2 flex flex-row justify-around">
-            {fieldsPlayer.slice(0, 2).map((item: any) => {
-              if (item.isPlaying === false) {
-                if (item.type === "Default") {
-                  return <DefaultShirt key={item.pose} pose={item.pose} />;
-                } else {
-                  return (
-                    <Shirt
-                      isInTheList={false}
-                      name={item.name}
-                      pose={item.pose}
-                    />
-                  );
-                }
-              }
-            })}
-          </div>
-          <div className="w-full  px-4 sm:py-4 flex flex-row justify-around">
-            {fieldsPlayer.slice(2, 7).map((item: any) => {
-              if (item.isPlaying === false) {
-                if (item.type === "Default") {
-                  return <DefaultShirt key={item.pose} pose={item.pose} />;
-                } else {
-                  return (
-                    <Shirt
-                      isInTheList={false}
-                      name={item.name}
-                      pose={item.pose}
-                    />
-                  );
-                }
-              }
-            })}
-          </div>
-          <div className="w-full px-4 sm:py-4 flex flex-row justify-around">
-            {fieldsPlayer.slice(7, 12).map((item: any) => {
-              if (item.isPlaying === false) {
-                if (item.type === "Default") {
-                  return <DefaultShirt key={item.pose} pose={item.pose} />;
-                } else {
-                  return (
-                    <Shirt
-                      isInTheList={false}
-                      name={item.name}
-                      pose={item.pose}
-                    />
-                  );
-                }
-              }
-            })}
-          </div>
-          <div className="w-full py-4 px-6 flex flex-row justify-around">
-            {fieldsPlayer.slice(12, 15).map((item: any) => {
-              if (item.isPlaying === false) {
-                if (item.type === "Default") {
-                  return <DefaultShirt key={item.pose} pose={item.pose} />;
-                } else {
-                  return (
-                    <Shirt
-                      isInTheList={false}
-                      name={item.name}
-                      pose={item.pose}
-                    />
-                  );
-                }
-              }
-            })}
-          </div>
+          {benchPoseList.map((current) => {
+            const currBenchPlayer = fieldsPlayer[current];
+            if (currBenchPlayer.type === "Default") {
+              return (
+                <DefaultShirt
+                  key={currBenchPlayer.pose}
+                  pose={currBenchPlayer.pose}
+                />
+              );
+            } else {
+              return (
+                <Shirt
+                  isInTheList={true}
+                  name={currBenchPlayer.name}
+                  pose={currBenchPlayer.pose}
+                />
+              );
+            }
+          })}
         </div>
       </div>
     </div>

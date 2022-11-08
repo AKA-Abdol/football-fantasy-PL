@@ -6,9 +6,9 @@ import Out from "../../images/Vector_out.svg";
 import { playerSelectAtom } from "../SoccerField";
 
 export const TransferSelectAtom = atom({
-  key: 'transferSelectAtom',
-  default: [] as number[]
-})
+  key: "transferSelectAtom",
+  default: [] as number[],
+});
 
 const Shirt = ({
   name,
@@ -19,27 +19,30 @@ const Shirt = ({
   pose: number;
   isInTheList: boolean;
 }) => {
-  const [transferSelect, setTransferSelect] = useRecoilState(TransferSelectAtom)
-
+  const [transferSelect, setTransferSelect] =
+    useRecoilState(TransferSelectAtom);
 
   const handleClick = () => {
     setTransferSelect(() => {
       let newState = [];
       if (!transferSelect.includes(pose)) {
-        newState.push(pose)
+        newState.push(pose);
       } else {
-        newState = []
+        newState = [];
       }
-      console.log("newState", newState)
-      return newState
-    })
+      console.log("newState", newState);
+      return newState;
+    });
   };
 
   return (
-    <div className="shirt relative cursor-pointer" onClick={(event)=>{
-      event.stopPropagation();
-      handleClick()
-      }}>
+    <div
+      className="shirt relative cursor-pointer"
+      onClick={(event) => {
+        event.stopPropagation();
+        handleClick();
+      }}
+    >
       <div className="flex flex-row relative justify-center">
         <img src={SelectedShirt} alt="shirt" className="flex justify-center" />
         {!isInTheList ? (
@@ -52,10 +55,14 @@ const Shirt = ({
       <div
         className={
           transferSelect.includes(pose)
-            ? `sm:py-1
+            ? isInTheList
+              ? `sm:py-1
             text-black font-bold text-[0.5rem] sm:text-xs
                rounded flex items-center justify-center
-               mt-1 p-1 bg-white`
+               mt-1 p-1 bg-[#05f1ff]`
+              : `text-black font-bold text-[0.5rem] sm:text-xs
+               rounded flex items-center justify-center
+               mt-1 p-1 bg-[#ebff00]`
             : `bg-[#37013B] sm:py-1
              text-white font-bold text-[0.5rem] sm:text-xs
                 rounded flex items-center justify-center

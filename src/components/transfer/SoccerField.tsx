@@ -7,8 +7,8 @@ import Shirt, { TransferSelectAtom } from "./Shirt";
 
 const SoccerField = () => {
   const [fieldsPlayer, setFieldsPlayer] = useRecoilState(FieldPlayersAtom);
-  const [transferSelect, setTransferSelect] = useRecoilState(TransferSelectAtom)
-
+  const [transferSelect, setTransferSelect] =
+    useRecoilState(TransferSelectAtom);
 
   console.log("player", fieldsPlayer);
 
@@ -22,7 +22,8 @@ const SoccerField = () => {
   return (
     <div
       onClick={handleClick}
-      className="soccer-field flex flex-col py-2 sm:space-y-4 w-full h-full relative z-50 justify-around">
+      className="soccer-field flex flex-col py-2 sm:space-y-4 w-full h-full relative z-50 justify-around"
+    >
       <img
         src={SoccerFieldImg}
         alt="soccer field"
@@ -39,13 +40,20 @@ const SoccerField = () => {
               );
             }
           }
+          // if (item.type === "Field" && item.isPlaying === true) {
+          //   return (
+          //     <Shirt isInTheList={false} name={item.name} pose={item.pose} />
+          //   );
+          // } else {
+          //   return <DefaultShirt key={item.pose} pose={item.pose} />;
+          // }
         })}
       </div>
       <div
         className={
           // transferSelect
           //   ? `bg-[#111]`
-             `w-full  px-4 sm:py-4 flex flex-row justify-around`
+          `w-full  px-4 sm:py-4 flex flex-row justify-around`
         }
       >
         {fieldsPlayer.slice(2, 7).map((item: any) => {
@@ -58,6 +66,15 @@ const SoccerField = () => {
               );
             }
           }
+          // if (item.isPlaying === true) {
+          // if (item.type === "Field" && item.isPlaying === true) {
+          //   return (
+          //     <Shirt isInTheList={false} name={item.name} pose={item.pose} />
+          //   );
+          // } else {
+          //   return <DefaultShirt key={item.pose} pose={item.pose} />;
+          // }
+          // }
         })}
       </div>
       <div className="w-full px-4 sm:py-4 flex flex-row justify-around">
@@ -71,6 +88,13 @@ const SoccerField = () => {
               );
             }
           }
+          // if (item.type === "Field" && item.isPlaying === true) {
+          //   return (
+          //     <Shirt isInTheList={false} name={item.name} pose={item.pose} />
+          //   );
+          // } else {
+          //   return <DefaultShirt key={item.pose} pose={item.pose} />;
+          // }
         })}
       </div>
       <div className="w-full py-4 px-6 flex flex-row justify-around">
@@ -84,6 +108,13 @@ const SoccerField = () => {
               );
             }
           }
+          // if (item.type === "Field" && item.isPlaying === true) {
+          //   return (
+          //     <Shirt isInTheList={false} name={item.name} pose={item.pose} />
+          //   );
+          // } else {
+          //   return <DefaultShirt key={item.pose} pose={item.pose} />;
+          // }
         })}
       </div>
     </div>
