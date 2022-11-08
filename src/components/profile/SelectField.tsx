@@ -8,6 +8,8 @@ interface FieldProps {
   changeHandler?: any;
   poseClass?: string;
   isInvalidField?: boolean;
+  initVal?: string;
+  disable?: boolean;
 }
 
 export default function SelectField({
@@ -18,25 +20,41 @@ export default function SelectField({
   changeHandler,
   poseClass,
   isInvalidField,
+  initVal,
+  disable = false
 }: FieldProps) {
   return (
-    <div className="flex flex-col theme-font text-[#bbbbbb] space-y-2 mx-3 w-full">
-      <p className={`ml-auto ${poseClass}`}>{label}</p>
-      <select
-        onChange={changeHandler}
-        className={`select bg-transparent arrow-left ${
-          isInvalidField ? "border-yellow-400 bg-red-900" : "bg-[#F4F4F4]"
-        }`}
-        dir="rtl"
-        name={name}
-      >
-        <option className="bg-[#f4f4f4]" disabled selected>
-          {placeholder}
-        </option>
-        {options.map((current: string) => {
-          return <option className="bg-[#f4f4f4]">{current}</option>;
-        })}
-      </select>
+    <div className="w-full lg:w-1/2 lg:mt-auto lg:px-2">
+      <div className="flex flex-col theme-font text-black space-y-2 w-full">
+        <p className={`mx-auto ${poseClass}`}>{label}</p>
+        <select
+          onChange={changeHandler}
+          className={`select pr-4 disabled:text-center disabled:bg-inherit disabled:text-[#3D195B] disabled:border-0 disabled:font-bold disabled:text-lg arrow-left-black disable-arrow-none ${
+            isInvalidField ? "bg-red-200" : "bg-[#F4F4F4]"
+          }`}
+          dir="rtl"
+          name={name}
+          disabled={disable}
+        >
+          <option
+            className="bg-[#F4F4F4]"
+            disabled
+            selected={initVal ? false : true}
+          >
+            {placeholder}
+          </option>
+          {options.map((current: string) => {
+            return (
+              <option
+                className="bg-[#F4F4F4]"
+                selected={initVal === current ? true : false}
+              >
+                {current}
+              </option>
+            );
+          })}
+        </select>
+      </div>
     </div>
   );
 }

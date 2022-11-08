@@ -92,6 +92,9 @@ export const unfollowPlayer = async (id: number) => {
 export const getSearchedUsers = async (searchKey: string) => {
   const response = await http.get(USER_SEARCH_API_ROUTE, {
     params: { search: searchKey },
+    headers: {
+      Authorization: `Abdol ${localStorage.getItem(TOKEN_SESSION_NAME)}`
+    },
   });
   const users: EventUser[] = response.data.values;
   const dummyUsers = users.map((user) => ({

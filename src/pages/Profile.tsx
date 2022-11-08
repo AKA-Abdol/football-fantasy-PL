@@ -14,7 +14,7 @@ const data = {
 
 const Button = () => {
   return (
-    <div className="edit flex flex-row-reverse border-2 border-[#3d195b] rounded-lg px-32 py-2 mb-5">
+    <div className="edit w-full flex flex-row-reverse border-2 border-[#3d195b] rounded-lg px-32 py-2 mb-5">
       <img src={Edit} alt="edit" />
       <div className="text">ویرایش</div>
     </div>
